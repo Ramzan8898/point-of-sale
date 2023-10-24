@@ -1,198 +1,244 @@
-@extends('index')
-@section('content')
-<style type="text/css">
-	
-	@media print {
-		#logo {
-			display: block;
+	@extends('index')
+	@section('content')
+	<style type="text/css">
+
+		@media print {
+			#logo {
+				display: block;
+			}
 		}
-	}
-	@media screen {
-		#logo{
-			display: none;
+		@media screen {
+			#logo{
+				display: none;
+			}
 		}
-	}
-</style>
-<div class=" p-5 row">
-	<div class="col-5">
-	<h3 class="text-center">Create Invoice</h3>
-	<form method="POST" action="">
-		@csrf
-		<div class="form-group">
-			<label>Customer Name</label>
-			<select class="form-control" name="account_name" id="customer_name" onchange="selectCustomer(event)">
-				<option selected >Cash Sale</option>
-				@foreach($accounts as $account)
-				<option value="{{$account->id}}">{{$account->name}}</option>
-				@endforeach
-			</select>
-		</div>
-		<div class="form-group">
-			<label>Bill Type</label>
-			<select class="form-control" name="bill_type" id="bill_type" onchange="selectType(event)">
-				<option value="Cash" selected>Cash</option>
-				<option value="Credit">Credit</option>
-			</select>
-		</div>
-		<div class="form-group">
-			<label>Product</label>
-			<select class="form-control" name="product_name" id="product_select" onchange="displayPrice(event)" required>
-				<option value="" selected disabled>Choose a product</option>
-				@foreach($products as $product)
-				<option value="{{$product->product_price}}">{{$product->product_name}}</option>
-				@endforeach
-			</select>
-		</div>
-		<div class="form-group">
-			<label>Price</label>
-			<input type="text" id="product_price" class="form-control" name="product_price" required>
-		</div>
-		<div class="form-group">
-			<label>Quantity</label>
-			<input type="number" id="product_quantity" name="quantity" class="form-control" required>	
-		</div>
-		<input type="button" onclick="saleBtn()" name="sale_btn" value="Add" class="btn btn-success sale_btn">
-	</form>
+	</style>
+	<div class=" p-5 row">
+		<div class="col-5">
+			<h3 class="text-center">Create Invoice</h3>
+			<form method="POST" action="">
+				@csrf
+				<div class="form-group">
+					<label>account Name</label>
+					<select class="form-control" name="account_name" id="account_name" onchange="selectaccount(event)">
+						<option selected >Cash Sale</option>
+						@foreach($accounts as $account)
+						<option value="{{$account->number}}">{{$account->name}}</option>
+						@endforeach
+					</select>
+					<input type="number" name="account_number" id="account_number" style="display:none;">
+				</div>
+{{-- 				<div class="form-group">
+					<label>Bill Type</label>
+					<select class="form-control" name="bill_type" id="bill_type" onchange="selectType(event)">
+						<option value="Cash" selected>Cash</option>
+						<option value="Credit">Credit</option>
+					</select>
+				</div> --}}
+				<div class="form-group">
+					<label>Product</label>
+					<select class="form-control" name="product_name" id="product_select" onchange="displayPrice(event)" required>
+						<option value="" selected disabled>Choose a product</option>
+						@foreach($products as $product)
+						<option value="{{$product->product_price}}">{{$product->product_name}}</option>
+						@endforeach
+					</select>
+				</div>
+				<span id="product_message" style="color: red;"></span>
 
-	</div>
+				<div class="form-group">
+					<label>Price</label>
+					<input type="text" id="product_price" class="form-control" name="product_price" required>
+				</div>
+				<div class="form-group">
+					<label>Quantity</label>
+					<input type="number" id="product_quantity" name="quantity" class="form-control" required>	
+				</div>
+				<p><span id="product_qty" style="color: red;"></span></p>
 
-<div class="col-6 offset-1">
+				<input type="button" onclick="saleBtn()" name="sale_btn" value="Add" class="btn btn-success sale_btn">
+			</form>
 
-	<div id="printable_data">
-		<div id="logo">
-			<div style="display: flex;">
-				<div>
-					<img src="{{url('/public/geo-news-logo.png')}}" style="height: 70px; width: 60px;">
-				</div>			
-				<div style="display: flex;flex-direction: column; margin-left: 10px;">
-					<span class="shop-name " style="font-family: fantasy ; letter-spacing: 1.8px">Geo Bartan Store</span>
-					<span>Noori Gate Sargodha</span>
+		</div>
+
+		<div class="col-6 offset-1">
+
+			<div id="printable_data">
+				<div id="logo">
+					<div style="display: flex;">
+						<div>
+							<img src="{{url('/public/geo-news-logo.png')}}" style="height: 70px; width: 60px;">
+						</div>			
+						<div style="display: flex;flex-direction: column; margin-left: 10px;">
+							<span class="shop-name " style="font-family: fantasy ; letter-spacing: 1.8px">Geo Bartan Store</span>
+							<span>Noori Gate Sargodha</span>
+							<span>+92 314 6051935</span>
+						</div>
+
+					</div>			
+				</div>
+				<div class="d-flex justify-content-between mt-4 mb-3">
+					<div class="left">
+						<div id="account_name_in_print"></div>
+						<div id="account_phone_in_print"></div>
+					</div>
+					<div class="right">
+						<div class="text-end"> <span id="invoice"></span></div>
+						<div class="text-end" style="margin-right: 30px;"> <span id="issue_date"></span></div>
+					</div>
 				</div>
 
-			</div>			
-		</div>
-		<div class="text-end">invoice#:<span id="invoice"></span></div>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Product</th>
+							<th>Price</th>
+							<th>Quantity</th>
+							<th>Product Total</th>
+						</tr>
+					</thead>
+					<tbody id="products_table">
+					</tbody>
+				</table>
+				<div  class="text-end">SubTotal: <span class="text-end" id="sub_total"></span></div>
+				<div  class="text-end">GST: <span class="text-end" id="gst"></span></div>
+				<div  class="text-end">Total: <span class="text-end" id="total"></span></div>		
+			</div>
 
-		<div id="customer_name_in_print" class="text-end"></div>
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>Product</th>
-					<th>Price</th>
-					<th>Quantity</th>
-					<th>Product Total</th>
-				</tr>
-			</thead>
-			<tbody id="products_table">
-			</tbody>
-		</table>
-		<div  class="text-end">SubTotal:<span class="text-end" id="sub_total"></span></div>
-		
+			<button onclick="printContent('printable_data')">Print</button>	
+		</div>
+
 	</div>
 
-		<button onclick="printContent('printable_data')">Print</button>	
-</div>
+	<script>
 
-</div>
+		function selectaccount(e){
 
-<script>
-
-	function selectCustomer(e){
-
-		// Customer Select 
-		var customer = document.getElementById('customer_name').value = e.target.value;
-		// console.log(customer);
+		// account Select 
+		var account_number = document.getElementById('account_number').value = e.target.value;
 	}
 
 	function selectType(e) {
 		var type = document.getElementById("bill_type").value = e.target.value;
-		// console.log(type);
+		
 	}
-	function displayPrice(e){
-		var pricePlace = document.getElementById("product_price").value = e.target.value;
-		// console.log(pricePlace);
 
+	function displayPrice(e){
+		var pricePlace = document.getElementById("product_price").value = e.target.value;	
 		const selectElement = document.getElementById('product_select');
 		const selectedOption = selectElement.options[selectElement.selectedIndex];
 		selectedProductHTML = selectedOption.innerHTML;
-    	// console.log(selectedProductHTML);
-    }
+	}
 
-    let totalProductTotal = 0;
-    function saleBtn(){
+	let totalProductTotal = 0;
+	var billTotal = 0;
+	
+	function saleBtn(){
 
-    	let rowIndex = 0;
+		//Validation
 
-		// Customer Selection 
-		var customer = document.getElementById('customer_name').value;
+		let message; 
 
+		var product = document.getElementById("product_select").value;
+		var productPrice = document.getElementById("product_price").value;
+		var productQuantity = document.getElementById("product_quantity").value;
+
+		if (product == "") {
+			document.getElementById("product_message").innerHTML = "Select Product!";
+
+		} 
+		if (product != "") {
+			document.getElementById("product_message").innerHTML = "";
+		}
+
+		if(productQuantity == "" || productQuantity < 1 ){
+			console.log("check Product Quantity");
+			document.getElementById("product_qty").innerHTML = "check Product Quantity";
+			return false;
+		} else {
+			document.getElementById("product_qty").style.display = "none";
+		}
+
+		
+		let rowIndex = 0;
+		
+		// account Selection 
+		var account = document.getElementById('account_name').value;
+		
 		// product Selection
 		const selectElement = document.getElementById('product_select');
 		const selectedOption = selectElement.options[selectElement.selectedIndex];
 		selectedProduct = selectedOption.innerHTML;
-
-    	// Product Price
-    	var productPrice = document.getElementById("product_price").value;
-
-    	var productQuantity =document.getElementById("product_quantity").value;
-
-    	var productTotal = productPrice * productQuantity;
-    	totalProductTotal += productTotal;
-    	document.getElementById('sub_total').innerHTML = totalProductTotal;
-
-    	const newRow = $("<tr>");
-    	$("#products_table").append(newRow);
-
-    	const product_name = $("<td>").html(selectedProduct);
-    	newRow.append(product_name);
-
-    	const product_price = $("<td>").html(productPrice);
-    	newRow.append(product_price);
-
-    	const product_quantity = $("<td>").html(productQuantity);
-    	newRow.append(product_quantity);
-
-    	const product_total = $("<td>").html(productTotal);
-    	const productTotalValue = productTotal.innerText;
-    	newRow.append(product_total);
-    	rowIndex++;
-    }
+		
+		// Product Price
+		var productPrice = document.getElementById("product_price").value;
+		
+		var productQuantity =document.getElementById("product_quantity").value;
+		
+		var productTotal = productPrice * productQuantity;
+		totalProductTotal += productTotal;
+		
+		// Bill Total
+		billTotal = totalProductTotal + 1;
+		document.getElementById('sub_total').innerHTML = totalProductTotal;
+		document.getElementById('gst').innerHTML = 1 ;
+		document.getElementById('total').innerHTML = billTotal;
+		
+		const newRow = $("<tr>");
+		$("#products_table").append(newRow);
+		
+		const product_name = $("<td>").html(selectedProduct);
+		newRow.append(product_name);
+		
+		const product_price = $("<td>").html(productPrice);
+		newRow.append(product_price);
+		
+		const product_quantity = $("<td>").html(productQuantity);
+		newRow.append(product_quantity);
+		
+		const product_total = $("<td>").html(productTotal);
+		const productTotalValue = productTotal.innerText;
+		newRow.append(product_total);
+		rowIndex++;
+	}
 
 </script>
 
 <script>
-		var uniqueIdentifier = 0001;
+	var uniqueIdentifier = parseInt(localStorage.getItem('uniqueIdentifier')) || 1;
 
 	function printContent(el){
-        
-        // Get the current timestamp
-        var today = new Date();
+		
+		// Get the current timestamp
+		var today = new Date();
 		var year = today.getFullYear();
-    	var month = today.getMonth() + 1; // Months are zero-based, so add 1
-    	var day = today.getDate();
-
-        
-        // Create a prefix for your invoice number (e.g., 'INV-')
-        var prefix = "INV-";
-        
-        // Combine the prefix, timestamp, and unique identifier to create the invoice number
-        var invoiceNumber = prefix + day + month + year + "-" + uniqueIdentifier;
-        
-        // Set the generated invoice number in the input field
-        // $("#invoice").val(invoiceNumber);
-
-		var selectedCustomer = $('#customer_name option:selected').text();
+		var month = today.getMonth() + 1; // Months are zero-based, so add 1
+		var day = today.getDate();
+		
+		var issue_date = day + "-" + month + "-" + year;
+		
+		var prefix = "INV-";
+		
+		var invoiceNumber = prefix + day + month + year + "-" + uniqueIdentifier;
+		
+		var selectedaccount = $('#account_name option:selected').text();
+		var account_number = $('#account_name option:selected').val();
+		
 		var selectedType = $('#bill_type option:selected').text();
 		var restorepage = $('body').html();
 		var printcontent = $('#' + el).clone();
-		printcontent.find('#invoice').text(invoiceNumber);
-
-		printcontent.find('#customer_name_in_print').text('Customer Name: ' + selectedCustomer);
+		printcontent.find('#issue_date').text("Issue Date: " + issue_date);
+		printcontent.find('#invoice').text("invoice#: " + invoiceNumber);
+		
+		printcontent.find('#account_name_in_print').text('Customer Name: ' + selectedaccount);
+		
+		printcontent.find('#account_phone_in_print').text('Customer Number: ' + account_number);
 		$('body').empty().html(printcontent);
 		window.print();
 		$('body').html(restorepage);
-}
-uniqueIdentifier++;
+		uniqueIdentifier++;
+		localStorage.setItem('uniqueIdentifier', uniqueIdentifier.toString());
+	}
 
 </script>
 @endsection
