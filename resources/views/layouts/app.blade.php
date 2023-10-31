@@ -19,12 +19,12 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<body  style="background-image: url('./public/water.jpg');background-repeat: no-repeat;background-size: cover;">
+    <div id="app" style="">
+        <nav class="navbar navbar-expand-md navbar-light bg-transparent ">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand" style="color: green;mix-blend-mode: difference;font-weight: bold; " href="{{ url('/') }}">
+                    {{ config('app.name', '') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -42,15 +42,15 @@
                         @guest
                         @if (Route::has('login'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link bg-success" style="color: #fff;padding:5px 20px 5px 20px;border-radius: 6px;" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
                         @endif
 
-                        @if (Route::has('register'))
+{{--                         @if (Route::has('register'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
-                        @endif
+                        @endif --}}
                         @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -73,7 +73,7 @@
                 </ul>
             </div>
         </div>
-        <div class="dropdown">
+{{--         <div class="dropdown">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Languages
         </button>
@@ -81,7 +81,7 @@
             <a class="dropdown-item" href="#">English</a>
             <a class="dropdown-item" href="#">Urdu</a>
         </div>
-    </div>
+    </div> --}}
 </nav>
 
 <main class="py-4">

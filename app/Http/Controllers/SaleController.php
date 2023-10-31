@@ -15,5 +15,5 @@ class SaleController extends Controller
 		return view('sale' , compact('products' , 'accounts'));
 	}
 	
-	
+
 }

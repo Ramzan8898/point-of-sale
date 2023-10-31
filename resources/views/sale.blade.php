@@ -1,33 +1,40 @@
-	@extends('index')
-	@section('content')
-	<style type="text/css">
+@extends('index')
+@section('content')
+<style type="text/css">
 
-		@media print {
-			#logo {
-				display: block;
-			}
+	@media print {
+		#logo {
+			display: block;
 		}
-		@media screen {
-			#logo{
-				display: none;
-			}
+		#remove_row{
+			display: none;
 		}
-	</style>
-	<div class=" p-5 row">
-		<div class="col-5">
-			<h3 class="text-center">Create Invoice</h3>
-			<form method="POST" action="">
-				@csrf
-				<div class="form-group">
-					<label>account Name</label>
-					<select class="form-control" name="account_name" id="account_name" onchange="selectaccount(event)">
-						<option selected >Cash Sale</option>
-						@foreach($accounts as $account)
-						<option value="{{$account->number}}">{{$account->name}}</option>
-						@endforeach
-					</select>
-					<input type="number" name="account_number" id="account_number" style="display:none;">
-				</div>
+	}
+	@media screen {
+		#logo{
+			display: none;
+		}
+		#remove_row{
+			display: block;
+		}
+	}
+</style>
+<div class=" p-5 row " style="margin-right: 0px;">
+	<div class="col-5">
+		<h3 class="text-center">Create Invoice</h3>
+		<form method="POST" action="">
+			@csrf
+			<div class="form-group">
+				<label>account Name</label>
+				<select class="form-control" name="account_name" id="account_name" onchange="selectaccount(event)">
+					<option selected >Cash Sale</option>
+					@foreach($accounts as $account)
+					<option value="{{$account->number}}" data-balance="{{$account->balance}}">{{$account->name}}</option>
+					@endforeach
+				</select>
+				<input type="number" name="account_number" id="account_number" style="display:none;">
+				{{-- 					<input type="number" name="account_balance" id="account_balance" > --}}
+			</div>
 {{-- 				<div class="form-group">
 					<label>Bill Type</label>
 					<select class="form-control" name="bill_type" id="bill_type" onchange="selectType(event)">
@@ -88,6 +95,7 @@
 					</div>
 				</div>
 
+				{{-- Printable Data --}}
 				<table class="table table-bordered">
 					<thead>
 						<tr>
@@ -101,39 +109,54 @@
 					</tbody>
 				</table>
 				<div  class="text-end">SubTotal: <span class="text-end" id="sub_total"></span></div>
-				<div  class="text-end">GST: <span class="text-end" id="gst"></span></div>
-				<div  class="text-end">Total: <span class="text-end" id="total"></span></div>		
+				<div class="text-end">GST: <span class="text-end" id="gst"></span></div>
+				<div class="text-end">Total: <span class="text-end" id="total"></span></div>
+				<div >Balance: <span id="data_balance"></span></div>		
+
 			</div>
 
-			<button onclick="printContent('printable_data')">Print</button>	
+			<button onclick="printContent('printable_data')">Print</button>
+
 		</div>
 
 	</div>
+
+	<script src="public/js/jquery.js"></script>
 
 	<script>
 
 		function selectaccount(e){
 
 		// account Select 
-		var account_number = document.getElementById('account_number').value = e.target.value;
-	}
+		var account_number = document.getElementById('account_number');	
+		    // Get the selected option element
+  // Get the selected option element
+  var selectedOption = event.target.options[event.target.selectedIndex];
 
-	function selectType(e) {
-		var type = document.getElementById("bill_type").value = e.target.value;
-		
-	}
+    // Get the data-balance attribute value
+    var dataBalance = selectedOption.getAttribute('data-balance');
+    console.log(dataBalance);
+    document.getElementById('data_balance').innerHTML = dataBalance;
 
-	function displayPrice(e){
-		var pricePlace = document.getElementById("product_price").value = e.target.value;	
-		const selectElement = document.getElementById('product_select');
-		const selectedOption = selectElement.options[selectElement.selectedIndex];
-		selectedProductHTML = selectedOption.innerHTML;
-	}
+}
 
-	let totalProductTotal = 0;
-	var billTotal = 0;
-	
-	function saleBtn(){
+function selectType(e) {
+	var type = document.getElementById("bill_type").value = e.target.value;
+
+}
+
+function displayPrice(e){
+	var pricePlace = document.getElementById("product_price").value = e.target.value;	
+	const selectElement = document.getElementById('product_select');
+	const selectedOption = selectElement.options[selectElement.selectedIndex];
+	selectedProductHTML = selectedOption.innerHTML;
+
+}
+
+let totalProductTotal = 0;
+var billTotal = 0;
+
+function saleBtn(){
 
 		//Validation
 
@@ -152,7 +175,7 @@
 		}
 
 		if(productQuantity == "" || productQuantity < 1 ){
-			console.log("check Product Quantity");
+			// console.log("check Product Quantity");
 			document.getElementById("product_qty").innerHTML = "check Product Quantity";
 			return false;
 		} else {
@@ -184,7 +207,7 @@
 		document.getElementById('gst').innerHTML = 1 ;
 		document.getElementById('total').innerHTML = billTotal;
 		
-		const newRow = $("<tr>");
+		const newRow = $("<tr class='remove'>");
 		$("#products_table").append(newRow);
 		
 		const product_name = $("<td>").html(selectedProduct);
@@ -199,10 +222,20 @@
 		const product_total = $("<td>").html(productTotal);
 		const productTotalValue = productTotal.innerText;
 		newRow.append(product_total);
+
+		const removeBtn = $("<td id='icon-cell'>").html("<i id='remove_row' class='fas fa-trash-alt fa-lg' style='color:#d11f1f;cursor:pointer;'></i>");
+		newRow.append(removeBtn);
 		rowIndex++;
 	}
 
+	$(document).ready(function() {
+		$(document).on('click', '#remove_row', function() {
+			$(this).closest('.remove').remove();
+		});
+	});
+
 </script>
+
 
 <script>
 	var uniqueIdentifier = parseInt(localStorage.getItem('uniqueIdentifier')) || 1;
@@ -217,23 +250,29 @@
 		
 		var issue_date = day + "-" + month + "-" + year;
 		
+		// console.log(issue_date);
 		var prefix = "INV-";
 		
 		var invoiceNumber = prefix + day + month + year + "-" + uniqueIdentifier;
-		
 		var selectedaccount = $('#account_name option:selected').text();
 		var account_number = $('#account_name option:selected').val();
 		
 		var selectedType = $('#bill_type option:selected').text();
 		var restorepage = $('body').html();
 		var printcontent = $('#' + el).clone();
+
+		//bill printing date
 		printcontent.find('#issue_date').text("Issue Date: " + issue_date);
 		printcontent.find('#invoice').text("invoice#: " + invoiceNumber);
+
+		// hiding icon on print view 
+		printcontent.find('#icon-cell').css("display" , "none");
 		
 		printcontent.find('#account_name_in_print').text('Customer Name: ' + selectedaccount);
 		
 		printcontent.find('#account_phone_in_print').text('Customer Number: ' + account_number);
 		$('body').empty().html(printcontent);
+		
 		window.print();
 		$('body').html(restorepage);
 		uniqueIdentifier++;
