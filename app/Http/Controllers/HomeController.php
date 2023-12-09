@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
+use App\Models\Invoice;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 class HomeController extends Controller
@@ -27,7 +28,8 @@ class HomeController extends Controller
     public function index()
     {
         $transactions = Transaction::all();
-        return view('dashboard' , compact('transactions'));
+        $invoices = Invoice::all();
+        return view('dashboard' , compact('transactions' , 'invoices'));
     }
 
     public function getRecords(Request $request)
@@ -62,6 +64,13 @@ class HomeController extends Controller
         }
 
         return view('transactions' , compact('transactions'));
+    }
+
+
+    public function delete_invoice($id) {
+
+        Invoice::destroy($id);
+        return redirect(url('/invoices'));
     }
 
     public function logout(){

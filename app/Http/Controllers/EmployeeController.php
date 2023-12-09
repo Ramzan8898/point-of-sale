@@ -41,4 +41,5 @@ class EmployeeController extends Controller
 		return redirect(route('employee'));
 		// $employee->destroy();
 	}
+
 }

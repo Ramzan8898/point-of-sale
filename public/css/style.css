@@ -1,0 +1,22 @@
+.invoice-head td {
+  padding: 0 8px;
+}
+.container {
+  padding-top:30px;
+}
+.invoice-body{
+  background-color:transparent;
+}
+.invoice-thank{
+  margin-top: 60px;
+  padding: 5px;
+}
+address{
+  margin-top:15px;
+}
+table tbody tr td,table tbody tr td .btn {
+	font-size: 12px;
+}
+table thead tr th{
+	font-size: 14px;
+}

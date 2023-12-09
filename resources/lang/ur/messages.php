@@ -3,6 +3,7 @@
 return [
 	"transactions" => "لین دین",
 	"email" => "ای میل",
-	"password" => "پاس ورڈ"
+	"password" => "پاس ورڈ",
+	'invoices' => "رسید"
 
 ];

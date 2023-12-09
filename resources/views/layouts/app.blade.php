@@ -22,10 +22,15 @@
 <body  style="background-image: url('./public/water.jpg');background-repeat: no-repeat;background-size: cover;">
     <div id="app" style="">
         <nav class="navbar navbar-expand-md navbar-light bg-transparent ">
-            <div class="container">
+            <div class="container position-relative">
                 <a class="navbar-brand" style="color: green;mix-blend-mode: difference;font-weight: bold; " href="{{ url('/') }}">
                     {{ config('app.name', '') }}
                 </a>
+                
+                @if (Route::has('register'))
+                <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 btn btn-success position-absolute end-0">Register</a>
+                @endif
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -40,11 +45,11 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                        @if (Route::has('login'))
+{{--                         @if (Route::has('login'))
                         <li class="nav-item">
                             <a class="nav-link bg-success" style="color: #fff;padding:5px 20px 5px 20px;border-radius: 6px;" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
-                        @endif
+                        @endif --}}
 
 {{--                         @if (Route::has('register'))
                         <li class="nav-item">

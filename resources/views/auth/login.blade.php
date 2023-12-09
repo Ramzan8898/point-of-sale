@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row d-flex justify-content-center align-items-center ">
+    <div class="row d-flex justify-content-center align-items-center">
         <div class="col-md-8 offset-3" style="margin-top:180px; ">
             <form method="POST" action="{{ route('login') }}" >
                 @csrf

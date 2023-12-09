@@ -4,7 +4,8 @@
 	<title>Geo</title>
 	<link rel="stylesheet" href="{{url('public/css/bootstrap.min.css')}}">
 	<link rel="stylesheet" href="{{url('public/css/all.min.css')}}">
-
+    <link rel="stylesheet" type="text/css" href="{{url('public/css/style.css')}}">
+	<script src="{{url('public/js/jquery.js')}}"></script>
 </head>
 <body>
 	<div>
@@ -15,9 +16,6 @@
 
 	<script src="{{url('public/js/bootstrap.min.js')}}"></script>
 	<script src="{{url('public/js/all.min.js')}}"></script>
-	
-
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 	<script>
 		$(document).ready(function() {
