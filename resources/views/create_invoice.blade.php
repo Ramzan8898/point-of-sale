@@ -120,8 +120,7 @@
 				</tbody>
 			</table>
 			<div  class="text-end">SubTotal: <span class="text-end" id="sub_total">{{$inv_prd->sum('product_total')}}</span></div>
-
-			<div class="text-end">GST: <span class="text-end" id="gst"></span></div>
+			<div class="text-end">GST: <span class="text-end" id="gst">5</span></div>
 			<div class="text-end">Total: <span class="text-end" id="total"></span></div>
 			<div >Balance: <span id="data_balance"></span></div>		
 
@@ -134,7 +133,10 @@
 </div>
 
 <script>
-
+	var gst = $('#gst').html();
+	var st = $('#sub_total').html();
+	var total = parseInt(st) + parseInt(gst);
+	var t = $('#total').html(total);
 	function selectaccount(e){
 		var account_number = document.getElementById('account_number');	
 		var selectedOption = event.target.options[event.target.selectedIndex];
