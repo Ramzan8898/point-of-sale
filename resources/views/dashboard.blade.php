@@ -1,6 +1,6 @@
 @extends('index')
 @section('content')
-<div class=" bg-danger p-5">
+<div class="bg-danger p-2" style="width:-webkit-fill-available;">
 	<div class="content">
 		<div class="animated fadeIn">
 			<div class="row">
@@ -21,8 +21,6 @@
 										<th>Amount</th>
 										<th>Date</th>
 										<th>Detail</th>
-
-
 									</tr>
 								</thead>
 								<tbody>

@@ -8,7 +8,7 @@
 	<script src="{{url('public/js/jquery.js')}}"></script>
 </head>
 <body>
-	<div>
+	<div class="d-flex">
 		@include('layouts.sidebar')
 		@yield('content')
 		

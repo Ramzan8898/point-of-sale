@@ -18,19 +18,15 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-</head>
-<body  style="background-image: url('./public/water.jpg');background-repeat: no-repeat;background-size: cover;">
-    <div id="app" style="">
-        <nav class="navbar navbar-expand-md navbar-light bg-transparent ">
-            <div class="container position-relative">
-                <a class="navbar-brand" style="color: green;mix-blend-mode: difference;font-weight: bold; " href="{{ url('/') }}">
-                    {{ config('app.name', '') }}
-                </a>
-                
-                @if (Route::has('register'))
-                <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 btn btn-success position-absolute end-0">Register</a>
-                @endif
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
+</head>
+<body  style="background-image: url('./public/water.jpg');background-repeat: no-repeat;background-size: cover;width: 100vw !important;overflow: hidden;">
+    <div id="app">
+        <nav class=" d-flex justify-content-between navbar navbar-expand-md navbar-light bg-transparent w-75">
+            <div class="container ">
+
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -90,6 +86,7 @@
 </nav>
 
 <main class="py-4">
+    
     @yield('content')
 </main>
 </div>

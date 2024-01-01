@@ -1,9 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container1">
     <div class="row d-flex justify-content-center align-items-center">
         <div class="col-md-8 offset-3" style="margin-top:180px; ">
+            <a class="navbar-brand" style="font-weight: bold; " href="{{ url('/') }}">
+                {{ config('app.name', '') }}
+            </a>
             <form method="POST" action="{{ route('login') }}" >
                 @csrf
                 <div class="row mb-3">
@@ -34,34 +37,37 @@
                     </div>
                 </div>
 
-{{--                         <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                {{--                         <div class="row mb-3">
+                    <div class="col-md-6 offset-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div> --}}
+                            <label class="form-check-label" for="remember">
+                                {{ __('Remember Me') }}
+                            </label>
+                        </div>
+                    </div>
+                </div> --}}
 
-                        <div class="row mb-0">
-                            <div class="col-4 offset-2">
-                                <button type="submit" class="btn btn-primary px-5">
-                                    {{ __('Login') }}
-                                </button>
+                <div class="row mb-0">
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-login">
+                            {{ __('Login') }}
+                        </button>
+                        @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class=" text-sm btn btn-reg">Register</a>
+                        @endif
 
-{{--                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                    @endif --}}
-                                </div>
-                            </div>
-                        </form>
+                        {{--                                 @if (Route::has('password.request'))
+                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                            {{ __('Forgot Your Password?') }}
+                        </a>
+                        @endif --}}
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
-        @endsection
+    </div>
+</div>
+</div>
+@endsection
