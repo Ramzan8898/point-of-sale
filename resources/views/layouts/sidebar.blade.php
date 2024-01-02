@@ -1,7 +1,7 @@
 <nav>
   <div class="container1 d-flex flex-column" >
     <a class="navbar-brand" href="{{url('/')}}">
-      <img src="{{url('/public/favicon.png')}}" alt="GEO" width="80" height="60">
+      <img src="{{url('/public/geo-logo.png')}}" alt="GEO" width="80" height="60">
     </a>
     <a href="{{url('/')}}" class="nav-link {{ request()->is('*') ? 'active' : '' }}"><i class="fas fa-chart-line icon"></i>Dashboard</a>
     <a href="{{url('/employee')}}" class="nav-link {{ request()->is('employee*') ? 'active' : '' }}"><i class="fas fa-walking icon"></i>Employee</a>

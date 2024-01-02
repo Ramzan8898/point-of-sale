@@ -5,7 +5,7 @@
     <div class="row d-flex justify-content-center align-items-center">
         <div class="col-md-8 offset-3" style="margin-top:180px; ">
             <a class="navbar-brand" style="font-weight: bold; " href="{{ url('/') }}">
-                {{ config('app.name', '') }}
+                <img src="{{asset('geo-logo.png')}}">
             </a>
             <form method="POST" action="{{ route('login') }}" >
                 @csrf
