@@ -40,7 +40,6 @@ nav .container1 a {
   text-decoration: none;
   color: #23138D;
   font-weight: bold;
-  font-size: 14px;
   padding: 5px 15px;
   font-family: cursive;
 }
@@ -65,7 +64,7 @@ nav {
   background-color: #FFffff;
   width: 300px;
   overflow: hidden;
-  border-right: 2px solid #23138D;
+/*  border-right: 2px solid #23138D;*/
 }
 .btn-reg:hover{
   background-color: var(--yellow);
@@ -93,9 +92,6 @@ nav {
   background-size: cover;
   background-repeat: no-repeat;
 }
-.bg-about{
-    background-image: url("../shop.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  opacity: 0.3;
+.container{
+  background-color: #dfdfdf;
 }

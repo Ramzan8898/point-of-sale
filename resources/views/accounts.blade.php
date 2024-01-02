@@ -1,6 +1,6 @@
 @extends('index')
 @section('content')
-<div class="container bg-danger p-5">
+<div class="container p-4">
 	<div class="content">
 		<div class="animated fadeIn">
 			<div class="row">
