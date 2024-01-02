@@ -20,7 +20,7 @@
 	}
 </style>
 
-<div class=" p-5 row " style="margin-right: 0px;">
+<div class="container p-4 row " style="margin-right: 0px;">
 	<div class="col-5">
 		<h3 class="text-center">Create Invoice</h3>
 		<form method="POST" action="{{url('/save_invoice_products', $new_invoice_no)}}">
