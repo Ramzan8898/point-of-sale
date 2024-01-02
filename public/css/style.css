@@ -3,6 +3,11 @@
   --blue: #23138D;
   --white: #FFFFFF;
 }
+.navbar-brand{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .invoice-head td {
   padding: 0 8px;
 }
@@ -47,7 +52,7 @@ nav .container1 a .icon{
 .nav-link:hover{
   background-color: var(--blue);
   color: var(--white);
-  transform: scale(1.1);
+  transform: scale(1.02);
 
 }
 
@@ -57,9 +62,10 @@ nav .container1 a .icon{
 }
 
 nav {
-  background-color: #FF8700;
+  background-color: #FFffff;
   width: 300px;
   overflow: hidden;
+  border-right: 2px solid #23138D;
 }
 .btn-reg:hover{
   background-color: var(--yellow);
@@ -78,4 +84,18 @@ nav {
   background-color: var(--blue);
   color: var(--white);
   
+}
+.login{
+  height: 100vh;
+}
+.login .bg-login{
+  background-image: url("../abstract.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.bg-about{
+    background-image: url("../shop.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.3;
 }

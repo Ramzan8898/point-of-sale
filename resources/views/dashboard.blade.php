@@ -1,7 +1,8 @@
 @extends('index')
 @section('content')
-<div class="bg-danger p-2" style="width:-webkit-fill-available;">
+<div class="p-4" style="width:-webkit-fill-available;">
 	<div class="content">
+		<h1>Overview</h1>
 		<div class="animated fadeIn">
 			<div class="row">
 				<div class="col-6">
