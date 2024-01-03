@@ -13,5 +13,8 @@ class Invoice extends Model
     public function invoice_products(){
     	return $this->hasMany(InvoiceProducts::class);
     }
+    public function account(){
+        return $this->hasOne(Account::class);
+    }
 
 }

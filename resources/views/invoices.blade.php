@@ -32,10 +32,10 @@
 									@else
 									@foreach($invoices as $invoice)
 									<tr>
-										<td class="id">{{$invoice->id}}</td>
-										<td class="name">{{$invoice->name}}</td>
-										<td class="number">{{$invoice->number}}</td>
-										<td class="salary">{{$invoice->salary}}</td>
+										<td>{{$invoice->id}}</td>
+										<td>{{$invoice->customer_name}}</td>
+										<td>{{$invoice->customer_number}}</td>
+										<td>{{$invoice->bill_type}}</td>
 										<td class="action">
 											<a href="{{url('/invoice/edit' , $invoice->id)}}" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$invoice->id}}">Edit</a>
 											<a href="{{url('/invoice/delete' , $invoice->id)}}" class="btn btn-danger">Delete</a>
@@ -43,7 +43,6 @@
 									</tr> 	
 									@endforeach
 									@endif
-
 								</tbody>
 							</table>
 						</div> <!-- /.table-stats -->
@@ -53,7 +52,7 @@
 		</div>
 	</div>
 	<!-- create user Modal start -->
-{{-- 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">

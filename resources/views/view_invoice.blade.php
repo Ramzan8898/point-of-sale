@@ -4,7 +4,7 @@
 <div class="container">
     	<div class="row">
     		<div class="span4">
-                <img src="http://webivorous.com/wp-content/uploads/2020/06/brand-logo-webivorous.png" class="img-rounded logo">
+                <img src="{{url('../public/geo-logo1.png')}}" class="img-rounded logo">
     			<address>
 			        <strong>Webivorous Web services Pvt. Ltd.</strong><br>
                  

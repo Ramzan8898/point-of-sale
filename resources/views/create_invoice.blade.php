@@ -23,18 +23,18 @@
 <div class="container p-4 row " style="margin-right: 0px;">
 	<div class="col-5">
 		<h3 class="text-center">Create Invoice</h3>
-		<form method="POST" action="{{url('/save_invoice_products', $new_invoice_no)}}">
+		<form method="POST" action="{{url('/create' , $new_invoice_no)}}">
 			@csrf
 			<div class="form-group">
 				<label>account Name</label>
 				<select class="form-control" name="account_name" id="account_name" onchange="selectaccount(event)">
 					<option selected >Cash Sale</option>
 					@foreach($accounts as $account)
-					<option value="{{$account->number}}" data-balance="{{$account->balance}}">{{$account->name}}</option>
+					<option value="{{$account->name}}" data-number="{{$account->number}}" data-balance="{{$account->balance}}">{{$account->name}}</option>
 					@endforeach
 				</select>
-				<input type="number" name="account_number" id="account_number" style="display:none;">
-				{{-- 					<input type="number" name="account_balance" id="account_balance" > --}}
+				<input type="number" name="account_number" id="data_number" style="display:none;">
+				{{-- <input type="number" name="account_balance" id="account_balance" > --}}
 			</div>
 			<div class="form-group">
 				<label>Bill Type</label>
@@ -43,7 +43,11 @@
 					<option value="Credit">Credit</option>
 				</select>
 			</div>
+			<input type="submit" name="" value="save">
+		</form>
 
+		<form method="POST" action="{{url('/save_invoice_products', $new_invoice_no)}}">
+			@csrf
 			<div class="form-group">
 				<label>Product</label>
 				<select class="form-control" name="product_name" id="product_select" onchange="displayPrice(event)" required>
@@ -127,6 +131,7 @@
 		</div>
 
 		<button id="print_btn" onclick="printContent('printable_data')">Print</button>
+		<a href="{{url('/create' , $new_invoice_no)}}" class="btn btn-success">Save</a>
 
 	</div>
 
@@ -140,6 +145,9 @@
 	function selectaccount(e){
 		var account_number = document.getElementById('account_number');	
 		var selectedOption = event.target.options[event.target.selectedIndex];
+		var dataNumber = selectedOption.getAttribute('data-number');
+		document.getElementById('data_number').innerHTML = dataNumber;
+		
 		var dataBalance = selectedOption.getAttribute('data-balance');
 		document.getElementById('data_balance').innerHTML = dataBalance;
 	}
@@ -183,7 +191,8 @@
 		var invoiceNumber = uniqueIdentifier;
 		var customer = $('#account_name option:selected').text();
 		var customer_number = $('#account_name option:selected').val();
-		var billType = $('#bill_type option:selected').text(); var restorepage = $('body').html();
+		var billType = $('#bill_type option:selected').text(); 
+		var restorepage = $('body').html();
 		var printcontent = $('#' + el).clone();
 
 		var sub_total = $('#sub_total').html();

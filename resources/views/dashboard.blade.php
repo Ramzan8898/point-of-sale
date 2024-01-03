@@ -3,53 +3,6 @@
 <div class="container p-4" style="width:-webkit-fill-available;background-color: #dfdfdf;">
 	<div class="content">
 		<h3>Overview</h3>
-<!-- 		<div class="row gap-2">
-			<div class="card col-3">
-				<div class=" p-2">
-					<div class="card-icon card-icon-large"><i class="fas fa-shopping-cart"></i></div>
-					<div class="mb-2">
-						<h5 class="card-title mb-0">New Orders</h5>
-					</div>
-					<div class="row align-items-center mb-2 d-flex">
-						<div class="col-8">
-							<h2 class="d-flex align-items-center mb-0">
-								3,243
-							</h2>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="card col-3">
-				<div class=" p-2">
-					<div class="card-icon card-icon-large"><i class="fas fa-shopping-cart"></i></div>
-					<div class="mb-2">
-						<h5 class="card-title mb-0">New Orders</h5>
-					</div>
-					<div class="row align-items-center mb-2 d-flex">
-						<div class="col-8">
-							<h2 class="d-flex align-items-center mb-0">
-								3,243
-							</h2>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="card col-3">
-				<div class=" p-2">
-					<div class="card-icon card-icon-large"><i class="fas fa-shopping-cart"></i></div>
-					<div class="mb-2">
-						<h5 class="card-title mb-0">New Orders</h5>
-					</div>
-					<div class="row align-items-center mb-2 d-flex">
-						<div class="col-8">
-							<h2 class="d-flex align-items-center mb-0">
-								3,243
-							</h2>
-						</div>
-					</div>
-				</div>
-			</div>
- -->
 			<div class="row">
 				<div class="col-6">
 					<div class="card">
@@ -117,7 +70,6 @@
 										<th>Invoice#</th>
 										<th>Customer</th>
 										<th>Bill</th>
-										<th>Products</th>
 										<th>Total</th>
 										<th>Action</th>
 
@@ -135,7 +87,6 @@
 										<td class="id">{{$invoice->invoice_number}}</td>
 										<td class="number">{{$invoice->customer_name}}</td>
 										<td class="type">{{$invoice->bill_type}}</td>
-										<td class="amount">{{$invoice->products}}</td>
 										<td class="detail">{{$invoice->total}}</td>
 										<td class="action d-flex justify-content-evenly">
 											<a href="{{url('/invoice/view')}}" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop9{{$invoice->id}}">View</a>
@@ -163,9 +114,9 @@
 					<h1 class="modal-title fs-5" id="staticBackdropLabel">Invoice</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="modal-body">
+				<div class="modal-body ">
 					<div class="container">
-						<div class="row">
+						<div class="row position-relative end-0">
 							<div class="span4 d-flex " style="gap: 8px;">
 								<img src="{{asset('/geo-news-logo.png')}}" class="img-rounded logo" width="80" height="90">
 								<address>

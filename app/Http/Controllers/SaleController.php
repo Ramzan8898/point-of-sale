@@ -42,9 +42,9 @@ class SaleController extends Controller
 		$invoice = new Invoice;
 		$data = [
 			'invoice_number' => $new_invoice_no,
-			'customer_name' => "",
-			'customer_number' => "",
-			'bill_type' => "",
+			'customer_name' => $request->account_name,
+			'customer_number' => $request->account_number,
+			'bill_type' => $request->bill_type,
 			'issued_date' => "",
 			'sub_total' => "",
 			'total' => "", 
