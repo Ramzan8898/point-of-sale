@@ -3,6 +3,17 @@
   --blue: #23138D;
   --white: #FFFFFF;
 }
+@font_face{
+  font-family:Jameel Noori Nastaleeq;
+  src:url('../fonts/Jameel Noori Nastaleeq.ttf');
+}
+
+body{
+  font-family: "Jameel Noori Nastaleeq";
+
+}
+
+
 .navbar-brand{
   display: flex;
   justify-content: center;
@@ -21,9 +32,7 @@
   margin-top: 60px;
   padding: 5px;
 }
-address{
-  margin-top:15px;
-}
+
 table tbody tr td,table tbody tr td .btn {
 	font-size: 12px;
 }
@@ -41,7 +50,9 @@ nav .container1 a {
   color: #23138D;
   font-weight: bold;
   padding: 5px 15px;
-  font-family: cursive;
+  font-size: 18px;
+  letter-spacing: 0.3;
+/*  font-family: cursive;*/
 }
 
 nav .container1 a .icon{

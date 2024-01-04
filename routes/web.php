@@ -7,8 +7,6 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\SaleController;
-use App\Models\Transaction;
-use App\Models\Invoice;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,15 +19,13 @@ use App\Models\Invoice;
 */
 
 Route::get('/', function () {
-   $invoices = Invoice::all();
-   $transactions = Transaction::all();
-    return view('dashboard' , compact('transactions' , 'invoices'));
+    return view('welcome');
 });
 
 Auth::routes();
 
 Route::get('/get_records', [App\Http\Controllers\HomeController::class, 'getRecords'])->name('get_records');
-Route::get('/dash', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
 //Employee
 Route::get('/employee' , [App\Http\Controllers\EmployeeController::class , 'index'])->name('employee');

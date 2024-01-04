@@ -1,9 +1,9 @@
 <nav>
   <div class="container1 d-flex flex-column" >
-    <a class="navbar-brand mb-5" href="{{url('/dash')}}">
+    <a class="navbar-brand mb-5" href="{{url('/')}}">
       <img src="{{url('/public/geo-logo1.png')}}" alt="GEO" width="200" height="auto">
     </a>
-    <a href="{{url('/dash')}}" class="nav-link {{ request()->is('dash*') ? 'active' : '' }}"><i class="fas fa-chart-line icon"></i>ڈیش بورڈ
+    <a href="{{url('/')}}" class="nav-link {{ request()->is('dash*') ? 'active' : '' }}"><i class="fas fa-chart-line icon"></i>ڈیش بورڈ
 </a>
     <a href="{{url('/employee')}}" class="nav-link {{ request()->is('employee*') ? 'active' : '' }}"><i class="fas fa-walking icon"></i>ملازم</a>
     <a href="{{url('/accounts')}}"  class="nav-link {{ request()->is('account*') ? 'active' : '' }}"><i class="far fa-user-circle icon"></i>کھاتہ</a>
