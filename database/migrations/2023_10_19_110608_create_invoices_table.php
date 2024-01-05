@@ -19,7 +19,6 @@ class CreateInvoicesTable extends Migration
             $table->string('customer_name')->nullable();
             $table->string('customer_number')->nullable();
             $table->string('bill_type')->nullable();
-            $table->string('issued_date')->nullable();
             $table->string('sub_total')->nullable();
             $table->string('total')->nullable();
             $table->timestamps();

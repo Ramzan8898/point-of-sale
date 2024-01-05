@@ -59,8 +59,6 @@ Route::get('/add_new_product/{id}' , [App\Http\Controllers\ProductController::cl
 Route::get('/create/{id}' , [App\Http\Controllers\SaleController::class , 'create_invoice']);
 Route::post('/create/{id}' , [App\Http\Controllers\SaleController::class , 'create_invoice']);
 Route::get('/invoice/delete/{id}' , [App\Http\Controllers\HomeController::class , 'delete_invoice']);
-Route::post('/save_invoice_products/{id}' , [App\Http\Controllers\SaleController::class , 'save_invoice_products']);
-Route::get('/save_invoice_products' , [App\Http\Controllers\SaleController::class , 'save_invoice_products']);
 //Log Out
 Route::get('/delete_invoice_product/{id}' , [App\Http\Controllers\SaleController::class , 'delete_invoice_product']);
 

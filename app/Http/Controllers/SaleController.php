@@ -40,16 +40,26 @@ class SaleController extends Controller
 		}
 
 		$invoice = new Invoice;
+		$invoice_product = new InvoiceProducts;
+
 		$data = [
 			'invoice_number' => $new_invoice_no,
 			'customer_name' => $request->account_name,
-			'customer_number' => $request->account_number,
+			'customer_number' => $request->account_name,
 			'bill_type' => $request->bill_type,
-			'issued_date' => "",
 			'sub_total' => "",
 			'total' => "", 
 		];
-		$invoice->create($data);
+
+		$p_data = [
+			'invoice_id' => $new_invoice_no,
+			'product_name' => $request->product_name,
+			'product_price' => $request->product_price,
+			'product_qty' => $request->quantity,
+			'product_total' => $request->product_price * $request->quantity
+		];	
+		$invoice->create($data);		
+		$invoice_product->create($p_data);
 		$inv_prd = InvoiceProducts::where('invoice_id' , $new_invoice_no)->get();
 
 		return view('create_invoice' , compact('new_invoice_no' , 'accounts' , 'products' , 'inv_prd' ));
@@ -63,7 +73,6 @@ class SaleController extends Controller
 			$customerName = $request->input('customer_name');
 			$customerNumber = $request->input('customer_number');
 			$billType = $request->input('bill_type');
-			$issuedDate = $request->input('issued_date');
 			$subTotal = $request->input('sub_total');
 			$total = $request->input('total');
 
@@ -72,7 +81,6 @@ class SaleController extends Controller
 				'customer_name' => $customerName,
 				'customer_number' => $customerNumber,
 				'bill_type' => $billType,
-				'issued_date' => $issuedDate,
 				'sub_total'=> $subTotal,
 				'total'=> $total,
 			]);
@@ -85,25 +93,6 @@ class SaleController extends Controller
     // return response()->json(['message' => 'Products saved successfully']);
 	}
 
-	public function save_invoice_products($id , Request $request){
-		$accounts = Account::all();
-		$products = Product::all();
-		$invoices = Invoice::all();
-
-		$new_invoice_no = $request->id;
-
-		$invoice_product = new InvoiceProducts;
-		$data = [
-			'invoice_id' => $new_invoice_no,
-			'product_name' => $request->product_name,
-			'product_price' => $request->product_price,
-			'product_qty' => $request->quantity,
-			'product_total' => $request->product_price * $request->quantity
-		];			
-		$invoice_product->create($data);
-		$inv_prd = InvoiceProducts::where('invoice_id' , $new_invoice_no)->get();
-		return view('create_invoice' , compact('products' , 'accounts' , 'new_invoice_no' ,'inv_prd'));
-	}
 
 	public function delete_invoice_product($id){
 

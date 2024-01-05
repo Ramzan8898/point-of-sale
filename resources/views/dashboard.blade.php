@@ -134,16 +134,16 @@
 							<table class="invoice-head">
 								<tbody>
 									<tr>
-										<td class="pull-right"><strong>Customer </strong></td>
 										<td>{{$invoice->customer_name}}</td>
+										<td class="pull-right"><strong>کسٹمر </strong></td>
 									</tr>
 									<tr>
-										<td class="pull-right"><strong>Invoice #</strong></td>
 										<td>{{$invoice->invoice_number}}</td>
+										<td class="pull-right"><strong>انوايس #</strong></td>
 									</tr>
 									<tr>
+										<td>{{$invoice->created_at}}</td>
 										<td class="pull-right"><strong>Date</strong></td>
-										<td>{{$invoice->issued_date}}</td>
 									</tr>
 
 								</tbody>
