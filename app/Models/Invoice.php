@@ -11,7 +11,7 @@ class Invoice extends Model
     protected $guarded=[];
 
     public function invoice_products(){
-    	return $this->belongsToMany(InvoiceProducts::class)->withPivot(['quantity']);
+    	return $this->belongsToMany(InvoiceProducts::class , 'invoice_products')->withPivot(['quantity']);
     }
     public function account(){
         return $this->hasOne(Account::class);
