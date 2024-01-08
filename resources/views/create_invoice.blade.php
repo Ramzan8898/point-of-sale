@@ -62,8 +62,8 @@
 						<tr>
 							<th class="text-center"> # </th>
 							<th class="text-center"> Product </th>
-							<th class="text-center"> Qty </th>
 							<th class="text-center"> Price </th>
+							<th class="text-center"> Qty </th>
 							<th class="text-center"> Total </th>
 						</tr>
 					</thead>
@@ -120,7 +120,6 @@
 				</table>
 				<input type="submit" class="btn btn-danger" value="save">
 			</form>
-			<button class="btn" onclick="printContent()">Print</button>
 		</div>
 	</div>
 </div>
