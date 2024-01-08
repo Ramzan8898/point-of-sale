@@ -26,10 +26,33 @@ class SaleController extends Controller
 	}
 
 	public function create_invoice($id , Request $request){
-		$accounts = Account::all();
-		$products = Product::all();
-		$invoices = Invoice::all();
+		if ($request->isMethod("POST")) {
+			$var = Invoice::count();
+			if ($var === 0) {
+				$new_invoice_no = 1;
+			}else{
+				$previous_invoice = Invoice::latest('invoice_number')->first();
+				$previous_invoice_no = $previous_invoice->invoice_number;
+				$new_invoice_no = $previous_invoice_no + 1;
+			}
+			$invoice = Invoice::create([
+				"invoice_number" => $new_invoice_no,
+				"customer_name" => $request->customerName,
+				"customer_number" => $request->customerNumber,
+				"bill_type" => $request->billType,
+				"sub_total" => $request->sub_total,
+				"total" => $request->total_amount
+			]);
+			$products = $request->input('products', []);
+			$quantities = $request->input('quantities', []);
+			for ($product=0; $product < count($products); $product++) {
+				if ($products[$product] != '') {
+					$invoice->products()->attach($products[$product], ['quantity' => $quantities[$product]]);
+				}
+			}
 
+			return redirect()->route('invoices');
+		}
 		$var = Invoice::count();
 		if ($var === 0) {
 			$new_invoice_no = 1;
@@ -38,33 +61,50 @@ class SaleController extends Controller
 			$previous_invoice_no = $previous_invoice->invoice_number;
 			$new_invoice_no = $previous_invoice_no + 1;
 		}
-
-		$invoice = new Invoice;
-		$invoice_product = new InvoiceProducts;
-
-		$data = [
-			'invoice_number' => $new_invoice_no,
-			'customer_name' => $request->account_name,
-			'customer_number' => $request->account_name,
-			'bill_type' => $request->bill_type,
-			'sub_total' => "",
-			'total' => "", 
-		];
-
-		$p_data = [
-			'invoice_id' => $new_invoice_no,
-			'product_name' => $request->product_name,
-			'product_price' => $request->product_price,
-			'product_qty' => $request->quantity,
-			'product_total' => $request->product_price * $request->quantity
-		];	
-		$invoice->create($data);		
-		$invoice_product->create($p_data);
-		$inv_prd = InvoiceProducts::where('invoice_id' , $new_invoice_no)->get();
-
-		return view('create_invoice' , compact('new_invoice_no' , 'accounts' , 'products' , 'inv_prd' ));
+		$accounts = Account::all();
+		$products = Product::all();
+		return view('create_invoice' , compact('accounts' , 'products' , 'new_invoice_no'));
 
 	}
+// 		$accounts = Account::all();
+// 		$products = Product::all();
+// 		$invoices = Invoice::all();
+
+// 		$var = Invoice::count();
+// 		if ($var === 0) {
+// 			$new_invoice_no = 1;
+// 		}else{
+// 			$previous_invoice = Invoice::latest('invoice_number')->first();
+// 			$previous_invoice_no = $previous_invoice->invoice_number;
+// 			$new_invoice_no = $previous_invoice_no + 1;
+// 		}
+
+// 		$invoice = new Invoice;
+// 		$invoice_product = new InvoiceProducts;
+
+// 		$data = [
+// 			'invoice_number' => $new_invoice_no,
+// 			'customer_name' => $request->account_name,
+// 			'customer_number' => $request->account_name,
+// 			'bill_type' => $request->bill_type,
+// 			'sub_total' => "",
+// 			'total' => "", 
+// 		];
+
+// 		$p_data = [
+// 			'invoice_id' => $new_invoice_no,
+// 			'product_name' => $request->product_name,
+// 			'product_price' => $request->product_price,
+// 			'product_qty' => $request->quantity,
+// 			'product_total' => $request->product_price * $request->quantity
+// 		];	
+// 		$invoice->create($data);		
+// 		$invoice_product->create($p_data);
+// 		$inv_prd = InvoiceProducts::where('invoice_id' , $new_invoice_no)->get();
+
+// 		return view('create_invoice' , compact('new_invoice_no' , 'accounts' , 'products' , 'inv_prd' ));
+
+	// }
 	
 	public function save_invoice(Request $request){
 

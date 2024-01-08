@@ -45,7 +45,7 @@ Route::get('/transactions/{id}' , [App\Http\Controllers\TransactionController::c
 Route::post('/transactions/create/{id}' , [App\Http\Controllers\AccountsController::class , 'add_balance']);
 
 // Sale
-Route::get('/invoices' , [App\Http\Controllers\SaleController::class , 'index']);
+Route::get('/invoices' , [App\Http\Controllers\SaleController::class , 'index'])->name('invoices');
 Route::post('/save-invoice/{id}' , [App\Http\Controllers\SaleController::class , 'save_invoice'])->middleware('web');
 
 // Product

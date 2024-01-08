@@ -14,13 +14,12 @@
 							<table class="table ">
 								<thead>
 									<tr>
-										<th class="serial">#</th>
 										<th>Inv#</th>
 										<th>Customer</th>
 										<th>Bill</th>
-										<th>Issue Date</th>
 										<th>Sub Total</th>
 										<th>Total</th>
+										<th>Issue Date</th>
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -32,10 +31,12 @@
 									@else
 									@foreach($invoices as $invoice)
 									<tr>
-										<td>{{$invoice->id}}</td>
+										<td>{{$invoice->invoice_number}}</td>
 										<td>{{$invoice->customer_name}}</td>
-										<td>{{$invoice->customer_number}}</td>
 										<td>{{$invoice->bill_type}}</td>
+										<td>{{$invoice->sub_total}}</td>
+										<td>{{$invoice->total}}</td>
+										<td>{{$invoice->created_at}}</td>
 										<td class="action">
 											<a href="{{url('/invoice/edit' , $invoice->id)}}" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$invoice->id}}">Edit</a>
 											<a href="{{url('/invoice/delete' , $invoice->id)}}" class="btn btn-danger">Delete</a>

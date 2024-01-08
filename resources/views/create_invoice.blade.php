@@ -19,118 +19,196 @@
 		}
 	}
 </style>
+<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+<!------ Include the above in your HEAD tag ---------->
 
-<div class="container p-4 row " style="margin-right: 0px;">
-	<div class="col-5">
-		<h3 class="text-center">Create Invoice</h3>
-		<form method="POST" action="{{url('/create', $new_invoice_no)}}">
-			@csrf
-			<div class="form-group">
-				<label>account Name</label>
-				<select class="form-control" name="account_name" id="account_name" onchange="selectaccount(event)">
-					<option selected >Cash Sale</option>
-					@foreach($accounts as $account)
-					<option value="{{$account->number}}" data-balance="{{$account->balance}}">{{$account->name}}</option>
-					@endforeach
-				</select>
-				<input type="number" name="account_number" id="account_number" style="display:none;">
-				{{-- 					<input type="number" name="account_balance" id="account_balance" > --}}
-			</div>
-			<div class="form-group">
-				<label>Bill Type</label>
-				<select class="form-control" name="bill_type" id="bill_type" onchange="selectType(event)">
-					<option value="Cash" selected>Cash</option>
-					<option value="Credit">Credit</option>
-				</select>
-			</div>
-
-			<div class="form-group">
-				<label>Product</label>
-				<select class="form-control" name="product_name" id="product_select" onchange="displayPrice(event)" required>
-					<option value="choose" selected disabled>Choose a product</option>
-					@foreach($products as $product)
-					<option value="{{$product->product_name}}" data-product_price="{{$product->product_price}}">{{$product->product_name}}</option>
-					@endforeach
-				</select>
-			</div>
-			<span id="product_message" style="color: red;"></span>
-
-			<div class="form-group">
-				<label>Price</label>
-				<input type="number" id="product_price" class="form-control" name="product_price" required>
-			</div>
-			<div class="form-group">
-				<label>Quantity</label>
-				<input type="number" id="product_quantity" name="quantity" class="form-control" required>	
-			</div>
-			<p><span id="product_qty" style="color: red;"></span></p>
-			<input type="submit" name="sale_btn" class="btn btn-success sale_btn" value="Add" >
-		</form>
-
-	</div>
-
-	<div class="col-6 offset-1">
-
-		<div id="printable_data">
-			<div id="logo">
-				<div style="display: flex;">
-					<div>
-						<img src="{{url('/public/geo-news-logo.png')}}" style="height: 70px; width: 60px;">
-					</div>			
-					<div style="display: flex;flex-direction: column; margin-left: 10px;">
-						<span class="shop-name " style="font-family: fantasy ; letter-spacing: 1.8px">Geo Bartan Store</span>
-						<span>Noori Gate Sargodha</span>
-						<span>+92 314 6051935</span>
-					</div>
-
-				</div>			
-			</div>
-			<div class="d-flex justify-content-between mt-4 mb-3">
-				<div class="left">
-					<div id="account_name_in_print"></div>
-					<div id="account_phone_in_print"></div>
-				</div>
-				<div class="right">
-					<div class="text-end"> <span id="invoice"></span></div>
-					<div class="text-end" style="margin-right: 30px;"> <span id="issue_date"></span></div>
+<div class="container">
+	<form action="{{url('/create' , $new_invoice_no)}}" method="POST">
+		@csrf
+		<div class="row clearfix">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label>Customer Name</label>
+					<select class="form-control customerName" name="customerName">
+						<option disabled selected>Select Customer</option>
+						@foreach($accounts as $account)
+						<option value="{{$account->name}}" data-number="{{$account->number}}">{{$account->name}}</option>
+						@endforeach
+					</select>
 				</div>
 			</div>
-
-			{{-- Printable Data --}}
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th>Product</th>
-						<th>Price</th>
-						<th>Quantity</th>
-						<th>Product Total</th>
-					</tr>
-				</thead>
-				<tbody id="products_table">
-					@foreach($inv_prd as $prd)
-					<tr class="remove">
-						<td>{{$prd->product_name}}</td>
-						<td>{{$prd->product_price}}</td>
-						<td>{{$prd->product_qty}}</td>	
-						<td>{{$prd->product_total}}</td>
-						<td><a href="{{url('/delete_invoice_product' , $prd->invoice_id)}}"><i class='fas fa-trash-alt fa-lg' style='color:#d11f1f;cursor:pointer;'></i></a></td>
-					</tr>
-					@endforeach
-
-				</tbody>
-			</table>
-			<div  class="text-end">SubTotal: <span class="text-end" id="sub_total">{{$inv_prd->sum('product_total')}}</span></div>
-			<div class="text-end">GST: <span class="text-end" id="gst">5</span></div>
-			<div class="text-end">Total: <span class="text-end" id="total"></span></div>
-			<div >Balance: <span id="data_balance"></span></div>		
-
+			<div class="col-md-4">
+				<div class="form-group">
+					<label>Customer Number</label>
+					<input type="number" name="customerNumber" class="form-control customerNumber">
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<label>Bill type</label>
+					<select class="form-control billType" name="billType">
+						<option disabled selected>Select Bill type</option>
+						<option value="Cash">Cash</option>
+						<option value="Credit">Credit</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-md-12">
+				
+				<table class="table table-bordered table-hover" id="tab_logic">
+					<thead>
+						<tr>
+							<th class="text-center"> # </th>
+							<th class="text-center"> Product </th>
+							<th class="text-center"> Qty </th>
+							<th class="text-center"> Price </th>
+							<th class="text-center"> Total </th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id='addr0'>
+							<td>1</td>
+							<td><select name='product[]' class="form-control productSelect">
+								<option>Select Product</option>
+								@foreach($products as $product)
+								<option value="{{$product->product_name}}" data-price={{$product->product_price}} >{{$product->product_name}}</option>
+								@endforeach
+							</select></td>
+							<td><input type="number" name='price[]' placeholder='Enter Unit Price' class="form-control price productPrice" step="0" min="0"/></td>
+							<td><input type="number" name='qty[]' placeholder='Enter Qty' class="form-control qty" step="0.00" min="0"/></td>
+							<td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/></td>
+						</tr>
+						<tr id='addr1'></tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 
-		<button id="print_btn" onclick="printContent('printable_data')">Print</button>
+		<div class="row clearfix">
+			<div class="col-md-12">
+				<div id="add_row" class="btn btn-default pull-left">Add Row</div>
+				<div id='delete_row' class="pull-right btn btn-default">Delete Row</div>
+			</div>
+		</div>
 
+		<div class="row clearfix" style="margin-top:20px">
+			<div class="pull-right col-md-4">
+				<table class="table table-bordered table-hover" id="tab_logic_total">
+					<tbody>
+						<tr>
+							<th class="text-center">Sub Total</th>
+							<td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly/></td>
+						</tr>
+						<tr>
+							<th class="text-center">Tax</th>
+							<td class="text-center"><div class="input-group mb-2 mb-sm-0">
+								<input type="number" class="form-control" id="tax" placeholder="0">
+								<div class="input-group-addon">%</div>
+							</div></td>
+						</tr>
+						<tr>
+							<th class="text-center">Tax Amount</th>
+							<td class="text-center"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control" readonly/></td>
+						</tr>
+						<tr>
+							<th class="text-center">Grand Total</th>
+							<td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly/></td>
+						</tr>
+					</tbody>
+				</table>
+				<input type="submit" class="btn btn-danger" value="save">
+			</form>
+			<button class="btn" onclick="printContent()">Print</button>
+		</div>
 	</div>
-
 </div>
+
+
+<script>
+	$(document).ready(function(){
+
+		$("#add_row").click(function(){
+        // Get a reference to the first row of the table
+			var referenceRow = $("#tab_logic tbody tr:first");
+
+        // Clone the reference row
+			var newRow = referenceRow.clone();
+
+        // Clear input values in the new row
+			newRow.find('input, select').val('');
+
+        // Set a new ID for the new row
+			var newIndex = $("#tab_logic tbody tr").length;
+			newRow.attr("id", 'addr' + newIndex);
+
+        // Update the row number in the first cell
+			newRow.find('td:first-child').html(newIndex);
+
+        // Append the new row to the table
+			$("#tab_logic tbody").append(newRow);
+		});
+
+    // Delete a row
+		$("#delete_row").click(function(){
+			if($("#tab_logic tbody tr").length > 1){
+				$("#tab_logic tbody tr:last").remove();
+				calc();
+			}
+		});
+
+		$('#tab_logic tbody').on('keyup change',function(){
+			calc();
+		});
+		$('#tax').on('keyup change',function(){
+			calc_total();
+		});
+
+
+	});
+
+	function calc()
+	{
+		$('#tab_logic tbody tr').each(function(i, element) {
+			var html = $(this).html();
+			if(html!='')
+			{
+				var qty = $(this).find('.qty').val();
+				var price = $(this).find('.price').val();
+				$(this).find('.total').val(qty*price);
+
+				calc_total();
+			}
+		});
+	}
+
+	function calc_total()
+	{
+		total=0;
+		$('.total').each(function() {
+			total += parseInt($(this).val());
+		});
+		$('#sub_total').val(total.toFixed(2));
+		tax_sum=total/100*$('#tax').val();
+		$('#tax_amount').val(tax_sum.toFixed(2));
+		$('#total_amount').val((tax_sum+total).toFixed(2));
+	}
+
+	$(document).on('change', '.productSelect', function () {
+		var selectedOption = $(this).find(':selected');
+		var selectedPrice = selectedOption.data('price');
+		var row = $(this).closest('tr');
+		row.find('.productPrice').val(selectedPrice);
+		calc();
+	});
+
+	$(document).on('change', '.customerName', function () {
+		var selectedOption = $(this).find(':selected');
+		var selectedNumber = selectedOption.data('number');
+		$('.customerNumber').val(selectedNumber);
+	});
+</script>
 
 <script>
 	var gst = $('#gst').html();
@@ -146,13 +224,6 @@
 
 	function selectType(e) {
 		var type = document.getElementById("bill_type").value = e.target.value;
-	}
-
-	function displayPrice(e){
-		const selectElement = document.getElementById('product_select');
-		const selectedOption = selectElement.options[selectElement.selectedIndex];
-		var pricePlace = document.getElementById("product_price").value = selectedOption.getAttribute('data-product_price');	
-		selectedProductHTML = selectedOption.innerHTML;
 	}
 
 	let totalProductTotal = 0;
