@@ -9,7 +9,7 @@ use App\Models\Invoice;
 use App\Models\InvoiceProducts;
 
 class SaleController extends Controller{
-	public function index(){
+	public function index($id){
 		$var = Invoice::count();
 		if ($var === 0) {
 			$new_invoice_no = 1;
@@ -20,8 +20,10 @@ class SaleController extends Controller{
 		}
 		$accounts = Account::all();
 		$products = Product::all();
-		$invoices = Invoice::all();
-		return view('invoices' , compact('products' , 'accounts' , 'new_invoice_no' , 'invoices'));
+		$invoices = Invoice::orderBy('created_at' , 'DESC')->get();
+		$invoice_view = Invoice::where("invoice_number" , $id)->get();
+		
+		return view('invoices' , compact('products' , 'accounts' , 'new_invoice_no' , 'invoices' , 'invoice_view'));
 	}
 
 	public function create_invoice($id , Request $request){
@@ -73,32 +75,9 @@ class SaleController extends Controller{
 
 	}
 
-	public function save_invoice(Request $request){
+	public function view_invoice($id , Request $request){
 
-		try {
-			$invoice = $request->input('invoice');
-			$customerName = $request->input('customer_name');
-			$customerNumber = $request->input('customer_number');
-			$billType = $request->input('bill_type');
-			$subTotal = $request->input('sub_total');
-			$total = $request->input('total');
-
-			Invoice::create([
-				'invoice_number' => $invoice,
-				'customer_name' => $customerName,
-				'customer_number' => $customerNumber,
-				'bill_type' => $billType,
-				'sub_total'=> $subTotal,
-				'total'=> $total,
-			]);
-
-			return response()->json(['message' => 'Invoice saved successfully']);
-		} catch (\Exception $e) {
-			\Log::error($e);
-			return response()->json(['message' => 'An error occurred while saving the invoice'], 500);
-		}
 	}
-
 
 	public function delete_invoice_product($id){
 

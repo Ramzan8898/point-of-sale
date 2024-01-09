@@ -38,6 +38,7 @@
 										<td>{{$invoice->total}}</td>
 										<td>{{$invoice->created_at}}</td>
 										<td class="action">
+											<a href="{{url('/invoice/view')}}" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop9{{$invoice->id}}">View</a>
 											<a href="{{url('/invoice/edit' , $invoice->id)}}" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$invoice->id}}">Edit</a>
 											<a href="{{url('/invoice/delete' , $invoice->id)}}" class="btn btn-danger">Delete</a>
 										</td>
@@ -53,7 +54,7 @@
 		</div>
 	</div>
 	<!-- create user Modal start -->
-{{-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	{{-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -87,40 +88,134 @@
 	</div> --}}
 	<!--create user Modal end -->
 
-	<!-- Modal -->
-{{-- 	@foreach($invoices as $invoice)
-	<div class="modal fade" id="staticBackdrop1{{$invoice->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1" aria-hidden="true">
+	<!-- Invoice View Model Start  -->
+	@foreach($invoices as $invoice)
+	<div class="modal fade modal-xl" id="staticBackdrop9{{$invoice->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel1">Edit invoice</h5>
+					<h1 class="modal-title fs-5" id="staticBackdropLabel">Invoice</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="modal-body">
-					<form method="POST" action="{{url('/invoice/edit' , $invoice->id)}}">
-						@csrf
-						<div class="form-group">
-							<label>Name</label>
-							<input type="text" name="name" class="form-control" value="{{$invoice->name}}">
-						</div>
-						<div class="form-group">
-							<label>Phone</label>
-							<input type="text" name="number" class="form-control" value="{{$invoice->number}}">
-						</div>
-						<div class="form-group">
-							<label>Salary</label>
-							<input type="number" name="salary" class="form-control" value="{{$invoice->salary}}">
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						<input type="submit" class="btn btn-primary" value="Update">
-					</div>
-				</form>
+				<div class="modal-body ">
+					<div class="container">
+						<div class="row1" style="display:flex; justify-content: flex-end;">
+							<div class="row">
+<!-- 						<div class="span4 d-flex " style="gap: 8px; margin-right: -100px;">
+							
+							<address style="text-align:right;margin-top: 0px ;">
+								<strong style="font-size: 32px;">جیو برتن سٹور
+								</strong><br>
 
+								<p style="font-size:24px;">اندرون گلی  ،ظہور پلازہ <br>
+								نوری گیٹ سرگودھا </p>
+							<p>فون نمبر: 6051935-0300</p>
+							</address>
+						<img src="{{asset('/geo-news-logo.png')}}" class="img-rounded logo" width="80" height="90">
+					</div> -->
+					<div class="span4 well">
+						<table class="invoice-head">
+							<tbody>
+								<tr>
+									<td>{{$invoice->customer_name}}</td>
+									<td class="pull-right"><strong>کسٹمر </strong></td>
+								</tr>
+								<tr>
+									<td>{{$invoice->invoice_number}}</td>
+									<td class="pull-right"><strong>انوايس #</strong></td>
+								</tr>
+								<tr>
+									<td>{{$invoice->created_at}}</td>
+									<td class="pull-right"><strong>تاریخ</strong></td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="row mt-3">
+				<div class="span8 well invoice-body">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>مصنوعات</th>
+								<th>قیمت</th>
+								<th>مقدار</th>
+								<th>کل</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>{{$invoice->products}}</td>
+								<td>{{$invoice->products}}</td>
+								<td>{{$invoice->products}}</td>
+								<td>{{$invoice->products}}</td>
+							</tr>
+							<tr><td colspan="4"></td></tr>
+							<tr>
+								<td colspan="2">&nbsp;</td>
+								<td><strong>Sub Total</strong></td>
+								<td><strong>{{$invoice->sub_total}}</strong></td>
+							</tr>
+							<tr>
+								<td colspan="2">&nbsp;</td>
+								<td><strong>Total</strong></td>
+								<td><strong>{{$invoice->total}}</strong></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span8 well invoice-thank">
+					<h5 style="text-align:center;">Thank You!</h5>
+				</div>
 			</div>
 		</div>
 	</div>
-	@endforeach --}}
+</div>
+</div>
+</div>
+
+@endforeach
+<!-- Invoice View Model End  -->
+
+<!-- Modal -->
+{{-- 	@foreach($invoices as $invoice)
+<div class="modal fade" id="staticBackdrop1{{$invoice->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel1">Edit invoice</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form method="POST" action="{{url('/invoice/edit' , $invoice->id)}}">
+					@csrf
+					<div class="form-group">
+						<label>Name</label>
+						<input type="text" name="name" class="form-control" value="{{$invoice->name}}">
+					</div>
+					<div class="form-group">
+						<label>Phone</label>
+						<input type="text" name="number" class="form-control" value="{{$invoice->number}}">
+					</div>
+					<div class="form-group">
+						<label>Salary</label>
+						<input type="number" name="salary" class="form-control" value="{{$invoice->salary}}">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<input type="submit" class="btn btn-primary" value="Update">
+				</div>
+			</form>
+
+		</div>
+	</div>
+</div>
+@endforeach --}}
 </div>
 @endsection
