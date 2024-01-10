@@ -9,7 +9,7 @@ use App\Models\Invoice;
 use App\Models\InvoiceProducts;
 
 class SaleController extends Controller{
-	public function index($id){
+	public function index(){
 		$var = Invoice::count();
 		if ($var === 0) {
 			$new_invoice_no = 1;
@@ -21,9 +21,8 @@ class SaleController extends Controller{
 		$accounts = Account::all();
 		$products = Product::all();
 		$invoices = Invoice::orderBy('created_at' , 'DESC')->get();
-		$invoice_view = Invoice::where("invoice_number" , $id)->get();
 		
-		return view('invoices' , compact('products' , 'accounts' , 'new_invoice_no' , 'invoices' , 'invoice_view'));
+		return view('invoices' , compact('products' , 'accounts' , 'new_invoice_no' , 'invoices'));
 	}
 
 	public function create_invoice($id , Request $request){
@@ -75,8 +74,10 @@ class SaleController extends Controller{
 
 	}
 
-	public function view_invoice($id , Request $request){
-
+	public function view_invoice($id){
+		$invoice = Invoice::where("invoice_number" , $id)->first();
+		$inv_prod = InvoiceProducts::where("invoice_id" , $id)->get();
+		return view('view_invoice' , compact('inv_prod' , 'invoice'));
 	}
 
 	public function delete_invoice_product($id){

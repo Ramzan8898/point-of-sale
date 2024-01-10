@@ -4,14 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Product;
+use App\Models\InvoiceProducts;
+use App\Models\Account;
 class Invoice extends Model
 {
     use HasFactory;
     protected $guarded=[];
 
     public function invoice_products(){
-    	return $this->hasMany(Product::class);
+    	return $this->hasMany(InvoiceProducts::class);
     }
     public function account(){
         return $this->hasOne(Account::class);
