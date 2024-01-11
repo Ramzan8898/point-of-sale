@@ -1,5 +1,6 @@
 @extends('index')
 @section('content')
+
 <style type="text/css">
 
 	@media print {
@@ -19,6 +20,7 @@
 		}
 	}
 </style>
+
 <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
@@ -31,12 +33,12 @@
 			<div class="col-md-4">
 				<div class="form-group">
 					<label>Customer Name</label>
-					<select class="form-control customerName" name="customerName">
-						<option disabled selected>Select Customer</option>
+					<input name="customerName" type="text" list="customer_list" class="form-control customerName" placeholder="Select Customer">
+					<datalist id="customer_list">
 						@foreach($accounts as $account)
 						<option value="{{$account->name}}" data-number="{{$account->number}}">{{$account->name}}</option>
 						@endforeach
-					</select>
+					</datalist>
 				</div>
 			</div>
 			<div class="col-md-4">
@@ -48,11 +50,11 @@
 			<div class="col-md-4">
 				<div class="form-group">
 					<label>Bill type</label>
-					<select class="form-control billType" name="billType">
-						<option disabled selected>Select Bill type</option>
+					<input name="billType" type="text" list="bill_type_list" class="form-control billType" placeholder="Bill type">
+					<datalist id="bill_type_list">
 						<option value="Cash">Cash</option>
 						<option value="Credit">Credit</option>
-					</select>
+					</datalist>
 				</div>
 			</div>
 			<div class="col-md-12">
@@ -67,63 +69,64 @@
 							<th class="text-center"> Total </th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="productTable">
 						<tr id='addr0'>
 							<td>1</td>
-							<td><select name='product[]' class="form-control productSelect">
-								<option>Select Product</option>
+							<td>
+							<input name="product[]" type="text" list="products_list" class="form-control productSelect" placeholder="select product">
+							<datalist id="products_list">
 								@foreach($products as $product)
 								<option value="{{$product->product_name}}" data-price={{$product->product_price}} >{{$product->product_name}}</option>
 								@endforeach
-							</select></td>
-							<td><input type="number" name='price[]' placeholder='Enter Unit Price' class="form-control price productPrice" step="0" min="0"/></td>
-							<td><input type="number" name='qty[]' placeholder='Enter Qty' class="form-control qty" step="0.00" min="0"/></td>
-							<td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/></td>
-						</tr>
-						<tr id='addr1'></tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-
-		<div class="row clearfix">
-			<div class="col-md-12">
-				<div id="add_row" class="btn btn-default pull-left">Add Row</div>
-				<div id='delete_row' class="pull-right btn btn-default">Delete Row</div>
-			</div>
-		</div>
-
-		<div class="row clearfix" style="margin-top:20px">
-			<div class="pull-right col-md-4">
-				<table class="table table-bordered table-hover" id="tab_logic_total">
-					<tbody>
-						<tr>
-							<th class="text-center">Sub Total</th>
-							<td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly/></td>
-						</tr>
-						<tr>
-							<th class="text-center">Tax</th>
-							<td class="text-center"><div class="input-group mb-2 mb-sm-0">
-								<input type="number" class="form-control" id="tax" placeholder="0">
-								<div class="input-group-addon">%</div>
-							</div></td>
-						</tr>
-						<tr>
-							<th class="text-center">Tax Amount</th>
-							<td class="text-center"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control" readonly/></td>
-						</tr>
-						<tr>
-							<th class="text-center">Grand Total</th>
-							<td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly/></td>
-						</tr>
-					</tbody>
-				</table>
-				<input type="submit" class="btn btn-danger" value="save">
-			</form>
+							</datalist>
+						</td>
+						<td><input type="number" name='price[]' placeholder='Enter Unit Price' class="form-control price productPrice" step="0" min="0"/></td>
+						<td><input type="number" name='qty[]' placeholder='Enter Qty' class="form-control qty" step="0.00" min="0"/></td>
+						<td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/></td>
+					</tr>
+					<tr id='addr1'></tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
-</div>
 
+	<div class="row clearfix">
+		<div class="col-md-12">
+			<div id="add_row" class="btn btn-default pull-left">Add Row</div>
+			<div id='delete_row' class="pull-right btn btn-default">Delete Row</div>
+		</div>
+	</div>
+
+	<div class="row clearfix" style="margin-top:20px">
+		<div class="pull-right col-md-4">
+			<table class="table table-bordered table-hover" id="tab_logic_total">
+				<tbody>
+					<tr>
+						<th class="text-center">Sub Total</th>
+						<td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly/></td>
+					</tr>
+					<tr>
+						<th class="text-center">Tax</th>
+						<td class="text-center"><div class="input-group mb-2 mb-sm-0">
+							<input type="number" class="form-control" id="tax" placeholder="0">
+							<div class="input-group-addon">%</div>
+						</div></td>
+					</tr>
+					<tr>
+						<th class="text-center">Tax Amount</th>
+						<td class="text-center"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control" readonly/></td>
+					</tr>
+					<tr>
+						<th class="text-center">Grand Total</th>
+						<td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly/></td>
+					</tr>
+				</tbody>
+			</table>
+			<input type="submit" class="btn btn-danger" value="save">
+		</form>
+	</div>
+</div>
+</div>
 
 <script>
 	$(document).ready(function(){
@@ -194,18 +197,45 @@
 		$('#total_amount').val((tax_sum+total).toFixed(2));
 	}
 
-	$(document).on('change', '.productSelect', function () {
-		var selectedOption = $(this).find(':selected');
-		var selectedPrice = selectedOption.data('price');
-		var row = $(this).closest('tr');
-		row.find('.productPrice').val(selectedPrice);
-		calc();
-	});
+	// $(document).on('change', '.productSelect', function () {
+	// 	var selectedOption = $(this).find(':selected');
+	// 	var selectedPrice = selectedOption.data('price');
+	// 	var row = $(this).closest('tr');
+	// 	row.find('.productPrice').val(selectedPrice)
+	// 	calc();
+	// });
 
-	$(document).on('change', '.customerName', function () {
-		var selectedOption = $(this).find(':selected');
-		var selectedNumber = selectedOption.data('number');
-		$('.customerNumber').val(selectedNumber);
+ $(document).ready(function() {
+    // When the product input changes within the productTable
+    $('#productTable').on('input', '.productSelect', function() {
+      // Get the selected option
+      var selectedOption = $('#products_list option[value="' + $(this).val() + '"]');
+      
+      // If an option is selected, update the price field
+      if (selectedOption.length > 0) {
+        var productPrice = selectedOption.data('price');
+        $(this).closest('tr').find('.productPrice').val(productPrice);
+      } else {
+        // If no option is selected, clear the price field
+        $(this).closest('tr').find('.productPrice').val('');
+      }
+    });
+  });
+		$(document).ready(function() {
+    // When the customer name input changes
+		$('.customerName').on('input', function() {
+      // Get the selected option
+			var selectedOption = $('#customer_list option[value="' + $(this).val() + '"]');
+
+      // If an option is selected, update the customer number field
+			if (selectedOption.length > 0) {
+				var customerNumber = selectedOption.data('number');
+				$('.customerNumber').val(customerNumber);
+			} else {
+        // If no option is selected, clear the customer number field
+				$('.customerNumber').val('');
+			}
+		});
 	});
 </script>
 
@@ -299,5 +329,11 @@
 
 		localStorage.setItem('uniqueIdentifier', uniqueIdentifier.toString());
 	}
+
+	$('#basic2').selectpicker({
+		liveSearch: true,
+		maxOptions: 1
+	});
 </script>
+
 @endsection

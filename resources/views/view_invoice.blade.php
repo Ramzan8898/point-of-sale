@@ -23,17 +23,15 @@
 		<div class="row1" style="display:flex;flex-direction: column;">
 			<div class="row">
 				<div class="shop">
-					<div class="span4 d-flex" style="gap: 8px;">
-
+					<div class="span4 d-flex justify-content-center" style="gap: 8px;">
 						<address style="text-align:right;margin-top: 0px ;">
-							<strong style="font-size: 32px;">جیو برتن سٹور
-							</strong><br>
-
-							<p style="font-size:24px;">اندرون گلی  ،ظہور پلازہ <br>
+							<strong style="font-size: 56px;">جیو برتن سٹور
+							</strong>
+							<p style="font-size:24px;background-color: #000000;color: white;">اندرون گلی  ،ظہور پلازہ
 							نوری گیٹ سرگودھا </p>
 							<p>فون نمبر: 6051935-0300</p>
 						</address>
-						<img src="{{asset('/geo-news-logo.png')}}" class="img-rounded logo" width="80" height="90">
+						<!-- <img src="{{asset('/geo-news-logo.png')}}" class="img-rounded logo" width="80" height="90"> -->
 					</div> 
 				</div>
 				<a href="{{url('/invoices')}}" class="btn btn-success back" style="width:fit-content;margin-left: 20px;">Back</a>
