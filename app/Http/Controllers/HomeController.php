@@ -66,13 +66,6 @@ class HomeController extends Controller
         return view('transactions' , compact('transactions'));
     }
 
-
-    public function delete_invoice($id) {
-
-        Invoice::destroy($id);
-        return redirect(url('/invoices'));
-    }
-
     public function logout(){
         Session::flush();
         

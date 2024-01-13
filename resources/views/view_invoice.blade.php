@@ -9,6 +9,9 @@
 		.shop {
 			display: block !important;
 		}
+		modal-body .container .row1 .row .shop .span4 address .add{
+			background-color: #000000 !important;
+		}
 	}
 /*	.shop{
 		display: none;
@@ -27,7 +30,7 @@
 						<address style="text-align:right;margin-top: 0px ;">
 							<strong style="font-size: 56px;">جیو برتن سٹور
 							</strong>
-							<p style="font-size:24px;background-color: #000000;color: white;">اندرون گلی  ،ظہور پلازہ
+							<p style="font-size:24px;" class="add">اندرون گلی  ،ظہور پلازہ
 							نوری گیٹ سرگودھا </p>
 							<p>فون نمبر: 6051935-0300</p>
 						</address>
@@ -80,11 +83,11 @@
 							<tr><td colspan="4"></td></tr>
 							<tr>
 								<td><strong>{{$invoice->sub_total}}</strong></td>
-								<td><strong>ذیلی کل</strong></td>
+								<td><strong style="font-size:24px">ذیلی کل</strong></td>
 							</tr>
 							<tr>
 								<td><strong>{{$invoice->total}}</strong></td>
-								<td><strong>ٹوٹل</strong></td>
+								<td><strong style="font-size:24px;">ٹوٹل</strong></td>
 							</tr>
 						</tbody>
 					</table>
