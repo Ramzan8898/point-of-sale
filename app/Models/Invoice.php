@@ -13,7 +13,7 @@ class Invoice extends Model
     protected $guarded=[];
 
     public function invoice_products(){
-    	return $this->hasMany(InvoiceProducts::class);
+    	return $this->hasMany(InvoiceProducts::class , "invoice_id" , "invoice_number");
     }
     public function account(){
         return $this->hasOne(Account::class);

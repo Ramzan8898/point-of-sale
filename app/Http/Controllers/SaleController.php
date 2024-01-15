@@ -84,14 +84,14 @@ class SaleController extends Controller{
 		$invoice->delete();
 		return redirect(url('/invoices'));
 	}
-	public function delete_invoice_product($id){
 
-		$accounts = Account::all();
-		$products = Product::all();
-		$new_invoice_no = $id;
-		$inv_prd = InvoiceProducts::where('invoice_id' , $new_invoice_no)->get();
+	// public function print_view($id) {
+	// 	$invoice = Invoice::with('invoice_products')->where("invoice_number" , $id)->first();
+	// 	if (!$invoice) {
+    //     // Handle the case where the product is not found
+	// 		return redirect(route('invoices'))->with('error', 'Invoice not found');
+	// 	}
 
-		InvoiceProducts::destroy($new_invoice_no);
-		return view('create_invoice' , compact('products' , 'accounts' , 'new_invoice_no' , 'inv_prd'));
-	}
+	// 	return view('print', compact('invoice'));
+	// }
 }

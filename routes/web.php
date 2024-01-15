@@ -19,7 +19,7 @@ use App\Http\Controllers\SaleController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
 
 Auth::routes();
@@ -54,13 +54,14 @@ Route::post('/add_new_product/create' , [App\Http\Controllers\ProductController:
 Route::post('/add_new_product/edit/{id}' , [App\Http\Controllers\ProductController::class , 'edit']);
 Route::get('/add_new_product/{id}' , [App\Http\Controllers\ProductController::class , 'delete']);
 
-
 // Invoices
 Route::get('/create/{id}' , [App\Http\Controllers\SaleController::class , 'create_invoice']);
 Route::post('/create/{id}' , [App\Http\Controllers\SaleController::class , 'create_invoice']);
 Route::get('/view/{id}' , [App\Http\Controllers\SaleController::class , 'view_invoice']);
 
 Route::get('/invoice/delete/{id}' , [App\Http\Controllers\SaleController::class , 'delete_invoice']);
+// Route::get('/invoice/print/{id}', [SaleController::class, 'print_view']);
+
 //Log Out
 Route::get('/delete_invoice_product/{id}' , [App\Http\Controllers\SaleController::class , 'delete_invoice_product']);
 
