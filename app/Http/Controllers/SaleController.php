@@ -79,14 +79,11 @@ class SaleController extends Controller{
 		$inv_prod = InvoiceProducts::where("invoice_id" , $id)->get();
 		return view('view_invoice' , compact('inv_prod' , 'invoice'));
 	}
-    public function delete_invoice($id) {
-$invoice = Invoice::find($id);
-$invoice_products = InvoiceProducts::where('invoice_id' , $id)->get();
-dd($invoice_products);
- $invoice_products->delete();
- $invoice->delete();
-        return redirect(url('/invoices'));
-    }
+	public function delete_invoice($id) {
+		$invoice = Invoice::where('invoice_number' , $id)->first();
+		$invoice->delete();
+		return redirect(url('/invoices'));
+	}
 	public function delete_invoice_product($id){
 
 		$accounts = Account::all();

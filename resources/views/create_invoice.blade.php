@@ -33,7 +33,7 @@
 			<div class="col-md-4">
 				<div class="form-group">
 					<label>Customer Name</label>
-					<input name="customerName" type="text" list="customer_list" class="form-control customerName" placeholder="Select Customer">
+					<input name="customerName" type="text" list="customer_list" class="form-control customerName" placeholder="Select Customer" required>
 					<datalist id="customer_list">
 						@foreach($accounts as $account)
 						<option value="{{$account->name}}" data-number="{{$account->number}}">{{$account->name}}</option>
@@ -50,7 +50,7 @@
 			<div class="col-md-4">
 				<div class="form-group">
 					<label>Bill type</label>
-					<input name="billType" type="text" list="bill_type_list" class="form-control billType" placeholder="Bill type">
+					<input name="billType" type="text" list="bill_type_list" class="form-control billType" placeholder="Bill type" required>
 					<datalist id="bill_type_list">
 						<option value="Cash">Cash</option>
 						<option value="Credit">Credit</option>
@@ -73,7 +73,7 @@
 						<tr id='addr0'>
 							<td>1</td>
 							<td>
-							<input name="product[]" type="text" list="products_list" class="form-control productSelect" placeholder="select product">
+							<input name="product[]" type="text" list="products_list" class="form-control productSelect" placeholder="select product" required>
 							<datalist id="products_list">
 								@foreach($products as $product)
 								<option value="{{$product->product_name}}" data-price={{$product->product_price}} >{{$product->product_name}}</option>
@@ -81,7 +81,7 @@
 							</datalist>
 						</td>
 						<td><input type="number" name='price[]' placeholder='Enter Unit Price' class="form-control price productPrice" step="0" min="0"/></td>
-						<td><input type="number" name='qty[]' placeholder='Enter Qty' class="form-control qty" step="0.00" min="0"/></td>
+						<td><input type="number" name='qty[]' placeholder='Enter Qty' class="form-control qty" step="0.00" min="0" required/></td>
 						<td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/></td>
 					</tr>
 					<tr id='addr1'></tr>
@@ -330,10 +330,6 @@
 		localStorage.setItem('uniqueIdentifier', uniqueIdentifier.toString());
 	}
 
-	$('#basic2').selectpicker({
-		liveSearch: true,
-		maxOptions: 1
-	});
 </script>
 
 @endsection

@@ -8,6 +8,7 @@ use App\Models\InvoiceProducts;
 use App\Models\Account;
 class Invoice extends Model
 {
+    protected $primaryKey = 'invoice_number';
     use HasFactory;
     protected $guarded=[];
 

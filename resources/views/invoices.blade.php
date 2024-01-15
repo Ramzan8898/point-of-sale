@@ -39,8 +39,8 @@
 										<td>{{$invoice->created_at}}</td>
 										<td class="action">
 											<a href="{{url('/view' , $invoice->invoice_number)}}" class="btn btn-secondary">View</a>
-											<a href="{{url('/invoice/edit' , $invoice->id)}}" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$invoice->id}}">Edit</a>
-											<a href="{{url('/invoice/delete' , $invoice->id)}}" class="btn btn-danger">Delete</a>
+											<a href="{{url('/invoice/edit' , $invoice->id)}}" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$invoice->invoice_number}}">Edit</a>
+											<a href="{{url('/invoice/delete' , $invoice->invoice_number)}}" class="btn btn-danger">Delete</a>
 											<a href="#" class="btn btn-secondary" >Print</a>
 
 										</td>
