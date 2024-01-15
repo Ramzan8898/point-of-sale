@@ -25,21 +25,22 @@
 	<div class="container">
 		<div class="row1" style="display:flex;flex-direction: column;">
 			<div class="row">
+				<div class="head-btn d-flex gap-3 align-items-center">
+					<a href="{{url('/invoices')}}" class="back" style="width:fit-content;margin-left: 20px;"><i class="fas fa-arrow-left"></i></a>
+					<button class="btn btn-success print_btn" style="width:fit-content;" onclick="window.print()"><i class="fas fa-toilet-paper"></i></button>
+				</div>
 				<div class="shop">
 					<div class="span4 d-flex justify-content-center" style="gap: 8px;">
 						<address style="text-align:right;margin-top: 0px ;">
 							<strong style="font-size: 56px;">جیو برتن سٹور
 							</strong>
-							<p style="font-size:24px;" class="add">اندرون گلی  ،ظہور پلازہ
+							<p style="font-size:24px;color: white;" class="add bg-dark">اندرون گلی  ،ظہور پلازہ
 							نوری گیٹ سرگودھا </p>
 							<p>فون نمبر: 6051935-0300</p>
 						</address>
 						<!-- <img src="{{asset('/geo-news-logo.png')}}" class="img-rounded logo" width="80" height="90"> -->
 					</div> 
 				</div>
-				<a href="{{url('/invoices')}}" class="btn btn-success back" style="width:fit-content;margin-left: 20px;">Back</a>
-				<button class="btn btn-success print_btn" style="width:fit-content;" onclick="window.print('.print')">Print</button>
-
 				<div class="span4 well" style="display:flex; justify-content:flex-end;">
 					<table class="invoice-head">
 						<tbody>
