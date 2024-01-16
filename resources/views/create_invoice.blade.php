@@ -36,7 +36,7 @@
 					<input name="customerName" type="text" list="customer_list" class="form-control customerName" placeholder="Select Customer" required>
 					<datalist id="customer_list">
 						@foreach($accounts as $account)
-						<option value="{{$account->name}}" data-number="{{$account->number}}">{{$account->name}}</option>
+						<option value="{{$account->name}}" data-number="{{$account->number}}" data-balance="{{$account->balance}}">{{$account->name}}</option>
 						@endforeach
 					</datalist>
 				</div>
@@ -48,6 +48,12 @@
 				</div>
 			</div>
 			<div class="col-md-4">
+				<div class="form-group">
+					<label>Previous Balance</label>
+					<input name="account_balance" id="customer_balance" type="number" class="form-control" placeholder="Prev Balance" required>
+				</div>
+			</div>
+			<div class="col-md-4 mt-3">
 				<div class="form-group">
 					<label>Bill type</label>
 					<input name="billType" type="text" list="bill_type_list" class="form-control billType" placeholder="Bill type" required>
@@ -73,59 +79,59 @@
 						<tr id='addr0'>
 							<td>1</td>
 							<td>
-							<input name="product[]" type="text" list="products_list" class="form-control productSelect" placeholder="select product" required>
-							<datalist id="products_list">
-								@foreach($products as $product)
-								<option value="{{$product->product_name}}" data-price={{$product->product_price}} >{{$product->product_name}}</option>
-								@endforeach
-							</datalist>
-						</td>
-						<td><input type="number" name='price[]' placeholder='Enter Unit Price' class="form-control price productPrice" step="0" min="0"/></td>
-						<td><input type="number" name='qty[]' placeholder='Enter Qty' class="form-control qty" step="0.00" min="0" required/></td>
-						<td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/></td>
-					</tr>
-					<tr id='addr1'></tr>
-				</tbody>
-			</table>
+								<input name="product[]" type="text" list="products_list" class="form-control productSelect" placeholder="select product" required>
+								<datalist id="products_list">
+									@foreach($products as $product)
+									<option value="{{$product->product_name}}" data-price={{$product->product_price}} >{{$product->product_name}}</option>
+									@endforeach
+								</datalist>
+							</td>
+							<td><input type="number" name='price[]' placeholder='Enter Unit Price' class="form-control price productPrice" step="0" min="0"/></td>
+							<td><input type="number" name='qty[]' placeholder='Enter Qty' class="form-control qty" step="0.00" min="0" required/></td>
+							<td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/></td>
+						</tr>
+						<tr id='addr1'></tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="row clearfix">
+			<div class="col-md-12">
+				<div id="add_row" class="btn btn-default pull-left">Add Row</div>
+				<div id='delete_row' class="pull-right btn btn-default">Delete Row</div>
+			</div>
+		</div>
+
+		<div class="row clearfix" style="margin-top:20px">
+			<div class="pull-right col-md-4">
+				<table class="table table-bordered table-hover" id="tab_logic_total">
+					<tbody>
+						<tr>
+							<th class="text-center">Sub Total</th>
+							<td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly/></td>
+						</tr>
+						<tr>
+							<th class="text-center">Tax</th>
+							<td class="text-center"><div class="input-group mb-2 mb-sm-0">
+								<input type="number" class="form-control" id="tax" placeholder="0">
+								<div class="input-group-addon">%</div>
+							</div></td>
+						</tr>
+						<tr>
+							<th class="text-center">Tax Amount</th>
+							<td class="text-center"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control" readonly/></td>
+						</tr>
+						<tr>
+							<th class="text-center">Grand Total</th>
+							<td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly/></td>
+						</tr>
+					</tbody>
+				</table>
+				<input type="submit" class="btn btn-danger" value="save">
+			</form>
 		</div>
 	</div>
-
-	<div class="row clearfix">
-		<div class="col-md-12">
-			<div id="add_row" class="btn btn-default pull-left">Add Row</div>
-			<div id='delete_row' class="pull-right btn btn-default">Delete Row</div>
-		</div>
-	</div>
-
-	<div class="row clearfix" style="margin-top:20px">
-		<div class="pull-right col-md-4">
-			<table class="table table-bordered table-hover" id="tab_logic_total">
-				<tbody>
-					<tr>
-						<th class="text-center">Sub Total</th>
-						<td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly/></td>
-					</tr>
-					<tr>
-						<th class="text-center">Tax</th>
-						<td class="text-center"><div class="input-group mb-2 mb-sm-0">
-							<input type="number" class="form-control" id="tax" placeholder="0">
-							<div class="input-group-addon">%</div>
-						</div></td>
-					</tr>
-					<tr>
-						<th class="text-center">Tax Amount</th>
-						<td class="text-center"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control" readonly/></td>
-					</tr>
-					<tr>
-						<th class="text-center">Grand Total</th>
-						<td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly/></td>
-					</tr>
-				</tbody>
-			</table>
-			<input type="submit" class="btn btn-danger" value="save">
-		</form>
-	</div>
-</div>
 </div>
 
 <script>
@@ -205,23 +211,23 @@
 	// 	calc();
 	// });
 
- $(document).ready(function() {
+	$(document).ready(function() {
     // When the product input changes within the productTable
-    $('#productTable').on('input', '.productSelect', function() {
+		$('#productTable').on('input', '.productSelect', function() {
       // Get the selected option
-      var selectedOption = $('#products_list option[value="' + $(this).val() + '"]');
-      
+			var selectedOption = $('#products_list option[value="' + $(this).val() + '"]');
+
       // If an option is selected, update the price field
-      if (selectedOption.length > 0) {
-        var productPrice = selectedOption.data('price');
-        $(this).closest('tr').find('.productPrice').val(productPrice);
-      } else {
+			if (selectedOption.length > 0) {
+				var productPrice = selectedOption.data('price');
+				$(this).closest('tr').find('.productPrice').val(productPrice);
+			} else {
         // If no option is selected, clear the price field
-        $(this).closest('tr').find('.productPrice').val('');
-      }
-    });
-  });
-		$(document).ready(function() {
+				$(this).closest('tr').find('.productPrice').val('');
+			}
+		});
+	});
+	$(document).ready(function() {
     // When the customer name input changes
 		$('.customerName').on('input', function() {
       // Get the selected option
@@ -231,25 +237,28 @@
 			if (selectedOption.length > 0) {
 				var customerNumber = selectedOption.data('number');
 				$('.customerNumber').val(customerNumber);
+				var customerBalance = selectedOption.data('balance');
+				$('#customer_balance').val(customerBalance);
 			} else {
         // If no option is selected, clear the customer number field
 				$('.customerNumber').val('');
+				$('.customer_balance').val('');
 			}
 		});
 	});
 </script>
 
 <script>
-	var gst = $('#gst').html();
-	var st = $('#sub_total').html();
-	var total = parseInt(st) + parseInt(gst);
-	var t = $('#total').html(total);
-	function selectaccount(e){
-		var account_number = document.getElementById('account_number');	
-		var selectedOption = event.target.options[event.target.selectedIndex];
-		var dataBalance = selectedOption.getAttribute('data-balance');
-		document.getElementById('data_balance').innerHTML = dataBalance;
-	}
+	// var gst = $('#gst').html();
+	// var st = $('#sub_total').html();
+	// var total = parseInt(st) + parseInt(gst);
+	// var t = $('#total').html(total);
+	// function selectaccount(e){
+	// 	var account_number = document.getElementById('account_number');	
+	// 	var selectedOption = event.target.options[event.target.selectedIndex];
+	// 	var dataBalance = selectedOption.getAttribute('data-balance');
+	// 	document.getElementById('data_balance').innerHTML = dataBalance;
+	// }
 
 	function selectType(e) {
 		var type = document.getElementById("bill_type").value = e.target.value;

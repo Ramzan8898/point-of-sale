@@ -89,7 +89,7 @@
 									<td class="type">{{$invoice->bill_type}}</td>
 									<td class="detail">{{$invoice->total}}</td>
 									<td class="action d-flex justify-content-evenly">
-										<a href="{{url('/invoice/view')}}" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop9{{$invoice->id}}">View</a>
+										<a href="{{url('/view' , $invoice->invoice_number)}}" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop9{{$invoice->id}}">View</a>
 										<a href="{{url('/invoice/edit' , $invoice->id)}}" class="btn btn-info " data-bs-toggle="modal" data-bs-target="#staticBackdrop2{{$invoice->id}}">Edit</a>
 										<a href="{{url('/invoice/delete' , $invoice->id)}}" class="btn btn-danger ">Delete</a>
 									</td>

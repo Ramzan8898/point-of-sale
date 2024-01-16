@@ -35,6 +35,9 @@ class SaleController extends Controller{
 				$previous_invoice_no = $previous_invoice->invoice_number;
 				$new_invoice_no = $previous_invoice_no + 1;
 			}
+			// if ($request->billType === "Credit") {
+			// 	$request->
+			// }
 			$invoice = Invoice::create([
 				"invoice_number" => $new_invoice_no,
 				"customer_name" => $request->customerName,

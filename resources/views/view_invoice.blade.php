@@ -26,8 +26,8 @@
 		<div class="row1" style="display:flex;flex-direction: column;">
 			<div class="row">
 				<div class="head-btn d-flex gap-3 align-items-center">
-					<a href="{{url('/invoices')}}" class="back" style="width:fit-content;margin-left: 20px;"><i class="fas fa-arrow-left"></i></a>
-					<button class="btn btn-success print_btn" style="width:fit-content;" onclick="window.print()"><i class="fas fa-toilet-paper"></i></button>
+					<a href="{{url('/invoices')}}" class="back" style="width:fit-content;margin-left: 20px;position: fixed;"><i class="fas fa-arrow-left"></i></a>
+					<button class="btn btn-success print_btn" style="width:fit-content;position: fixed;left: 370px;" onclick="window.print()"><i class="fas fa-toilet-paper"></i></button>
 				</div>
 				<div class="shop">
 					<div class="span4 d-flex justify-content-center" style="gap: 8px;">
