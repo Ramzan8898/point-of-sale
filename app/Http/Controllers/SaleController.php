@@ -35,9 +35,15 @@ class SaleController extends Controller{
 				$previous_invoice_no = $previous_invoice->invoice_number;
 				$new_invoice_no = $previous_invoice_no + 1;
 			}
-			// if ($request->billType === "Credit") {
-			// 	$request->
-			// }
+			if ($request->billType === "Credit") {
+				$prev_amount =$request->account_balance;
+				$new_amount = $request->total_amount;
+				$prev_amount += $new_amount;
+				$account = Account::where("name" , $request->customerName)->first();
+				$account->update([
+					"balance" => $prev_amount
+				]);
+			}
 			$invoice = Invoice::create([
 				"invoice_number" => $new_invoice_no,
 				"customer_name" => $request->customerName,
