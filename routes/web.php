@@ -38,11 +38,13 @@ Route::get('/accounts' , [App\Http\Controllers\AccountsController::class , 'inde
 Route::post('/accounts/create' , [App\Http\Controllers\AccountsController::class , 'create']);
 Route::post('/accounts/edit/{id}' , [App\Http\Controllers\AccountsController::class , 'update']);
 Route::get('/accounts/delete/{id}' , [App\Http\Controllers\AccountsController::class , 'delete']);
-Route::post('/accounts/add_balance/{id}' , [App\Http\Controllers\AccountsController::class , 'add_balance']);
 
 // Transaction
+Route::get('/transactions' , [App\Http\Controllers\TransactionController::class , 'transactions']);
 Route::get('/transactions/{id}' , [App\Http\Controllers\TransactionController::class , 'index']);
-Route::post('/transactions/create/{id}' , [App\Http\Controllers\AccountsController::class , 'add_balance']);
+Route::post('/transaction/add_transaction/{id}' , [App\Http\Controllers\TransactionController::class , 'add_transaction']);
+Route::post('/transaction/update/{id}' , [App\Http\Controllers\TransactionController::class , 'update_transaction']);
+Route::get('/transaction/delete/{id}' , [App\Http\Controllers\TransactionController::class , 'delete']);
 
 // Sale
 Route::get('/invoices' , [App\Http\Controllers\SaleController::class , 'index'])->name('invoices');

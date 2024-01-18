@@ -36,7 +36,7 @@
 										<td class="action">
 											<a href="{{url('/accounts/edit' , $account->id)}}" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop2{{$account->id}}">Edit</a>
 											<a href="{{url('/accounts/delete' , $account->id)}}" class="btn btn-danger">Delete</a>
-											<a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$account->id}}">Add Balance</a>
+											<a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$account->id}}">Add Transaction</a>
 											<a href="{{url('/transactions' , $account->id)}}" class="btn btn-danger">Transactions</a>
 										</td>
 									</tr> 	
@@ -130,11 +130,11 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel1">Add Balance</h5>
+					<h5 class="modal-title" id="staticBackdropLabel1">Add Transaction</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-										<form action="{{url('/accounts/add_balance' , $account->id)}}" method="POST">
+					<form action="{{url('/transaction/add_transaction' , $account->id)}}" method="POST">
 						@csrf
 						<div class="form-group">
 							<label>Amount Type</label>
@@ -153,8 +153,8 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">Understood</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-success">Submit</button>
 					</div>
 
 				</form>

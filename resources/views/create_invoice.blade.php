@@ -44,13 +44,13 @@
 			<div class="col-md-4">
 				<div class="form-group">
 					<label>Customer Number</label>
-					<input type="number" name="customerNumber" class="form-control customerNumber">
+					<input type="number" name="customerNumber" class="form-control customerNumber" readonly>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
 					<label>Previous Balance</label>
-					<input name="account_balance" id="customer_balance" type="number" class="form-control" placeholder="Prev Balance" required>
+					<input name="account_balance" id="customer_balance" type="number" class="form-control" placeholder="Prev Balance" required readonly>
 				</div>
 			</div>
 			<div class="col-md-4 mt-3">
@@ -227,6 +227,7 @@
 			}
 		});
 	});
+
 	$(document).ready(function() {
     // When the customer name input changes
 		$('.customerName').on('input', function() {
@@ -248,31 +249,7 @@
 	});
 </script>
 
-<script>
-	// var gst = $('#gst').html();
-	// var st = $('#sub_total').html();
-	// var total = parseInt(st) + parseInt(gst);
-	// var t = $('#total').html(total);
-	// function selectaccount(e){
-	// 	var account_number = document.getElementById('account_number');	
-	// 	var selectedOption = event.target.options[event.target.selectedIndex];
-	// 	var dataBalance = selectedOption.getAttribute('data-balance');
-	// 	document.getElementById('data_balance').innerHTML = dataBalance;
-	// }
-
-	function selectType(e) {
-		var type = document.getElementById("bill_type").value = e.target.value;
-	}
-
-	let totalProductTotal = 0;
-	var billTotal = 0;
-
-	// removing row with delete icon from table
-	$(document).ready(function() {
-		$(document).on('click', '#remove_row', function() {
-			$(this).closest('.remove').remove();
-		});
-	});
+<!-- <script>
 
 	//Printing content  
 	var uniqueIdentifier = parseInt(localStorage.getItem('uniqueIdentifier')) || 1;
@@ -339,6 +316,6 @@
 		localStorage.setItem('uniqueIdentifier', uniqueIdentifier.toString());
 	}
 
-</script>
+</script> -->
 
 @endsection
