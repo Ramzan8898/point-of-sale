@@ -36,7 +36,7 @@
 										<td class="balance">{{$transaction->type}}</td>
 										<td class="balance">{{$transaction->amount}}</td>
 										<td class="balance">{{$transaction->detail}}</td>
-										<td class="action">
+										<td class="action" style="width:300px;">
 											<a href="{{url('/transactions/edit' , $transaction->id)}}" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop2{{$transaction->id}}">Edit</a>
 											<a href="{{url('/transaction/delete' , $transaction->id)}}" class="btn btn-danger">Delete</a>
 											<!-- <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$transaction->id}}">Add Balance</a>

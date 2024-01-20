@@ -33,7 +33,7 @@
 										<td class="name">{{$employee->name}}</td>
 										<td class="number">{{$employee->number}}</td>
 										<td class="salary">{{$employee->salary}}</td>
-										<td class="action">
+										<td class="action" style="width:300px;">
 											<a href="{{url('/employee/edit' , $employee->id)}}" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$employee->id}}">Edit</a>
 											<a href="{{url('/employee/delete' , $employee->id)}}" class="btn btn-danger">Delete</a>
 										</td>

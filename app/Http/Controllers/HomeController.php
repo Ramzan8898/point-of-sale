@@ -27,8 +27,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::all();
-        $invoices = Invoice::all();
+        $transactions = Transaction::orderBy('created_at' , 'DESC')->get();
+        $invoices = Invoice::orderBy('created_at' , 'DESC')->get();
         return view('dashboard' , compact('transactions' , 'invoices'));
     }
 

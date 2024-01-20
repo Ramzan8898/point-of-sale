@@ -9,7 +9,7 @@ use App\Models\Transaction;
 class AccountsController extends Controller
 {
 	public function index() {
-		$accounts = Account::all();
+		$accounts = Account::orderBy('created_at' , 'DESC')->get();
 		return view('accounts' , compact('accounts'));
 	}
 

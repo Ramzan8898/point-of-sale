@@ -7,7 +7,7 @@ use App\Models\Product;
 class ProductController extends Controller
 {
     public function index(){
-    	$products = Product::all();
+    	$products = Product::orderBy('created_at' , 'DESC')->get();
     	return view('product' , compact('products'));
     }
 

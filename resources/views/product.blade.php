@@ -1,15 +1,15 @@
 @extends('index')
 @section('content')
-<div class="container p-5" >
+<div class="container p-5">
 	<div class="row">
 		<div class="col-4">
-			<form method="POST" action="{{url('/add_new_product/create')}}" style="box-shadow: 2px 2px 5px 1px #fccccc;padding: 30px;">
+			<form method="POST" action="{{url('/add_new_product/create')}}" style="padding: 30px;">
 				@csrf
 				<div class="form-group">
 					<label for="product_name">Product Name:</label>
 					<input type="text" name="product_name" class="form-control" required>
 				</div>
-				<div class="form-group">
+				<div class="form-group mt-2 mb-2">
 					<label for="product_price">Product Price:</label>
 					<input type="number" name="product_price"class="form-control" required>
 				</div>

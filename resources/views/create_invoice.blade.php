@@ -63,7 +63,7 @@
 					</datalist>
 				</div>
 			</div>
-			<div class="col-md-12">
+			<div class="col-md-12 mt-5">
 				
 				<table class="table table-bordered table-hover" id="tab_logic">
 					<thead>

@@ -33,7 +33,7 @@
 										<td class="name">{{$account->name}}</td>
 										<td class="number">{{$account->number}}</td>
 										<td class="balance">{{$account->balance}}</td>
-										<td class="action">
+										<td class="action" style="width: 350px;">
 											<a href="{{url('/accounts/edit' , $account->id)}}" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop2{{$account->id}}">Edit</a>
 											<a href="{{url('/accounts/delete' , $account->id)}}" class="btn btn-danger">Delete</a>
 											<a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$account->id}}">Add Transaction</a>

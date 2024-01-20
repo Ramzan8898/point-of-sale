@@ -14,10 +14,8 @@
 							<thead>
 								<tr>
 									<th class="serial">#</th>
-									{{-- <th>account_id</th> --}}
-									<th>{{trans('message.Name')}}</th>
-									{{-- <th>Number</th> --}}
-									<th>{{trans('message.Type')}}</th>
+									<th>Name</th>
+									<th>Type</th>
 									<th>Amount</th>
 									<th>Date</th>
 									<th>Detail</th>
@@ -38,7 +36,7 @@
 									<td class="type">{{$transaction->type}}</td>
 									<td class="amount">{{$transaction->amount}}</td>
 									<td class="date">{{$transaction->created_at->format('Y-m-d')}}</td>
-									<td class="detail" width="300px">{{$transaction->detail}}</td>
+									<td class="detail" width="150px">{{$transaction->detail}}</td>
 
 									{{-- 										<td class="action">
 										<a href="{{url('/transactions/edit' , $transaction->id)}}" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop2{{$transaction->id}}">Edit</a>
@@ -88,7 +86,7 @@
 									<td class="number">{{$invoice->customer_name}}</td>
 									<td class="type">{{$invoice->bill_type}}</td>
 									<td class="detail">{{$invoice->total}}</td>
-									<td class="action d-flex justify-content-evenly">
+									<td class="action" style="width:200px;">
 										<a href="{{url('/view' , $invoice->invoice_number)}}" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop9{{$invoice->id}}">View</a>
 										<a href="{{url('/invoice/edit' , $invoice->id)}}" class="btn btn-info " data-bs-toggle="modal" data-bs-target="#staticBackdrop2{{$invoice->id}}">Edit</a>
 										<a href="{{url('/invoice/delete' , $invoice->id)}}" class="btn btn-danger ">Delete</a>
