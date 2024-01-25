@@ -10,9 +10,7 @@
 
 body{
   font-family: "Jameel Noori Nastaleeq";
-
 }
-
 
 .navbar-brand{
   display: flex;
@@ -56,7 +54,7 @@ nav .container1 a {
 }
 
 nav .container1 a .icon{
- margin-right: 10px; 
+ margin-left:10px; 
 }
 
 .nav-link:hover{
