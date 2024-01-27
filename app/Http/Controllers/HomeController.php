@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App;
 use Illuminate\Http\Request;
+use App\charts\LaravelChart;
 use App\Models\Transaction;
 use App\Models\Invoice;
 use Illuminate\Support\Facades\Auth;
@@ -25,11 +26,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
     public function index()
     {
-        $transactions = Transaction::orderBy('created_at' , 'DESC')->get();
-        $invoices = Invoice::orderBy('created_at' , 'DESC')->get();
-        return view('dashboard' , compact('transactions' , 'invoices'));
+        return view('dashboard');
     }
 
     public function getRecords(Request $request)

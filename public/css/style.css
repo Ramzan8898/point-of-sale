@@ -2,6 +2,7 @@
   --yellow: #FF8700;
   --blue: #23138D;
   --white: #FFFFFF;
+  --red: #e63946;
 }
 @font_face{
   font-family:Jameel Noori Nastaleeq;
@@ -11,7 +12,14 @@
 body{
   font-family: "Jameel Noori Nastaleeq";
 }
-
+input{
+  text-align: right;
+  margin-bottom: 10px;
+}
+.form-group {
+  text-align: right;
+  font-size: 24px;
+}
 .navbar-brand{
   display: flex;
   justify-content: center;
@@ -31,9 +39,33 @@ body{
   padding: 5px;
 }
 
-table tbody tr td,table tbody tr td .btn {
-	font-size: 12px;
+table tbody tr td .btn-edit {
+  font-size: 14px;
+  color: var(--white);
+  background-color: var(--yellow);
+  text-decoration: none;
+  padding: 2px 15px;
+  border-radius: 100px;
+  margin-left: 10px;
 }
+table tbody tr td .btn-edit:hover{
+  background-color: var(--blue);
+
+}
+
+table tbody tr td .btn-delete {
+  font-size: 14px;
+  color: var(--white);
+  background-color: var(--blue);
+  text-decoration: none;
+  padding: 2px 15px;
+  border-radius: 100px;
+}
+
+table tbody tr td .btn-delete:hover{
+  background-color: var(--yellow);
+}
+
 table thead tr th{
 	font-size: 14px;
 }
