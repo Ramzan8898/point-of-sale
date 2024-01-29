@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App;
 use Illuminate\Http\Request;
-use App\charts\LaravelChart;
 use App\Models\Transaction;
 use App\Models\Invoice;
 use Illuminate\Support\Facades\Auth;

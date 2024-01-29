@@ -8,7 +8,7 @@
 					<div class="card">
 						<div class="card-header d-flex justify-content-between ">
 							<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">ملازم شامل کریں  </button>
-							<strong class="card-title text-dark h3">ملازم </strong>
+							<strong class="card-title text-dark h3">ملازمین</strong>
 						</div>
 						<div class="table-stats order-table ov-h">
 							<table class="table table-stripe">
@@ -30,8 +30,8 @@
 									@foreach($employees as $employee)
 									<tr>
 										<td class="action" style="width:200px;">
-											<a href="{{url('/employee/edit' , $employee->id)}}" class="btn-edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$employee->id}}">  تبدیلی  </a>
-											<a href="{{url('/employee/delete' , $employee->id)}}" class="btn-delete">ختم </a>
+											<a href="{{url('/employee/edit' , $employee->id)}}" class="btn-orange" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$employee->id}}">  تبدیلی  </a>
+											<a href="{{url('/employee/delete' , $employee->id)}}" class="btn-blue">ختم </a>
 										</td>
 										<td class="salary">{{$employee->salary}}</td>
 										<td class="number">{{$employee->number}}</td>

@@ -7,38 +7,39 @@
 				<div class="col-12">
 					<div class="card">
 						<div class="card-header d-flex justify-content-between">
-							<strong class="card-title text-dark">Accounts</strong>
-							<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add Account</button>
+							<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> اکاؤنٹ شامل کریں  </button>
+							<strong class="card-title text-dark">اکاؤنٹس</strong>
 						</div>
 						<div class="table-stats order-table ov-h">
 							<table class="table ">
 								<thead>
 									<tr>
+										<th>عمل</th>
+										<th>بقیہ  </th>
+										<th>فون نمبر  </th>
+										<th>نام  </th>
 										<th class="serial">#</th>
-										<th>Name</th>
-										<th>Phone</th>
-										<th>Balance</th>
-										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
 									@if(count($accounts) === 0)
 									<tr>
-										<td colspan="5"><h6 class="p-3 text-center " style="opacity: 0.5">No Accounts...</h6></td>
+										<td colspan="5"><h6 class="p-3 text-center " style="opacity: 0.5">کوئی اکاؤنٹس نہیں۔ ...</h6></td>
 									</tr>
 									@else
 									@foreach($accounts as $account)
 									<tr>
-										<td class="id">{{$account->id}}</td>
-										<td class="name">{{$account->name}}</td>
-										<td class="number">{{$account->number}}</td>
-										<td class="balance">{{$account->balance}}</td>
 										<td class="action" style="width: 350px;">
-											<a href="{{url('/accounts/edit' , $account->id)}}" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop2{{$account->id}}">Edit</a>
-											<a href="{{url('/accounts/delete' , $account->id)}}" class="btn btn-danger">Delete</a>
-											<a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$account->id}}">Add Transaction</a>
-											<a href="{{url('/transactions' , $account->id)}}" class="btn btn-danger">Transactions</a>
+											<a href="{{url('/accounts/edit' , $account->id)}}" class=" btn-orange" data-bs-toggle="modal" data-bs-target="#staticBackdrop2{{$account->id}}">تبدیلی</a>
+											<a href="#" class="btn-yellow" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$account->id}}">ٹرانزیکشن شامل کریں  </a>
+											<a href="{{url('/transactions' , $account->id)}}" class="btn-red">ٹرانزیکشن  </a>
+											<a href="{{url('/accounts/delete' , $account->id)}}" class="btn-blue">ختم</a>
 										</td>
+										<td class="balance">{{$account->balance}}</td>
+										<td class="number">{{$account->number}}</td>
+										<td class="name">{{$account->name}}</td>
+										<td class="id">{{$account->id}}</td>
+
 									</tr> 	
 								</tbody>
 								@endforeach

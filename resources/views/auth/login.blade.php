@@ -11,7 +11,7 @@
                 {{-- <label for="email" class="col-md-2 col-form-label text-md-end">{{ __('Email') }}</label> --}}
 
                 <div class="col-md-12 mb-3">
-                    <input id="email" placeholder="E-mail" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                    <input id="email" placeholder="ای میل  " type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                     @error('email')
                     <span class="invalid-feedback" role="alert">
@@ -21,7 +21,7 @@
                 </div>
                 {{-- <label for="password" class="col-md-2 col-form-label text-md-end">{{ __('Password') }}</label> --}}
                 <div class="col-md-12">
-                    <input id="password" placeholder="Password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                    <input id="password" placeholder="پاس ورڈ  " type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                     @error('password')
                     <span class="invalid-feedback" role="alert">
@@ -52,10 +52,10 @@
             <div class="row mb-0">
                 <div class="col-12">
                     <button type="submit" class="btn btn-login">
-                        {{ __('Login') }}
+                        {{ __('لاگ ان کریں') }}
                     </button>
                     @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class=" text-sm btn btn-reg">Register</a>
+                    <a href="{{ route('register') }}" class=" text-sm btn btn-reg">رجسٹر کریں  </a>
                     @endif
 
                     {{--                                 @if (Route::has('password.request'))
