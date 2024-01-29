@@ -8,10 +8,10 @@
         <form method="POST" action="{{ route('login') }}" >
             @csrf
             <div class="row">
-                {{-- <label for="email" class="col-md-2 col-form-label text-md-end">{{ __('Email') }}</label> --}}
+                 <label for="email" class="col-md-2 col-form-label text-md-end">{{ __('messages.email') }}</label> 
 
                 <div class="col-md-12 mb-3">
-                    <input id="email" placeholder="ای میل  " type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                    <input id="email" placeholder="{{__('messages.email')}}" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                     @error('email')
                     <span class="invalid-feedback" role="alert">
