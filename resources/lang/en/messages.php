@@ -40,7 +40,7 @@ return [
 	"products" => "Products",
 	"thank_you" => "Thank You !",
 	"product_name" => "Product Name",
-	"product_price" => "Product Price"
+	"product_price" => "Product Price",
 	"customer_name" => "Customer Name",
 	"customer_number" => "Customer Number",
 	"previous_balance" => "Previous Balance",
