@@ -45,6 +45,64 @@ input{
   padding: 5px;
 }
 
+.btn-blue {
+  font-size: var(--button-fs);
+  color: var(--white);
+  background-color: var(--blue);
+  text-decoration: none;
+  padding: var(--button-tbp) var(--button-lrp);
+  border-radius: var(--button-br);
+}
+
+.btn-blue:hover{
+  background-color: var(--yellow);
+}
+
+.btn-orange:hover{
+    background-color: var(--blue);
+}
+
+.btn-red:hover{
+  background-color: var(--black);
+}
+
+.btn-yellow:hover{
+  background-color: var(--yellow);
+}
+
+
+.btn-orange {
+  font-size: var(--button-fs);
+  color: var(--white);
+  background-color: var(--yellow);
+  text-decoration: none;
+  padding: var(--button-tbp) var(--button-lrp);
+  border-radius: var(--button-br);
+  margin-left: 5px;
+  border: none;
+}
+
+.btn-red {
+  font-size: var(--button-fs);
+  color: var(--white);
+  background-color: var(--red);
+  text-decoration: none;
+  padding: var(--button-tbp) var(--button-lrp);
+  border-radius: var(--button-br);
+  margin-left: 5px;
+}
+
+.btn-yellow {
+  font-size: var(--button-fs);
+  color: var(--black);
+  background-color: #ffc107;
+  text-decoration: none;
+  padding: var(--button-tbp) var(--button-lrp);
+  border-radius: var(--button-br);
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 table tbody tr td .btn-orange {
   font-size: var(--button-fs);
   color: var(--white);
@@ -167,5 +225,5 @@ nav {
   background-repeat: no-repeat;
 }
 .container{
-  background-color: #dfdfdf;
+  background-color: #dfdfdf;  
 }

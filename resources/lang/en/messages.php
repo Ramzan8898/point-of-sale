@@ -50,4 +50,5 @@ return [
 	"tax" => "Tax",
 	"amount" => "Amount",
 	"tax_amount" => "Tax Amount",
+	"confirm_password" => "Confirm Password"
 ];

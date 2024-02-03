@@ -40,7 +40,7 @@ return [
 	"products" => "پراڈکٹز ",
 	"thank_you" => "!شکریہ  ",
 	"product_name" => "پروڈکٹ کا نام  ",
-	"product_price" => "پروڈکٹ کی  قیمت  "
+	"product_price" => "پروڈکٹ کی  قیمت  ",
 	"customer_name" => "کسٹمر کا نام  ",
 	"customer_number" => "کسٹمر کا نمبر",
 	"previous_balance" => "پچھلا بیلنس  ",
@@ -49,5 +49,6 @@ return [
 	"credit" => "ادھار ",
 	"tax" => "ٹیکس  ",
 	"amount" => "رقم  ",
-	"tax_amount" => "ٹیکس  کی  رقم"
+	"tax_amount" => "ٹیکس  کی  رقم",
+	"confirm_password" => "پاس ورڈ دوبارہ لکھیے  "
 ];
