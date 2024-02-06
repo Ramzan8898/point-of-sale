@@ -219,11 +219,6 @@ nav {
 .login{
   height: 100vh;
 }
-.login .bg-login{
-  background-image: url("../abstract.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-}
 .container{
   background-color: #dfdfdf;  
 }

@@ -1,16 +1,51 @@
 @extends('layouts.app')
 @section('content')
-<div class="row login">
-    <div class="col-md-12 d-flex flex-column justify-content-center align-items-center bg-login">
+
+<style type="text/css">
+    body {
+      background:black url('public/stars.jpg');
+      animation: stars 205s linear alternate;
+  }
+  #box {
+    background:url('public/earth-2.jpg');
+    filter: brightness(100%);
+    background-size:cover;
+    repeat: no-repeat;
+    border-radius:50%;
+    width:400px;
+    height:400px;
+    animation: movimiento 20s linear 0s infinite;
+    box-shadow:0 0 25px rgba(99, 74, 74, 0.1),
+    -8px -8px 15px #000 inset,
+    2px 2px 25px #000 inset,
+    -45px -45px 25px RGBA(0,0,0, 0.5) inset, 
+    25px 25px 45px RGBA(0,0,0, 0.45) inset;
+    margin:6em auto;
+    transform:rotateX(6deg) rotateY(6deg) rotateZ(6deg);
+}
+
+@keyframes movimiento {
+  0% { background-position:0 0 }
+  100% { background-position:355px 0 }
+}
+
+@keyframes stars {
+  0% { background-position:0 0 }
+  100% { background-position:0 100% }
+}
+</style>
+
+<div class="row ">
+    <div class="col-md-6 d-flex flex-column justify-content-center align-items-center bg-login">
         <a class="navbar-brand mb-5" href="{{ url('/') }}">
-            <img src="{{asset('geo-logo1.png')}}">
+            <img src="{{asset('transparent-logo.png')}}">
         </a>
         <form method="POST" action="{{ route('login') }}" >
             @csrf
             <div class="row">
-               <!-- <label for="email" class="col-md-2 col-form-label text-md-end">{{ __('messages.email') }}</label>  -->
+             <!-- <label for="email" class="col-md-2 col-form-label text-md-end">{{ __('messages.email') }}</label>  -->
 
-               <div class="col-md-12 mb-3">
+             <div class="col-md-12 mb-3">
                 <input id="email" placeholder="{{__('messages.email')}}" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                 @error('email')
@@ -30,14 +65,7 @@
                 @enderror
             </div>
         </div>
-
-        <div class="row mb-3">
-
-
-
-        </div>
-
-    {{--<div class="row mb-3">
+        {{--<div class="row mb-3">
             <div class="col-md-6 offset-md-4">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -66,10 +94,11 @@
             </div>
         </div>
     </form>
-</div>
-<!--     <div class="col-md-6 d-flex justify-content-center align-items-center bg-about">
-        <h1>Hello</h1>
-    </div>    -->
+    </div>
+
+    <div class="col-md-6" id="box">
+        
+    </div>
 </div>
 
 </div>
