@@ -14,10 +14,10 @@
 							<table class="table ">
 								<thead>
 									<tr>
-										<th>عمل</th>
-										<th>بقیہ  </th>
-										<th>فون نمبر  </th>
-										<th>نام  </th>
+										<th class="h4 fw-bold">عمل</th>
+										<th class="h4 fw-bold">بقیہ  </th>
+										<th class="h4 fw-bold">فون نمبر  </th>
+										<th class="h4 fw-bold">نام  </th>
 										<th class="serial">#</th>
 									</tr>
 								</thead>

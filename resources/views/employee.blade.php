@@ -13,7 +13,7 @@
 						<div class="table-stats order-table ov-h">
 							<table class="table table-stripe">
 								<thead>
-									<tr class="fw-bold">
+									<tr>
 										<th class="h4 fw-bold">عمل  </th>
 										<th class="h4 fw-bold">تنخواہ </th>
 										<th class="h4 fw-bold">فون نمبر </th>

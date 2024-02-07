@@ -87,21 +87,24 @@
                     <label for="password-confirm" class="col-md-2 h4 text-white">{{__('messages.confirm_password')}}</label>
                 </div>
 
-                <div class="row mb-0">
-                    <div class="col-md-6 offset-md-4">
+                <div class="row mb-0 align-items-center ">
+                    <div class="col-md-1 offset-4">
                         <button type="submit" class="btn-yellow fs-4">
                             {{__('messages.register')}}
                         </button>
 
-                                    @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="btn-red">{{__('messages.login')}}</a>
-                    @endauth
-                </div>
-            @endif
+                    </div>
+                    <div class="col-md-2">
+
+                        @if (Route::has('login'))
+                        <div class="hidden sm:block">
+                            @auth
+                            <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
+                            @else
+                            <a href="{{ route('login') }}" class="btn-red fs-4">{{__('messages.login')}}</a>
+                            @endauth
+                        </div>
+                        @endif
                     </div>
                 </div>
             </form>
