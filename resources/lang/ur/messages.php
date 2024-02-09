@@ -11,7 +11,7 @@ return [
 	"register" => "رجسٹر",
 	"dashboard" => "ڈیش بورڈ  ",
 	"employee" => "ملازم ",
-	"account" => "کھاتہ  ",
+	"account" => "اکاؤنٹ  ",
 	"sale" => "سیل  ",
 	"product" => "پروڈکٹ  ",
 	"add_product" => "پروڈکٹ   شامل کریں",
@@ -50,5 +50,6 @@ return [
 	"tax" => "ٹیکس  ",
 	"amount" => "رقم  ",
 	"tax_amount" => "ٹیکس  کی  رقم",
-	"confirm_password" => "پاس ورڈ دوبارہ لکھیے  "
+	"confirm_password" => "پاس ورڈ دوبارہ لکھیے  ",
+	"create_account" => "اکاؤنٹ بنائیں  "
 ];
