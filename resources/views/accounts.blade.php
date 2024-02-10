@@ -7,7 +7,7 @@
 				<div class="col-12">
 					<div class="card">
 						<div class="card-header d-flex justify-content-between">
-							<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> اکاؤنٹ شامل کریں  </button>
+							<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> {{__('messages.create_account')}}</button>
 							<strong class="card-title text-dark">اکاؤنٹس</strong>
 						</div>
 						<div class="table-stats order-table ov-h">
