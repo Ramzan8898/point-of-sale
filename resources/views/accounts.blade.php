@@ -8,7 +8,7 @@
 					<div class="card">
 						<div class="card-header d-flex justify-content-between">
 							<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> {{__('messages.create_account')}}</button>
-							<strong class="card-title text-dark">اکاؤنٹس</strong>
+							<strong class="card-title text-dark h4">{{__('messages.accounts')}}</strong>
 						</div>
 						<div class="table-stats order-table ov-h">
 							<table class="table ">

@@ -12,6 +12,7 @@ return [
 	"dashboard" => "ڈیش بورڈ  ",
 	"employee" => "ملازم ",
 	"account" => "اکاؤنٹ  ",
+	"accounts" => "اکاؤنٹس  ",
 	"sale" => "سیل  ",
 	"product" => "پروڈکٹ  ",
 	"add_product" => "پروڈکٹ   شامل کریں",
