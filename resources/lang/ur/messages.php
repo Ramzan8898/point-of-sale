@@ -52,5 +52,12 @@ return [
 	"amount" => "رقم  ",
 	"tax_amount" => "ٹیکس  کی  رقم",
 	"confirm_password" => "پاس ورڈ دوبارہ لکھیے  ",
-	"create_account" => "اکاؤنٹ بنائیں  "
+	"create_account" => "اکاؤنٹ بنائیں  ",
+	"no_accounts" => "کوئی اکاؤنٹس نہیں  ",
+	"close" => "بند کریں  ",
+	"submit" => "جمع کرائیں  ",
+	"update" => "اپ ڈیٹ  ",
+	"amount_type" => "طریقہ ادائیگی  ",
+	"detail" => "تفصیل  ",
+	"debit" => "ڈیبٹ  "
 ];

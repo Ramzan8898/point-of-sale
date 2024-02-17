@@ -50,5 +50,14 @@ return [
 	"tax" => "Tax",
 	"amount" => "Amount",
 	"tax_amount" => "Tax Amount",
-	"confirm_password" => "Confirm Password"
+	"confirm_password" => "Confirm Password",
+	"create_account" => "Create Account",
+	"accounts" => "Accounts",
+	"no_accounts" => "No Accounts",
+	"close" => "Close",
+	"submit" => "Submit",
+	"update" => "Update",
+	"amount_type" => "Amount type",
+	"detail" => "Detail",
+	"debit" => "Debit"
 ];

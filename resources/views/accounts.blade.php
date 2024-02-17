@@ -14,26 +14,26 @@
 							<table class="table ">
 								<thead>
 									<tr>
-										<th class="h4 fw-bold">عمل</th>
-										<th class="h4 fw-bold">بقیہ  </th>
-										<th class="h4 fw-bold">فون نمبر  </th>
-										<th class="h4 fw-bold">نام  </th>
+										<th class="h4 fw-bold">{{__('messages.action')}}</th>
+										<th class="h4 fw-bold">{{__('messages.balance')}}</th>
+										<th class="h4 fw-bold">{{__('messages.phone_number')}}</th>
+										<th class="h4 fw-bold">{{__('messages.name')}}</th>
 										<th class="serial">#</th>
 									</tr>
 								</thead>
 								<tbody>
 									@if(count($accounts) === 0)
 									<tr>
-										<td colspan="5"><h6 class="p-3 text-center " style="opacity: 0.5">کوئی اکاؤنٹس نہیں۔ ...</h6></td>
+										<td colspan="5"><h6 class="p-3 text-center " style="opacity: 0.5">{{__('messages.no_accounts')}} ...</h6></td>
 									</tr>
 									@else
 									@foreach($accounts as $account)
 									<tr>
 										<td class="action" style="width: 350px;">
-											<a href="{{url('/accounts/edit' , $account->id)}}" class=" btn-orange" data-bs-toggle="modal" data-bs-target="#staticBackdrop2{{$account->id}}">تبدیلی</a>
-											<a href="#" class="btn-yellow" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$account->id}}">ٹرانزیکشن شامل کریں  </a>
-											<a href="{{url('/transactions' , $account->id)}}" class="btn-red">ٹرانزیکشن  </a>
-											<a href="{{url('/accounts/delete' , $account->id)}}" class="btn-blue">ختم</a>
+											<a href="{{url('/accounts/edit' , $account->id)}}" class=" btn-orange" data-bs-toggle="modal" data-bs-target="#staticBackdrop2{{$account->id}}">{{__('messages.edit')}}</a>
+											<a href="#" class="btn-yellow" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$account->id}}">{{__('messages.add_transaction')}} </a>
+											<a href="{{url('/transactions' , $account->id)}}" class="btn-red">{{__('messages.transactions')}}</a>
+											<a href="{{url('/accounts/delete' , $account->id)}}" class="btn-blue">{{__('messages.delete')}}</a>
 										</td>
 										<td class="balance">{{$account->balance}}</td>
 										<td class="number">{{$account->number}}</td>
@@ -57,29 +57,29 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="staticBackdropLabel">Create Account</h1>
+					<h1 class="modal-title fs-5" id="staticBackdropLabel">{{__('messages.create_account')}}</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<form method="POST" action="{{url('/accounts/create')}}">
 						@csrf
 						<div class="form-group">
-							<label>Name</label>
+							<label>{{__('messages.name')}}</label>
 							<input type="text" name="name" class="form-control">
 						</div>
 						<div class="form-group">
-							<label>Phone</label>
+							<label>{{__('messages.phone_number')}}</label>
 							<input type="text" name="number" class="form-control">
 						</div>
 						<div class="form-group">
-							<label>Balance</label>
+							<label>{{__('messages.balance')}}</label>
 							<input type="number" name="balance" class="form-control">
 						</div>
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">submit</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('messages.close')}}</button>
+						<button type="submit" class="btn btn-primary">{{__('messages.submit')}}</button>
 					</div>
 				</form>
 			</div>
@@ -93,28 +93,28 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel2">Edit account</h5>
+					<h5 class="modal-title" id="staticBackdropLabel2">{{__('messages.edit')}}</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<form method="POST" action="{{url('/accounts/edit' , $account->id)}}">
 						@csrf
 						<div class="form-group">
-							<label>Name</label>
+							<label>{{__('messages.name')}}</label>
 							<input type="text" name="name" class="form-control" value="{{$account->name}}">
 						</div>
 						<div class="form-group">
-							<label>Phone</label>
+							<label>{{__('messages.phone_number')}}</label>
 							<input type="text" name="number" class="form-control" value="{{$account->number}}">
 						</div>
 						<div class="form-group">
-							<label>Balance</label>
+							<label>{{__('messages.balance')}}</label>
 							<input type="number" name="balance" class="form-control" value="{{$account->balance}}">
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						<input type="submit" class="btn btn-primary" value="Update">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('messages.close')}}</button>
+						<input type="submit" class="btn btn-primary" value="{{__('messages.update')}}">
 					</div>
 				</form>
 
@@ -131,31 +131,31 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel1">Add Transaction</h5>
+					<h5 class="modal-title" id="staticBackdropLabel1">{{__('messages.add_transaction')}}</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<form action="{{url('/transaction/add_transaction' , $account->id)}}" method="POST">
 						@csrf
 						<div class="form-group">
-							<label>Amount Type</label>
+							<label>{{__('messages.amount_type')}} </label>
 							<select name="type" class="form-control">
-								<option>Credit</option>
-								<option>Debit</option>
+								<option>{{__('messages.credit')}}</option>
+								<option>{{__('messages.debit')}}</option>
 							</select>
 						</div>
 						<div class="form-group">
-							<label>Amount</label>
+							<label>{{__('messages.amount')}}</label>
 							<input type="number" name="amount" class="form-control">
 						</div>
 						<div class="form-group">
-							<label>Detail</label>
+							<label>{{__('messages.detail')}}</label>
 							<textarea name="detail" class="form-control"></textarea>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-						<button type="submit" class="btn btn-success">Submit</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('messages.cancel')}}</button>
+						<button type="submit" class="btn btn-success">{{__('messages.submit')}}</button>
 					</div>
 
 				</form>
