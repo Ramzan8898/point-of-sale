@@ -60,5 +60,6 @@ return [
 	"amount_type" => "Amount type",
 	"detail" => "Detail",
 	"debit" => "Debit",
-	"no_employees" => "No Employees"
+	"no_employees" => "No Employees",
+	"no_invoices" => "No Invoices"
 ];

@@ -4,7 +4,7 @@ return [
 	"transactions" => "ٹرانزیکشن",
 	"add_transaction" => "ٹرانزیکشن شامل کریں  ",
 	"invoices" => "رسیدیں  ",
-	"create_invoice" => "انوائس بنائیں  ",
+	"create_invoice" => "انوائس بنائیں ",
 	"email" => "ای میل  ",
 	"password" => "پاس ورڈ  ",
 	"login" => "لاگ ان  ",
@@ -60,5 +60,7 @@ return [
 	"amount_type" => "طریقہ ادائیگی  ",
 	"detail" => "تفصیل  ",
 	"debit" => "ڈیبٹ  ",
-	"no_employees" => "کوئی ملازم نہیں  "
+	"no_employees" => "کوئی ملازم نہیں  ",
+	"no_invoices" => "کوئی رسید نہیں  ",
+	"edit_invoice" => "انوائس تبدیلی  "
 ];
