@@ -59,5 +59,6 @@ return [
 	"update" => "اپ ڈیٹ  ",
 	"amount_type" => "طریقہ ادائیگی  ",
 	"detail" => "تفصیل  ",
-	"debit" => "ڈیبٹ  "
+	"debit" => "ڈیبٹ  ",
+	"no_employees" => "کوئی ملازم نہیں  "
 ];

@@ -59,5 +59,6 @@ return [
 	"update" => "Update",
 	"amount_type" => "Amount type",
 	"detail" => "Detail",
-	"debit" => "Debit"
+	"debit" => "Debit",
+	"no_employees" => "No Employees"
 ];
