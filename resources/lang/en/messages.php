@@ -61,5 +61,9 @@ return [
 	"detail" => "Detail",
 	"debit" => "Debit",
 	"no_employees" => "No Employees",
-	"no_invoices" => "No Invoices"
+	"no_invoices" => "No Invoices",
+	"select_customer" => "Select Customer",
+	"select_product" => "Select Product",
+	"add_row" => "Add Row",
+	"delete_row" => "Delete Row"
 ];

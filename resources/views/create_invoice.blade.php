@@ -30,10 +30,33 @@
 	<form action="{{url('/create' , $new_invoice_no)}}" method="POST">
 		@csrf
 		<div class="row clearfix">
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<div class="form-group">
-					<label>Customer Name</label>
-					<input name="customerName" type="text" list="customer_list" class="form-control customerName" placeholder="Select Customer" required>
+					<label>{{__('messages.bill_type')}}</label>
+					<input name="billType" type="text" list="bill_type_list" class="form-control billType" required>
+					<datalist id="bill_type_list">
+						<option value="Cash">{{__('messages.cash')}}</option>
+						<option value="Credit">{{__('messages.credit')}}</option>
+					</datalist>
+				</div>
+			</div>
+
+			<div class="col-md-3">
+				<div class="form-group">
+					<label>{{__('messages.previous_balance')}}</label>
+					<input name="account_balance" id="customer_balance" type="number" class="form-control" required readonly>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<label>{{__('messages.customer_number')}}</label>
+					<input type="number" name="customerNumber" class="form-control customerNumber" readonly>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<label>{{__('messages.customer_name')}}</label>
+					<input name="customerName" type="text" list="customer_list" class="form-control customerName" required>
 					<datalist id="customer_list">
 						@foreach($accounts as $account)
 						<option value="{{$account->name}}" data-number="{{$account->number}}" data-balance="{{$account->balance}}">{{$account->name}}</option>
@@ -41,54 +64,36 @@
 					</datalist>
 				</div>
 			</div>
-			<div class="col-md-4">
-				<div class="form-group">
-					<label>Customer Number</label>
-					<input type="number" name="customerNumber" class="form-control customerNumber" readonly>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="form-group">
-					<label>Previous Balance</label>
-					<input name="account_balance" id="customer_balance" type="number" class="form-control" placeholder="Prev Balance" required readonly>
-				</div>
-			</div>
-			<div class="col-md-4 mt-3">
-				<div class="form-group">
-					<label>Bill type</label>
-					<input name="billType" type="text" list="bill_type_list" class="form-control billType" placeholder="Bill type" required>
-					<datalist id="bill_type_list">
-						<option value="Cash">Cash</option>
-						<option value="Credit">Credit</option>
-					</datalist>
-				</div>
-			</div>
+
+
 			<div class="col-md-12 mt-5">
 				
 				<table class="table table-bordered table-hover" id="tab_logic">
 					<thead>
 						<tr>
-							<th class="text-center"> # </th>
-							<th class="text-center"> Product </th>
-							<th class="text-center"> Price </th>
-							<th class="text-center"> Qty </th>
-							<th class="text-center"> Total </th>
+							<th class="text-center h4 fw-bold"> {{__('messages.total')}} </th>
+							<th class="text-center h4 fw-bold"> {{__('messages.quantity')}} </th>
+							<th class="text-center h4 fw-bold"> {{__('messages.price')}} </th>
+							<th class="text-center h4 fw-bold"> {{__('messages.product')}} </th>
+							<th class="text-center h4 fw-bold"> # </th>
 						</tr>
 					</thead>
 					<tbody id="productTable">
 						<tr id='addr0'>
-							<td>1</td>
+							<td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/></td>
+							<td><input type="number" name='qty[]' placeholder="{{__('messages.quantity')}}" class="form-control qty" step="0.00" min="0" required/></td>
+							<td><input type="number" name='price[]' placeholder="{{__('messages.price')}}" class="form-control price productPrice" step="0" min="0"/></td>
 							<td>
-								<input name="product[]" type="text" list="products_list" class="form-control productSelect" placeholder="select product" required>
+								<input name="product[]" type="text" list="products_list" class="form-control productSelect" placeholder="{{__('messages.select_product')}}" required>
 								<datalist id="products_list">
 									@foreach($products as $product)
 									<option value="{{$product->product_name}}" data-price={{$product->product_price}} >{{$product->product_name}}</option>
 									@endforeach
 								</datalist>
 							</td>
-							<td><input type="number" name='price[]' placeholder='Enter Unit Price' class="form-control price productPrice" step="0" min="0"/></td>
-							<td><input type="number" name='qty[]' placeholder='Enter Qty' class="form-control qty" step="0.00" min="0" required/></td>
-							<td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/></td>
+							<td>1</td>
+
+
 						</tr>
 						<tr id='addr1'></tr>
 					</tbody>
@@ -98,8 +103,8 @@
 
 		<div class="row clearfix">
 			<div class="col-md-12">
-				<div id="add_row" class="btn btn-default pull-left">Add Row</div>
-				<div id='delete_row' class="pull-right btn btn-default">Delete Row</div>
+				<div id="add_row" class="btn btn-yellow pull-left">{{__('messages.add_row')}}</div>
+				<div id='delete_row' class="pull-right btn btn-orange text-white">{{__('messages.delete_row')}}</div>
 			</div>
 		</div>
 
@@ -108,22 +113,22 @@
 				<table class="table table-bordered table-hover" id="tab_logic_total">
 					<tbody>
 						<tr>
-							<th class="text-center">Sub Total</th>
+							<th class="text-center">{{__('messages.sub_total')}}</th>
 							<td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly/></td>
 						</tr>
 						<tr>
-							<th class="text-center">Tax</th>
+							<th class="text-center">{{__('messages.tax')}}</th>
 							<td class="text-center"><div class="input-group mb-2 mb-sm-0">
 								<input type="number" class="form-control" id="tax" placeholder="0">
 								<div class="input-group-addon">%</div>
 							</div></td>
 						</tr>
 						<tr>
-							<th class="text-center">Tax Amount</th>
+							<th class="text-center">{{__('messages.tax_amount')}}</th>
 							<td class="text-center"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control" readonly/></td>
 						</tr>
 						<tr>
-							<th class="text-center">Grand Total</th>
+							<th class="text-center">{{__('messages.total')}}</th>
 							<td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly/></td>
 						</tr>
 					</tbody>

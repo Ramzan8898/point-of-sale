@@ -62,5 +62,9 @@ return [
 	"debit" => "ڈیبٹ  ",
 	"no_employees" => "کوئی ملازم نہیں  ",
 	"no_invoices" => "کوئی رسید نہیں  ",
-	"edit_invoice" => "انوائس تبدیلی  "
+	"edit_invoice" => "انوائس تبدیلی  ",
+	"select_customer" => "کسٹمر منتخب کریں  ",
+	"select_product" => "پروڈکٹ کا انتخاب  ",
+	"add_row" => "قطار شامل کریں  ",
+	"delete_row" => "قطار ختم کریں "
 ];
