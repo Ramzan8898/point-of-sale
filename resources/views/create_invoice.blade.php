@@ -133,7 +133,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<input type="submit" class="btn btn-danger" value="save">
+				<input type="submit" class="btn btn-danger" value="save" onclick="printContent()">
 			</form>
 		</div>
 	</div>

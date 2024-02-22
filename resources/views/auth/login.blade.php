@@ -4,7 +4,7 @@
 <style type="text/css">
     body {
       background:black url('public/stars.jpg');
-      animation: stars 205s linear alternate;
+      animation: stars 405s linear alternate;
   }
   #box {
     background:url('public/earth-2.jpg');
@@ -14,7 +14,7 @@
     border-radius:50%;
     width:400px;
     height:400px;
-    animation: movimiento 20s linear 0s infinite;
+    animation: movimiento 60s linear 0s infinite;
     box-shadow:0 0 25px rgba(99, 74, 74, 0.1),
     -8px -8px 15px #000 inset,
     2px 2px 25px #000 inset,
