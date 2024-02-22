@@ -77,7 +77,7 @@ class TransactionController extends Controller
 
     public function delete($id) {
         Transaction::destroy($id);
-        return redirect(url('/transactions'));
+        return redirect(route('user_transactions'));
         // $employee->destroy();
     }
 }

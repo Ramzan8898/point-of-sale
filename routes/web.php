@@ -41,7 +41,7 @@ Route::get('/accounts/delete/{id}' , [App\Http\Controllers\AccountsController::c
 
 // Transaction
 Route::get('/transactions' , [App\Http\Controllers\TransactionController::class , 'transactions']);
-Route::get('/transactions/{id}' , [App\Http\Controllers\TransactionController::class , 'index']);
+Route::get('/transactions/{id}' , [App\Http\Controllers\TransactionController::class , 'index'])->name('user_transactions');
 Route::post('/transaction/add_transaction/{id}' , [App\Http\Controllers\TransactionController::class , 'add_transaction']);
 Route::post('/transaction/update/{id}' , [App\Http\Controllers\TransactionController::class , 'update_transaction']);
 Route::get('/transaction/delete/{id}' , [App\Http\Controllers\TransactionController::class , 'delete']);

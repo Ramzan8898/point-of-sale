@@ -64,6 +64,7 @@ input{
 
 .btn-red:hover{
   background-color: var(--black);
+  color: var(--white);
 }
 
 .btn-yellow:hover{
