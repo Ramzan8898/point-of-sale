@@ -6,20 +6,20 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="card">
-						<div class="card-header d-flex justify-content-between">
-							<strong class="card-title text-dark">Transactions</strong>
+						<div class="card-header d-flex justify-content-end h3">
+							<strong class="card-title text-dark ">{{__('messages.transactions')}}</strong>
 						</div>
 						<div class="table-stats order-table ov-h">
 							<table class="table ">
 								<thead>
 									<tr>
+										<th class="h4 fw-bold">{{__('messages.action')}}</th>
+										<th class="h4 fw-bold">{{__('messages.detail')}}</th>
+										<th class="h4 fw-bold">{{__('messages.amount')}}</th>
+										<th class="h4 fw-bold">{{__('messages.bill_type')}}</th>
+										<th class="h4 fw-bold">{{__('messages.phone_number')}}</th>
+										<th class="h4 fw-bold">{{__('messages.name')}}</th>
 										<th class="serial">#</th>
-										<th>Name</th>
-										<th>Number</th>
-										<th>Type</th>
-										<th>Amount</th>
-										<th>Detail</th>
-										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -30,18 +30,18 @@
 									@else
 									@foreach($transactions as $transaction)
 									<tr>
-										<td class="id">{{$transaction->id}}</td>
-										<td class="number">{{$transaction->name}}</td>
-										<td class="balance">{{$transaction->number}}</td>
-										<td class="balance">{{$transaction->type}}</td>
-										<td class="balance">{{$transaction->amount}}</td>
-										<td class="balance" style="width:300px;">{{$transaction->detail}}</td>
 										<td class="action" style="width:300px;">
 											<a href="{{url('/transactions/edit' , $transaction->id)}}" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop2{{$transaction->id}}">Edit</a>
 											<a href="{{url('/transaction/delete' , $transaction->id)}}" class="btn btn-danger">Delete</a>
 											<!-- <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$transaction->id}}">Add Balance</a>
 												<a href="{{url('/transactions' , $transaction->id)}}" class="btn btn-danger">Transactions</a> -->
 											</td>
+											<td class="balance" style="width:300px;">{{$transaction->detail}}</td>
+											<td class="balance">{{$transaction->amount}}</td>
+											<td class="balance">{{$transaction->type}}</td>
+											<td class="balance">{{$transaction->number}}</td>
+											<td class="number">{{$transaction->name}}</td>
+											<td class="id">{{$transaction->id}}</td>
 										</tr> 	
 										@endforeach
 										@endif

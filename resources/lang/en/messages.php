@@ -65,5 +65,6 @@ return [
 	"select_customer" => "Select Customer",
 	"select_product" => "Select Product",
 	"add_row" => "Add Row",
-	"delete_row" => "Delete Row"
+	"delete_row" => "Delete Row",
+	"no_transaction" => "No Transactions"
 ];

@@ -67,5 +67,6 @@ return [
 	"select_customer" => "کسٹمر منتخب کریں  ",
 	"select_product" => "پروڈکٹ کا انتخاب  ",
 	"add_row" => "قطار شامل کریں  ",
-	"delete_row" => "قطار ختم کریں "
+	"delete_row" => "قطار ختم کریں ",
+	"no_transaction" => "کوئی لین دین نہیں  "
 ];
