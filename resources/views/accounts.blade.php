@@ -1,10 +1,12 @@
 @extends('index')
 @section('content')
-<div class="container p-4">
+<div class="container p-5">
 	<div class="content">
 		<div class="animated fadeIn">
 			<div class="row">
+				
 				<div class="col-12">
+
 					<div class="card">
 						<div class="card-header d-flex justify-content-between">
 							<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> {{__('messages.create_account')}}</button>

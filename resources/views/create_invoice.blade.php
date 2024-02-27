@@ -27,6 +27,7 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="container">
+	
 	<form action="{{url('/create' , $new_invoice_no)}}" method="POST">
 		@csrf
 		<div class="row clearfix">

@@ -21,7 +21,7 @@ class TransactionController extends Controller
         $account = Account::find($id);
         $account_balance = $account->balance;
         $amount = $request->amount;
-        if ($request->type === "Credit") {
+        if ($request->type === "ادھار" || $request->type === "Credit"  ) {
             $total_balance = (int)$account_balance + (int)$amount;
             $data = [
                 'balance' => $total_balance
@@ -39,7 +39,7 @@ class TransactionController extends Controller
             $transaction->create($data1);
         }
 
-        if ($request->type === "Debit") {
+        if ($request->type === "Debit"  || $request->type === "ڈیبٹ" ) {
             $transaction = new Transaction;
 
             $total_balance = (int)$account_balance - (int)$amount;
