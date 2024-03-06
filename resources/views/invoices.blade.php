@@ -39,7 +39,7 @@
 										</td>
 										<td>{{$invoice->total}}</td>
 										<td>{{$invoice->sub_total}}</td>
-										<td>{{$invoice->created_at}}</td>
+										<td>{{$invoice->created_at->format('Y-m-d')}}</td>
 										<td>{{$invoice->bill_type}}</td>
 										<td>{{$invoice->customer_name}}</td>
 										<td>{{$invoice->invoice_number}}</td>

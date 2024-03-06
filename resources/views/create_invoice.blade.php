@@ -10,6 +10,9 @@
 		#remove_row{
 			display: none;
 		}
+		nav {
+			display: none;
+		}
 	}
 	@media screen {
 		#logo{
@@ -18,13 +21,12 @@
 		#remove_row{
 			display: block;
 		}
+
+		.invoice_view {
+			display: none;
+		}
 	}
 </style>
-
-<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
-<!------ Include the above in your HEAD tag ---------->
 
 <div class="container">
 	
@@ -93,8 +95,6 @@
 								</datalist>
 							</td>
 							<td>1</td>
-
-
 						</tr>
 						<tr id='addr1'></tr>
 					</tbody>
@@ -121,7 +121,7 @@
 							<th class="text-center">{{__('messages.tax')}}</th>
 							<td class="text-center"><div class="input-group mb-2 mb-sm-0">
 								<input type="number" class="form-control" id="tax" placeholder="0">
-								<div class="input-group-addon">%</div>
+								<!-- <div class="input-group-addon">%</div> -->
 							</div></td>
 						</tr>
 						<tr>
@@ -134,7 +134,8 @@
 						</tr>
 					</tbody>
 				</table>
-				<input type="submit" class="btn btn-danger" value="save" onclick="printContent()">
+				<input type="submit" class="btn btn-danger" value="save">
+				<input type="button" name="print" value="Print" onclick="window.print()">
 			</form>
 		</div>
 	</div>
@@ -158,7 +159,7 @@
 			newRow.attr("id", 'addr' + newIndex);
 
         // Update the row number in the first cell
-			newRow.find('td:first-child').html(newIndex);
+			newRow.find('td:last-child').html(newIndex);
 
         // Append the new row to the table
 			$("#tab_logic tbody").append(newRow);
@@ -209,14 +210,6 @@
 		$('#total_amount').val((tax_sum+total).toFixed(2));
 	}
 
-	// $(document).on('change', '.productSelect', function () {
-	// 	var selectedOption = $(this).find(':selected');
-	// 	var selectedPrice = selectedOption.data('price');
-	// 	var row = $(this).closest('tr');
-	// 	row.find('.productPrice').val(selectedPrice)
-	// 	calc();
-	// });
-
 	$(document).ready(function() {
     // When the product input changes within the productTable
 		$('#productTable').on('input', '.productSelect', function() {
@@ -254,74 +247,5 @@
 		});
 	});
 </script>
-
-<!-- <script>
-
-	//Printing content  
-	var uniqueIdentifier = parseInt(localStorage.getItem('uniqueIdentifier')) || 1;
-
-	function printContent(el){
-		// Get the current timestamp
-		var today = new Date();
-		var year = today.getFullYear();
-		var month = today.getMonth() + 1; // Months are zero-based, so add 1
-		var day = today.getDate();
-		
-		// printing issue date
-		var issue_date = day + "-" + month + "-" + year;
-		
-		// var prefix = "INV-";
-
-		var invoiceNumber = uniqueIdentifier;
-		var customer = $('#account_name option:selected').text();
-		var customer_number = $('#account_name option:selected').val();
-		var billType = $('#bill_type option:selected').text(); 
-		var restorepage = $('body').html();
-		var printcontent = $('#' + el).clone();
-
-		var sub_total = $('#sub_total').html();
-		var total = $('#total').html();
-
-		//bill printing date
-		printcontent.find('#issue_date').text("Issue Date: " + issue_date);
-		printcontent.find('#invoice').text("invoice#: " + invoiceNumber);
-
-		// hiding icon on print view 
-		printcontent.find('#icon-cell').css("display" , "none");
-		
-		var divContent = $('#products_table').text();
-
-		printcontent.find('#account_name_in_print').text('Customer Name: ' + customer);
-		
-		printcontent.find('#account_phone_in_print').text('Customer Number: ' + customer_number);
-		$('body').empty().html(printcontent);
-		window.print();
-		$('body').html(restorepage);
-		$.ajax({
-			type: 'post',
-			url: '{{url("/save-invoice")}}',
-			data: { 
-				"_token" : "{{ csrf_token()}}",
-				invoice:invoiceNumber,
-				customer_name:customer,
-				customer_number:customer_number,
-				bill_type:billType,
-				issued_date:issue_date,
-				sub_total:sub_total,
-				total:total
-			},
-			success: function(response) {
-				alert(response.message);
-			},
-			error: function(err) {
-				console.error(err);
-			}
-		});
-		uniqueIdentifier++;
-
-		localStorage.setItem('uniqueIdentifier', uniqueIdentifier.toString());
-	}
-
-</script> -->
 
 @endsection

@@ -31,7 +31,7 @@
 									@else
 									@foreach($accounts as $account)
 									<tr>
-										<td class="action" style="width: 350px;">
+										<td class="action" style="width: 450px;">
 											<a href="{{url('/accounts/edit' , $account->id)}}" class=" btn-orange" data-bs-toggle="modal" data-bs-target="#staticBackdrop2{{$account->id}}">{{__('messages.edit')}}</a>
 											<a href="#" class="btn-yellow" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$account->id}}">{{__('messages.add_transaction')}} </a>
 											<a href="{{url('/transactions' , $account->id)}}" class="btn-red">{{__('messages.transactions')}}</a>

@@ -16,20 +16,16 @@
 			border-bottom-width:0px !important;
 		}
 	}
-
-/*	.shop{
-		display: none;
-	}*/
 </style>
 <!-- <div class="modal-header">
 	<h1 class="modal-title fs-5" id="staticBackdropLabel">Invoice</h1>
 	<button type="button" class="btn-close" aria-label="Close"></button>
 </div> -->
-<div class="modal-body ">
+<div class="modal-body">
 	<div class="container">
 		<div class="row1" style="display:flex;flex-direction: column;">
 			<div class="row">
-				<div class="head-btn d-flex gap-3 align-items-center ">
+				<div class="head-btn d-flex gap-3 align-items-center">
 					<a href="{{url('/invoices')}}" class="back" style="width:fit-content;margin-left: 20px;position: fixed;"><i class="fas fa-arrow-left"></i></a>
 					<button class="btn btn-success print_btn" style="width:fit-content;position: fixed;left: 370px;" onclick="window.print()">Print</button>
 				</div>
@@ -49,16 +45,16 @@
 					<table class=" table-borderless">
 						<tbody>
 							<tr>
-								<td style="font-size: 24px;display:flex;justify-content: end;margin-right: 5px;">{{$invoice->customer_name}}</td>
-								<td style="font-size: 24px"><strong>: {{__('messages.customer')}}</strong></td>
+								<td style="font-size: 24px;display:flex;justify-content: end;margin-right: 15px;">{{$invoice->customer_name}}</td>
+								<td style="font-size: 24px;text-align: right;"><strong>{{__('messages.customer')}}</strong></td>
 							</tr>
 							<tr>
-								<td  style="font-size: 24px;display:flex;justify-content: end;margin-right: 5px;">{{$invoice->invoice_number}}</td>
-								<td class="pull-right" style="font-size: 24px"><strong>: #{{__('messages.invoice')}}</strong></td>
+								<td  style="font-size: 24px;display:flex;justify-content: end;margin-right: 15px;">{{$invoice->invoice_number}}</td>
+								<td class="pull-right" style="font-size: 24px;text-align:right;"><strong>{{__('messages.invoice')}}</strong></td>
 							</tr>
 							<tr>
-								<td style="font-size: 20px;display:flex;justify-content: end;margin-right: 5px;">{{$invoice->created_at}}</td>
-								<td class="pull-right" style="font-size: 24px"><strong>: {{__('messages.date')}}</strong></td>
+								<td style="font-size: 20px;display:flex;justify-content: end;margin-right: 15px;">{{$invoice->created_at->format('Y-m-d')}}</td>
+								<td class="pull-right" style="font-size: 24px;text-align:right;"><strong> {{__('messages.date')}}</strong></td>
 							</tr>
 
 						</tbody>
@@ -89,6 +85,9 @@
 							<tr>
 								<td><strong>{{$invoice->sub_total}}</strong></td>
 								<td><strong style="font-size:24px">{{__('messages.sub_total')}}</strong></td>
+
+								<td><strong>{{$invoice->balance}}</strong></td>
+								<td><strong style="font-size:24px">{{__('messages.balance')}}</strong></td>
 							</tr>
 							<tr>
 								<td><strong>{{$invoice->total}}</strong></td>

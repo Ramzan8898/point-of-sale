@@ -66,7 +66,7 @@ class SaleController extends Controller{
 				]);
 			}
 
-			return redirect()->route('invoices');
+			return redirect()->route('view-inv' , $id);
 		}
 
 		$var = Invoice::count();
@@ -94,13 +94,4 @@ class SaleController extends Controller{
 		return redirect(url('/invoices'));
 	}
 
-	// public function print_view($id) {
-	// 	$invoice = Invoice::with('invoice_products')->where("invoice_number" , $id)->first();
-	// 	if (!$invoice) {
-    //     // Handle the case where the product is not found
-	// 		return redirect(route('invoices'))->with('error', 'Invoice not found');
-	// 	}
-
-	// 	return view('print', compact('invoice'));
-	// }
 }

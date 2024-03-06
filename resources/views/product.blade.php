@@ -16,8 +16,8 @@
 					@foreach($products as $product)
 					<tr>
 						{{-- <td>{{$product->id}}</td> --}}
-						<td><a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$product->id}}">{{__('messages.edit')}}</a>
-							<a href="{{url('/add_new_product' , $product->id)}}" class="btn btn-danger">{{__('messages.delete')}}</a>
+						<td><a href="#" class="btn btn-yellow" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$product->id}}">{{__('messages.edit')}}</a>
+							<a href="{{url('/add_new_product' , $product->id)}}" class="btn btn-red">{{__('messages.delete')}}</a>
 						</td>
 						<td>{{$product->product_price}}</td>
 						<td>{{$product->product_name}}</td>
@@ -37,7 +37,7 @@
 					<label for="product_price">:{{__('messages.product_price')}}</label>
 					<input type="number" name="product_price"class="form-control" required>
 				</div>
-				<input type="submit" class="btn btn-success" value="{{__('messages.submit')}}">
+				<input type="submit" class="btn btn-blue" value="{{__('messages.submit')}}">
 			</form>	
 		</div>	
 	</div>
