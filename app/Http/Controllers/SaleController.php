@@ -44,8 +44,12 @@ class SaleController extends Controller{
 					"balance" => $prev_amount
 				]);
 			}
+
+			$balance = Account::where("id" , $request->customerId)->get("balance");
+
 			$invoice = Invoice::create([
 				"invoice_number" => $new_invoice_no,
+				"customer_id" => $request->customerId,
 				"customer_name" => $request->customerName,
 				"customer_number" => $request->customerNumber,
 				"bill_type" => $request->billType,
@@ -65,8 +69,8 @@ class SaleController extends Controller{
 					"product_total" => $prices[$i] * $quantities[$i]
 				]);
 			}
+			return redirect()->route('view-inv' ,['id' => $id, 'balance' => $balance]);
 
-			return redirect()->route('view-inv' , $id);
 		}
 
 		$var = Invoice::count();
@@ -80,13 +84,30 @@ class SaleController extends Controller{
 		$accounts = Account::all();
 		$products = Product::all();
 		return view('create_invoice' , compact('accounts' , 'products' , 'new_invoice_no'));
+	}
 
+
+		public function edit_invoice($id , Request $request){
+			$invoice = Invoice::find($id);
+			return view("edit_invoice" , compact('invoice'));
+		}
+		public function update_invoice($id , Request $request) {
+		$invoice =Invoice::find($id);
+		// $data = [
+		// 	"name" => $request->name,
+		// 	"number" => $request->number,
+		// 	"salary" => $request->salary
+		// ];
+		// $employee->update($data);
+		return redirect(route('update-inv'));
 	}
 
 	public function view_invoice($id){
-		$invoice = Invoice::where("invoice_number" , $id)->first();
+		
+		$invoice = Invoice::with("account")->where("invoice_number" , $id)->first();
+		$balance = $invoice->account->balance;
 		$inv_prod = InvoiceProducts::where("invoice_id" , $id)->get();
-		return view('view_invoice' , compact('inv_prod' , 'invoice'));
+		return view('view_invoice' , compact('inv_prod' , 'invoice' , 'balance'));
 	}
 	public function delete_invoice($id) {
 		$invoice = Invoice::where('invoice_number' , $id)->first();

@@ -11,6 +11,6 @@ class Account extends Model
     protected $guarded = [];
 
     public function invoice(){
-        return $this->belongsTo(Invoice::class);
+        return $this->hasMany(Invoice::class);
     }
 }

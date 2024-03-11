@@ -59,6 +59,9 @@ Route::get('/add_new_product/{id}' , [App\Http\Controllers\ProductController::cl
 // Invoices
 Route::get('/create/{id}' , [App\Http\Controllers\SaleController::class , 'create_invoice']);
 Route::post('/create/{id}' , [App\Http\Controllers\SaleController::class , 'create_invoice']);
+Route::get('/edit_invoice/{id}' , [App\Http\Controllers\SaleController::class , 'edit_invoice'])->name("edit_invoice");
+
+Route::post('/edit_invoice/{id}' , [App\Http\Controllers\SaleController::class , 'edit_invoice'])->name("edit_invoice");
 Route::get('/view/{id}' , [App\Http\Controllers\SaleController::class , 'view_invoice'])->name("view-inv");
 
 Route::get('/invoice/delete/{id}' , [App\Http\Controllers\SaleController::class , 'delete_invoice']);

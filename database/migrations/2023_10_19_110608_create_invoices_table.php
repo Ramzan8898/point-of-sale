@@ -15,6 +15,7 @@ class CreateInvoicesTable extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->unsignedBigInteger('invoice_number')->primary()->onDelete('cascade');
+            $table->string('customer_id');
             $table->string('customer_name')->nullable();
             $table->string('customer_number')->nullable();
             $table->string('bill_type')->nullable();

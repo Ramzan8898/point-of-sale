@@ -86,7 +86,7 @@
 								<td><strong>{{$invoice->sub_total}}</strong></td>
 								<td><strong style="font-size:24px">{{__('messages.sub_total')}}</strong></td>
 
-								<td><strong>{{$invoice->balance}}</strong></td>
+								<td><strong>{{$balance}}</strong></td>
 								<td><strong style="font-size:24px">{{__('messages.balance')}}</strong></td>
 							</tr>
 							<tr>

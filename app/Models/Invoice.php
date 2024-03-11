@@ -16,7 +16,6 @@ class Invoice extends Model
     	return $this->hasMany(InvoiceProducts::class , "invoice_id" , "invoice_number");
     }
     public function account(){
-        return $this->hasOne(Account::class);
+        return $this->belongsTo(Account::class , "customer_id");
     }
-
 }
