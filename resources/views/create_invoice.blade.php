@@ -177,11 +177,7 @@
 
 		$('#productTable').on('click', '#delete_row', function(){
         // Find the parent row and remove it
-			var Index = $("#productTable tr").length;
-		 	// console.log(Index);
-			if (Index === 2) {
-				$("#delete_row").hide();
-			}
+			var Index = $("#productTable tr");
 			$(this).closest('tr').remove();
 			calc();
 		});
