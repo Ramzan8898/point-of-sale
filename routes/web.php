@@ -61,11 +61,11 @@ Route::get('/create/{id}' , [App\Http\Controllers\SaleController::class , 'creat
 Route::post('/create/{id}' , [App\Http\Controllers\SaleController::class , 'create_invoice']);
 Route::get('/edit_invoice/{id}' , [App\Http\Controllers\SaleController::class , 'edit_invoice'])->name("edit_invoice");
 
-Route::post('/edit_invoice/{id}' , [App\Http\Controllers\SaleController::class , 'edit_invoice'])->name("edit_invoice");
+Route::post('/edit_invoice/{id}' , [App\Http\Controllers\SaleController::class , 'update_invoice'])->name("update_invoice");
+
 Route::get('/view/{id}' , [App\Http\Controllers\SaleController::class , 'view_invoice'])->name("view-inv");
 
 Route::get('/invoice/delete/{id}' , [App\Http\Controllers\SaleController::class , 'delete_invoice']);
-// Route::get('/invoice/print/{id}', [SaleController::class, 'print_view']);
 
 //Log Out
 Route::get('/delete_invoice_product/{id}' , [App\Http\Controllers\SaleController::class , 'delete_invoice_product']);

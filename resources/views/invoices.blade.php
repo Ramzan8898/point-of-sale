@@ -33,7 +33,7 @@
 									<tr>
 										<td class="action">
 											<a href="{{url('/view' , $invoice->invoice_number)}}" class="btn-blue ">{{__('messages.view')}}</a>
-											<a href="{{url('/edit_invoice' , $invoice->invoice_number)}}" class="mr-3 btn-orange">{{__('messages.edit')}}</a>
+											<!-- <a href="{{url('/edit_invoice' , $invoice->invoice_number)}}" class="mr-3 btn-orange">{{__('messages.edit')}}</a> -->
 											<a href="{{url('/invoice/delete' , $invoice->invoice_number)}}" class="btn-red" >{{__('messages.delete')}}</a>
 
 										</td>

@@ -87,23 +87,53 @@ class SaleController extends Controller{
 	}
 
 
-		public function edit_invoice($id , Request $request){
-			$invoice = Invoice::find($id);
-			return view("edit_invoice" , compact('invoice'));
-		}
-		public function update_invoice($id , Request $request) {
-		$invoice =Invoice::find($id);
-		// $data = [
-		// 	"name" => $request->name,
-		// 	"number" => $request->number,
-		// 	"salary" => $request->salary
-		// ];
-		// $employee->update($data);
-		return redirect(route('update-inv'));
+	public function edit_invoice($id , Request $request){
+		$accounts = Account::all();
+		$products = Product::all();
+		$invoice = Invoice::find($id);
+		$invoice_products = InvoiceProducts::where('invoice_id' , $invoice->invoice_number)->get();
+		return view("edit_invoice" , compact('invoice' , 'accounts' , 'products' , 'invoice_products'));
 	}
 
+	public function update_invoice($id , Request $request) {
+		$invoice =Invoice::find($id);
+		if ($request->billType === "Credit") {
+			$prev_amount =$request->account_balance;
+			$new_amount = $request->total_amount;
+			$prev_amount += $new_amount;
+			$account = Account::where("name" , $request->customerName)->first();
+			$account->update([
+				"balance" => $prev_amount
+			]);
+		}
+		$invoice->update([
+			"invoice_number" => $id,
+			"customer_id" => $invoice->customer_id,
+			"customer_name" => $request->customerName,
+			"customer_number" => $request->customerNumber,
+			"bill_type" => $request->billType,
+			"sub_total" => $request->sub_total,
+			"total" => $request->total_amount
+		]);
+		$products = $request->input('product', []);
+		$prices = $request->input('price' , []);
+		$quantities = $request->input('qty', []);
+
+		for ($i = 0; $i < count($products); $i++) {
+			$invoice_products = InvoiceProducts::updateOrCreate([
+				"invoice_id" => $id,
+				"product_name" => $products[$i],
+				"product_price" => $prices[$i],
+				"product_qty" => $quantities[$i],
+				"product_total" => $prices[$i] * $quantities[$i]
+			]);
+			return redirect(route('invoices' , ['id' => $id , "products" => $products , "invoice_products" => $invoice_products]));
+		}
+	}
+
+
 	public function view_invoice($id){
-		
+
 		$invoice = Invoice::with("account")->where("invoice_number" , $id)->first();
 		$balance = $invoice->account->balance;
 		$inv_prod = InvoiceProducts::where("invoice_id" , $id)->get();

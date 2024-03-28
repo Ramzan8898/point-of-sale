@@ -75,6 +75,7 @@
 				<table class="table table-bordered table-hover" id="tab_logic">
 					<thead>
 						<tr>
+							<th class="text-center h4 fw-bold"></th>
 							<th class="text-center h4 fw-bold"> {{__('messages.total')}} </th>
 							<th class="text-center h4 fw-bold"> {{__('messages.quantity')}} </th>
 							<th class="text-center h4 fw-bold"> {{__('messages.price')}} </th>
@@ -84,6 +85,7 @@
 					</thead>
 					<tbody id="productTable">
 						<tr id='addr0'>
+							<td><i class="fas fa-trash-alt" id="delete_row"></i></td>
 							<td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/></td>
 							<td><input type="number" name='qty[]' placeholder="{{__('messages.quantity')}}" class="form-control qty" step="0.00" min="0" required/></td>
 							<td><input type="number" name='price[]' placeholder="{{__('messages.price')}}" class="form-control price productPrice" step="0" min="0"/></td>
@@ -106,7 +108,7 @@
 		<div class="row clearfix">
 			<div class="col-md-12">
 				<div id="add_row" class="btn btn-yellow pull-left">{{__('messages.add_row')}}</div>
-				<div id='delete_row' class="pull-right btn btn-orange text-white">{{__('messages.delete_row')}}</div>
+				<!-- <div id='delete_row' class="pull-right btn btn-orange text-white">{{__('messages.delete_row')}}</div> -->
 			</div>
 		</div>
 
@@ -166,11 +168,22 @@
 		});
 
     // Delete a row
-		$("#delete_row").click(function(){
-			if($("#tab_logic tbody tr").length > 1){
-				$("#tab_logic tbody tr:last").remove();
-				calc();
+		// $("#delete_row").click(function(){
+		// 	if($("#tab_logic tbody tr").length > 1){
+		// 		$("#tab_logic tbody tr:last").remove();
+		// 		calc();
+		// 	}
+		// });
+
+		$('#productTable').on('click', '#delete_row', function(){
+        // Find the parent row and remove it
+			var Index = $("#productTable tr").length;
+		 	// console.log(Index);
+			if (Index === 2) {
+				$("#delete_row").hide();
 			}
+			$(this).closest('tr').remove();
+			calc();
 		});
 
 		$('#tab_logic tbody').on('keyup change',function(){
