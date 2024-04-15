@@ -83,7 +83,7 @@
 							<th class="text-center h4 fw-bold"> # </th>
 						</tr>
 					</thead>
-					<tbody id="productTable">
+					<tbody id="productTable" >
 						<tr id='addr0'>
 							<td><i class="fas fa-trash-alt" id="delete_row"></i></td>
 							<td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/></td>
@@ -144,12 +144,17 @@
 </div>
 
 <script>
+
+	// var referenceRow = $("#tab_logic tbody tr:first");
+	// var deleteIcon = referenceRow.find("#delete_row");
+	// deleteIcon.hide();
+
+
 	$(document).ready(function(){
 
 		$("#add_row").click(function(){
         // Get a reference to the first row of the table
 			var referenceRow = $("#tab_logic tbody tr:first");
-
         // Clone the reference row
 			var newRow = referenceRow.clone();
 
@@ -165,8 +170,11 @@
 
         // Append the new row to the table
 			$("#tab_logic tbody").append(newRow);
+			var deleteIcon = referenceRow.find("#delete_row");
+	deleteIcon.css.pointerEvents = "none";
 		});
 
+// $("#addr1").
     // Delete a row
 		// $("#delete_row").click(function(){
 		// 	if($("#tab_logic tbody tr").length > 1){
@@ -178,6 +186,7 @@
 		$('#productTable').on('click', '#delete_row', function(){
         // Find the parent row and remove it
 			var Index = $("#productTable tr");
+			// console.log(Index);
 			$(this).closest('tr').remove();
 			calc();
 		});
