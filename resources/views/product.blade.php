@@ -2,12 +2,12 @@
 @section('content')
 <div class="container p-5">
 	<div class="row">
-		<div class="offset-1 col-4">
-			<table class="table">
+		<div class=" col-6">
+			<table class="table table-dark">
 				<thead>
 					<tr>
-						{{-- <th>Id</th> --}}
-						<th class="h4 fw-bold">{{__('messages.action')}}</th>
+						<!-- <th>Id</th> -->
+						<th class="h4 fw-bold ">{{__('messages.action')}}</th>
 						<th class="h4 fw-bold">{{__('messages.price')}}</th>
 						<th class="h4 fw-bold">{{__('messages.name')}}</th>
 					</tr>
@@ -15,12 +15,12 @@
 				<tbody>
 					@foreach($products as $product)
 					<tr>
-						{{-- <td>{{$product->id}}</td> --}}
+						<!-- <td>{{$product->id}}</td> -->
 						<td><a href="#" class="btn btn-yellow" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$product->id}}">{{__('messages.edit')}}</a>
 							<a href="{{url('/add_new_product' , $product->id)}}" class="btn btn-red">{{__('messages.delete')}}</a>
 						</td>
-						<td>{{$product->product_price}}</td>
-						<td>{{$product->product_name}}</td>
+						<td class="fs-5">{{$product->product_price}}</td>
+						<td class="fs-4">{{$product->product_name}}</td>
 					</tr>
 					@endforeach
 				</tbody>

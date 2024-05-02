@@ -29,7 +29,7 @@
 </style>
 
 <div class="container">
-	
+	<a href="{{url('/invoices')}}" class="back" style="width:fit-content;margin-left: 20px;position: fixed;"><i class="fas fa-arrow-left"></i></a>
 	<form action="{{url('/create' , $new_invoice_no)}}" method="POST">
 		@csrf
 		<div class="row clearfix">
@@ -144,17 +144,16 @@
 </div>
 
 <script>
-
-	// var referenceRow = $("#tab_logic tbody tr:first");
-	// var deleteIcon = referenceRow.find("#delete_row");
-	// deleteIcon.hide();
-
-
 	$(document).ready(function(){
+    // Variable to store the reference row
+		var referenceRow;
 
 		$("#add_row").click(function(){
-        // Get a reference to the first row of the table
-			var referenceRow = $("#tab_logic tbody tr:first");
+        // If a reference row has not been set yet, or if it's the first row
+			if (!referenceRow || $("#tab_logic tbody tr").length === 1) {
+            // Set the reference row to the first row of the table
+				referenceRow = $("#tab_logic tbody tr:first");
+			}
         // Clone the reference row
 			var newRow = referenceRow.clone();
 
@@ -170,24 +169,22 @@
 
         // Append the new row to the table
 			$("#tab_logic tbody").append(newRow);
-			var deleteIcon = referenceRow.find("#delete_row");
-	deleteIcon.css.pointerEvents = "none";
+
+        // Set the reference row to the newly added row
+			referenceRow = newRow;
 		});
 
-// $("#addr1").
-    // Delete a row
-		// $("#delete_row").click(function(){
-		// 	if($("#tab_logic tbody tr").length > 1){
-		// 		$("#tab_logic tbody tr:last").remove();
-		// 		calc();
-		// 	}
-		// });
+
 
 		$('#productTable').on('click', '#delete_row', function(){
         // Find the parent row and remove it
-			var Index = $("#productTable tr");
+			// var Index = $("#productTable tr");
 			// console.log(Index);
 			$(this).closest('tr').remove();
+			$("#tab_logic tbody tr").each(function(index){
+				$(this).attr("id", "addr" + (index + 1));
+				$(this).find('td:last-child').html(index + 1);
+			});
 			calc();
 		});
 

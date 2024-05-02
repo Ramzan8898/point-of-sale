@@ -139,10 +139,20 @@ class SaleController extends Controller{
 		$inv_prod = InvoiceProducts::where("invoice_id" , $id)->get();
 		return view('view_invoice' , compact('inv_prod' , 'invoice' , 'balance'));
 	}
+
 	public function delete_invoice($id) {
 		$invoice = Invoice::where('invoice_number' , $id)->first();
 		$invoice->delete();
 		return redirect(url('/invoices'));
+	}
+	public function delete_invoice_product($id) {
+		$invoice_products = InvoiceProducts::where('invoice_id' , $id)->first();
+		$invoice_products->delete();
+		if($invoice_products === 0){
+			$invoice = Invoice::find($id);
+			$invoice->delete();
+		}
+		return redirect(route('edit_invoice' , ['id' => $id]));
 	}
 
 }
