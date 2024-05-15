@@ -38,7 +38,7 @@
 <div class="row ">
     <div class="col-md-6 d-flex flex-column justify-content-center align-items-center bg-login">
         <a class="navbar-brand mb-5" href="{{ url('/') }}">
-            <img src="{{asset('transparent-logo.png')}}">
+            <img src="{{asset('./public/transparent-logo.png')}}">
         </a>
         <form method="POST" action="{{ route('login') }}" >
             @csrf
