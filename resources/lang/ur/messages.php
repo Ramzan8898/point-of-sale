@@ -56,7 +56,7 @@ return [
 	"create_account" => "اکاؤنٹ بنائیں  ",
 	"no_accounts" => "کوئی اکاؤنٹس نہیں  ",
 	"close" => "بند کریں  ",
-	"submit" => "جمع کرائیں  ",
+	"submit" => "جمع کریں  ",
 	"update" => "اپ ڈیٹ  ",
 	"amount_type" => "طریقہ ادائیگی  ",
 	"detail" => "تفصیل  ",

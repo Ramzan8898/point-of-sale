@@ -91,45 +91,118 @@ class SaleController extends Controller{
 		$accounts = Account::all();
 		$products = Product::all();
 		$invoice = Invoice::find($id);
-		$invoice_products = InvoiceProducts::where('invoice_id' , $invoice->invoice_number)->get();
+		$invoice_products = InvoiceProducts::where('invoice_id' , $id)->get();
 		return view("edit_invoice" , compact('invoice' , 'accounts' , 'products' , 'invoice_products'));
 	}
 
-	public function update_invoice($id , Request $request) {
-		$invoice =Invoice::find($id);
-		if ($request->billType === "Credit") {
-			$prev_amount =$request->account_balance;
-			$new_amount = $request->total_amount;
-			$prev_amount += $new_amount;
-			$account = Account::where("name" , $request->customerName)->first();
-			$account->update([
-				"balance" => $prev_amount
-			]);
-		}
-		$invoice->update([
-			"invoice_number" => $id,
-			"customer_id" => $invoice->customer_id,
-			"customer_name" => $request->customerName,
-			"customer_number" => $request->customerNumber,
-			"bill_type" => $request->billType,
-			"sub_total" => $request->sub_total,
-			"total" => $request->total_amount
-		]);
-		$products = $request->input('product', []);
-		$prices = $request->input('price' , []);
-		$quantities = $request->input('qty', []);
+	// public function update_invoice($id , Request $request) {
+	// 	$invoice =Invoice::find($id);
+	// 	if ($request->billType === "Credit") {
+	// 		$prev_amount =$request->account_balance;
+	// 		$new_amount = $request->total_amount;
+	// 		$prev_amount += $new_amount;
+	// 		$account = Account::where("name" , $request->customerName)->first();
+	// 		$account->update([
+	// 			"balance" => $prev_amount
+	// 		]);
+	// 	}
+	// 	$products = $request->input('product', []);
+	// 	$prices = $request->input('price' , []);
+	// 	$quantities = $request->input('qty', []);
+	// 	$invoice->update([
+	// 		"invoice_number" => $id,
+	// 		"customer_id" => $invoice->customer_id,
+	// 		"customer_name" => $request->customerName,
+	// 		"customer_number" => $request->customerNumber,
+	// 		"bill_type" => $request->billType,
+	// 		"total" => $request->total_amount
+	// 	]);
 
-		for ($i = 0; $i < count($products); $i++) {
-			$invoice_products = InvoiceProducts::updateOrCreate([
-				"invoice_id" => $id,
-				"product_name" => $products[$i],
-				"product_price" => $prices[$i],
-				"product_qty" => $quantities[$i],
-				"product_total" => $prices[$i] * $quantities[$i]
-			]);
-			return redirect(route('invoices' , ['id' => $id , "products" => $products , "invoice_products" => $invoice_products]));
-		}
-	}
+
+	// 	for ($i = 0; $i < count($products); $i++) {
+	// 		$invoice->update([
+	// 			"sub_total" => $prices[$i] * $quantities[$i]
+	// 		]);
+	// 		$invoice_products = InvoiceProducts::updateOrCreate([
+	// 			"invoice_id" => $id,
+	// 			"product_name" => $products[$i],
+	// 			"product_price" => $prices[$i],
+	// 			"product_qty" => $quantities[$i],
+	// 			"product_total" => $prices[$i] * $quantities[$i]
+	// 		]);
+	// 		return redirect(route('invoices' , ['id' => $id , "products" => $products , "invoice_products" => $invoice_products]));
+	// 	}
+	// }
+
+	public function update_invoice($id, Request $request) {
+    $invoice = Invoice::find($id);
+
+    if ($request->billType === "Credit") {
+        $prev_amount = $request->account_balance;
+        $new_amount = $request->total_amount;
+        $prev_amount += $new_amount;
+        $account = Account::where("name", $request->customerName)->first();
+        $account->update([
+            "balance" => $prev_amount
+        ]);
+    }
+
+    $products = $request->input('product', []);
+    $prices = $request->input('price', []);
+    $quantities = $request->input('qty', []);
+    
+    $sub_total = 0;
+    for ($i = 0; $i < count($products); $i++) {
+        $sub_total += $prices[$i] * $quantities[$i];
+    }
+    $tax = $sub_total / 100 * $request->tax;
+    $total_amount = $sub_total + $tax;
+
+    $invoice->update([
+        "invoice_number" => $id,
+        "customer_id" => $invoice->customer_id,
+        "customer_name" => $request->customerName,
+        "customer_number" => $request->customerNumber,
+        "bill_type" => $request->billType,
+        "sub_total" => $sub_total,
+        "total" => $total_amount
+    ]);
+
+    for ($i = 0; $i < count($products); $i++) {
+        InvoiceProducts::updateOrCreate(
+            [
+                "invoice_id" => $id,
+                "product_name" => $products[$i]
+            ],
+            [
+                "product_price" => $prices[$i],
+                "product_qty" => $quantities[$i],
+                "product_total" => $prices[$i] * $quantities[$i]
+            ]
+        );
+    }
+
+    return redirect(route('invoices', 'invoice' ,['id' => $id]));
+}
+
+public function recalculateTotals($invoiceId) {
+    $invoiceProducts = InvoiceProducts::where('invoice_id', $invoiceId)->get();
+    
+    $sub_total = 0;
+    foreach ($invoiceProducts as $product) {
+        $sub_total += $product->product_total;
+    }
+
+    $tax = $sub_total / 100 * 10; // Assume a 10% tax rate, adjust as needed
+    $total_amount = $sub_total + $tax;
+
+    $invoice = Invoice::where('invoice_number', $invoiceId)->first();
+    $invoice->update([
+        'sub_total' => $sub_total,
+        'total' => $total_amount
+    ]);
+}
+
 
 
 	public function view_invoice($id){
@@ -145,14 +218,21 @@ class SaleController extends Controller{
 		$invoice->delete();
 		return redirect(url('/invoices'));
 	}
-	public function delete_invoice_product($id) {
-		$invoice_products = InvoiceProducts::where('invoice_id' , $id)->first();
-		$invoice_products->delete();
-		if($invoice_products === 0){
-			$invoice = Invoice::find($id);
-			$invoice->delete();
-		}
-		return redirect(route('edit_invoice' , ['id' => $id]));
-	}
+public function delete_invoice_product($id) {
+    $invoiceProduct = InvoiceProducts::where('invoice_id', $id)->first();
+    $invoiceProduct->delete();
+
+    $this->recalculateTotals($id);
+
+    // Check if there are no more products left for the invoice
+    // $remainingProducts = InvoiceProducts::where('invoice_id', $id)->count();
+    // if ($remainingProducts === 0) {
+    //     $invoice = Invoice::find($id);
+    //     $invoice->delete();
+    // }
+
+    return redirect(route('edit_invoice', ['id' => $id]));
+}
+
 
 }

@@ -16,11 +16,12 @@
 					@foreach($products as $product)
 					<tr>
 						<!-- <td>{{$product->id}}</td> -->
-						<td><a href="#" class="btn btn-yellow" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$product->id}}">{{__('messages.edit')}}</a>
-							<a href="{{url('/add_new_product' , $product->id)}}" class="btn btn-red">{{__('messages.delete')}}</a>
+						<td><a href="{{url('/add_new_product' , $product->id)}}" class="btn btn-red">{{__('messages.delete')}}</a>
+							<a href="#" class="btn btn-yellow" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$product->id}}">{{__('messages.edit')}}</a>
+							
 						</td>
-						<td class="fs-5">{{$product->product_price}}</td>
-						<td class="fs-4">{{$product->product_name}}</td>
+						<td class="fs-6">{{$product->product_price}}</td>
+						<td class="fs-6">{{$product->product_name}}</td>
 					</tr>
 					@endforeach
 				</tbody>

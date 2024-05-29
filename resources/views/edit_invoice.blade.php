@@ -83,9 +83,9 @@
 							<th class="text-center h4 fw-bold"> # </th>
 						</tr>
 					</thead>
-					@foreach ($invoice_products as $inv_prd)
 					<tbody id="productTable">
-						<tr id='addr0'>
+						@foreach ($invoice_products as $index => $inv_prd)
+						<tr id="addr{{$index}}">
 							<td><a href="{{url('/delete_invoice_product' , $invoice->invoice_number)}}"><i class="fas fa-trash-alt" id="delete_row"></i></a></td>
 							<td><input type="number" name='total[]' placeholder='' class="form-control total" readonly value="{{$inv_prd->product_total}}" /></td>
 							<td><input type="number" name='qty[]' placeholder="{{__('messages.quantity')}}" class="form-control qty" step="0.00" min="0" required value="{{$inv_prd->product_qty}}"/></td>
@@ -98,11 +98,10 @@
 									@endforeach
 								</datalist>
 							</td>
-							<td>1</td>
+							<td>{{$index + 1}}</td>
 						</tr>
-						<tr id='addr1'></tr>
+						@endforeach
 					</tbody>
-					@endforeach
 				</table>
 			</div>
 		</div>
@@ -110,7 +109,6 @@
 		<div class="row clearfix">
 			<div class="col-md-12">
 				<div id="add_row" class="btn btn-yellow pull-left">{{__('messages.add_row')}}</div>
-				<!-- <div id='delete_row' class="pull-right btn btn-orange text-white">{{__('messages.delete_row')}}</div> -->
 			</div>
 		</div>
 
@@ -126,7 +124,6 @@
 							<th class="text-center">{{__('messages.tax')}}</th>
 							<td class="text-center"><div class="input-group mb-2 mb-sm-0">
 								<input type="number" class="form-control" id="tax" placeholder="0">
-								<!-- <div class="input-group-addon">%</div> -->
 							</div></td>
 						</tr>
 						<tr>
@@ -146,126 +143,85 @@
 </div>
 
 <script>
-	$(document).ready(function(){
-    // Variable to store the reference row
-		var referenceRow;
 
-		$("#add_row").click(function(){
-        // If a reference row has not been set yet, or if it's the first row
-			if (!referenceRow || $("#tab_logic tbody tr").length === 1) {
-            // Set the reference row to the first row of the table
-				referenceRow = $("#tab_logic tbody tr:first");
-			}
-        // Clone the reference row
-			var newRow = referenceRow.clone();
+$(document).ready(function() {
+    function calc() {
+        var total = 0;
+        $('#productTable tr').each(function(i, element) {
+            var qty = $(this).find('.qty').val();
+            var price = $(this).find('.price').val();
+            var rowTotal = qty * price;
+            $(this).find('.total').val(rowTotal);
+            total += parseInt(rowTotal);
+        });
 
-        // Clear input values in the new row
-			newRow.find('input, select').val('');
+        $('#sub_total').val(total.toFixed(2));
+        var taxRate = $('#tax').val() || 0;
+        var taxAmount = total / 100 * taxRate;
+        $('#tax_amount').val(taxAmount.toFixed(2));
+        $('#total_amount').val((total + taxAmount).toFixed(2));
+    }
 
-        // Set a new ID for the new row
-			var newIndex = $("#tab_logic tbody tr").length;
-			newRow.attr("id", 'addr' + newIndex);
+    function updateRowIds() {
+        $('#productTable tr').each(function(index, element) {
+            $(this).attr('id', 'addr' + index);
+            $(this).find('td:last-child').html(index + 1);
+        });
+    }
 
-        // Update the row number in the first cell
-			newRow.find('td:last-child').html(newIndex);
+    $('#add_row').click(function() {
+        var referenceRow = $("#productTable tr:first");
+        var newRow = referenceRow.clone();
 
-        // Append the new row to the table
-			$("#tab_logic tbody").append(newRow);
+        newRow.find('input, select').val('');
+        var newIndex = $("#productTable tr").length;
+        newRow.attr("id", 'addr' + newIndex);
+        newRow.find('td:last-child').html(newIndex + 1);
 
-        // Set the reference row to the newly added row
-			referenceRow = newRow;
-		});
+        $("#productTable").append(newRow);
+        updateRowIds();
+    });
 
+    $('#productTable').on('click', '#delete_row', function() {
+        $(this).closest('tr').remove();
+        updateRowIds();
+        calc();
+    });
 
+    $('#productTable').on('keyup change', '.qty, .price', function() {
+        calc();
+    });
 
-		$('#productTable').on('click', '#delete_row', function(){
-        // Find the parent row and remove it
-			// var Index = $("#productTable tr");
-			// console.log(Index);
-			$(this).closest('tr').remove();
-			$("#tab_logic tbody tr").each(function(index){
-				$(this).attr("id", "addr" + (index + 1));
-				$(this).find('td:last-child').html(index + 1);
-			});
-			calc();
-		});
+    $('#tax').on('keyup change', function() {
+        calc();
+    });
 
-		$('#tab_logic tbody').on('keyup change',function(){
-			calc();
-		});
-		$('#tax').on('keyup change',function(){
-			calc_total();
-		});
+    $('#productTable').on('input', '.productSelect', function() {
+        var selectedOption = $('#products_list option[value="' + $(this).val() + '"]');
+        if (selectedOption.length > 0) {
+            var productPrice = selectedOption.data('price');
+            $(this).closest('tr').find('.productPrice').val(productPrice);
+        } else {
+            $(this).closest('tr').find('.productPrice').val('');
+        }
+    });
 
+    $('.customerName').on('input', function() {
+        var selectedOption = $('#customer_list option[value="' + $(this).val() + '"]');
+        if (selectedOption.length > 0) {
+            var customerId = selectedOption.data('id');
+            $('.customerId').val(customerId);
+            var customerNumber = selectedOption.data('number');
+            $('.customerNumber').val(customerNumber);
+            var customerBalance = selectedOption.data('balance');
+            $('#customer_balance').val(customerBalance);
+        } else {
+            $('.customerNumber').val('');
+            $('#customer_balance').val('');
+        }
+    });
+});
 
-	});
-
-
-	function calc()
-	{
-		$('#tab_logic tbody tr').each(function(i, element) {
-			var html = $(this).html();
-			if(html!='')
-			{
-				var qty = $(this).find('.qty').val();
-				var price = $(this).find('.price').val();
-				$(this).find('.total').val(qty*price);
-
-				calc_total();
-			}
-		});
-	}
-
-	function calc_total()
-	{
-		total=0;
-		$('.total').each(function() {
-			total += parseInt($(this).val());
-		});
-		$('#sub_total').val(total.toFixed(2));
-		tax_sum=total/100*$('#tax').val();
-		$('#tax_amount').val(tax_sum.toFixed(2));
-		$('#total_amount').val((tax_sum+total).toFixed(2));
-	}
-
-	$(document).ready(function() {
-    // When the product input changes within the productTable
-		$('#productTable').on('input', '.productSelect', function() {
-      // Get the selected option
-			var selectedOption = $('#products_list option[value="' + $(this).val() + '"]');
-
-      // If an option is selected, update the price field
-			if (selectedOption.length > 0) {
-				var productPrice = selectedOption.data('price');
-				$(this).closest('tr').find('.productPrice').val(productPrice);
-			} else {
-        // If no option is selected, clear the price field
-				$(this).closest('tr').find('.productPrice').val('');
-			}
-		});
-	});
-
-	$(document).ready(function() {
-    // When the customer name input changes
-		$('.customerName').on('input', function() {
-      // Get the selected option
-			var selectedOption = $('#customer_list option[value="' + $(this).val() + '"]');
-
-      // If an option is selected, update the customer number field
-			if (selectedOption.length > 0) {
-				var customerId = selectedOption.data('id');
-				$('.customerId').val(customerId);
-				var customerNumber = selectedOption.data('number');
-				$('.customerNumber').val(customerNumber);
-				var customerBalance = selectedOption.data('balance');
-				$('#customer_balance').val(customerBalance);
-			} else {
-        // If no option is selected, clear the customer number field
-				$('.customerNumber').val('');
-				$('.customer_balance').val('');
-			}
-		});
-	});
 </script>
 
 @endsection
