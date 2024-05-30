@@ -2,11 +2,12 @@
 @section('content')
 
 <style type="text/css">
+
     body {
       background:black url('public/stars.jpg');
       animation: stars 405s linear alternate;
-  }
-  #box {
+    }
+    #box {
     background:url('public/earth-2.jpg');
     filter: brightness(100%);
     background-size:cover;
@@ -22,30 +23,37 @@
     25px 25px 45px RGBA(0,0,0, 0.45) inset;
     margin:6em auto;
     transform:rotateX(6deg) rotateY(6deg) rotateZ(6deg);
-}
+    }
 
-@keyframes movimiento {
-  0% { background-position:0 0 }
-  100% { background-position:355px 0 }
-}
+    @keyframes movimiento {
+    0% { background-position:0 0 }
+    100% { background-position:355px 0 }
+    }
 
-@keyframes stars {
-  0% { background-position:0 0 }
-  100% { background-position:0 100% }
-}
+    @keyframes stars {
+    0% { background-position:0 0 }
+    100% { background-position:0 100% }
+    }
+
+    @media only screen and (max-width: 425px) {
+        .logo {
+            width: 150px !important;
+        }
+        #box {
+            display: none;
+        }
+    }
 </style>
 
-<div class="row ">
-    <div class="col-md-6 d-flex flex-column justify-content-center align-items-center bg-login">
+    <div class="col-md-6 offset-1 col-10 bg-login">
         <a class="navbar-brand mb-5" href="{{ url('/') }}">
-            <img src="{{asset('./public/transparent-logo.png')}}">
+            <img src="{{asset('./public/transparent-logo.png')}}" class="logo">
         </a>
         <form method="POST" action="{{ route('login') }}" >
             @csrf
             <div class="row">
-             <!-- <label for="email" class="col-md-2 col-form-label text-md-end">{{ __('messages.email') }}</label>  -->
 
-             <div class="col-md-12 mb-3">
+               <div class="col-md-12 mb-3">
                 <input id="email" placeholder="{{__('messages.email')}}" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                 @error('email')
@@ -94,11 +102,11 @@
             </div>
         </div>
     </form>
-    </div>
+</div>
 
-    <div class="col-md-6" id="box">
-        
-    </div>
+<div class="col-md-6" id="box">
+
+</div>
 </div>
 
 </div>
