@@ -2,267 +2,225 @@
 @section('content')
 
 <style type="text/css">
-
-	@media print {
-		#logo {
-			display: block;
-		}
-		#remove_row{
-			display: none;
-		}
-		nav {
-			display: none;
-		}
-	}
-	@media screen {
-		#logo{
-			display: none;
-		}
-		#remove_row{
-			display: block;
-		}
-
-		.invoice_view {
-			display: none;
-		}
-	}
+    @media print {
+        #logo {
+            display: block;
+        }
+        .delete-row {
+            display: none;
+        }
+        nav {
+            display: none;
+        }
+    }
+    @media screen {
+        #logo {
+            display: none;
+        }
+        .delete-row {
+            display: block;
+        }
+        .invoice_view {
+            display: none;
+        }
+    }
 </style>
 
 <div class="container">
-	<a href="{{url('/invoices')}}" class="back" style="width:fit-content;margin-left: 20px;position: fixed;"><i class="fas fa-arrow-left"></i></a>
-	<form action="{{url('/create' , $new_invoice_no)}}" method="POST">
-		@csrf
-		<div class="row clearfix">
-			<input type="hidden" name="customerId" class="form-control customerId" readonly>
-			<div class="col-md-3">
-				<div class="form-group">
-					<label>{{__('messages.bill_type')}}</label>
-					<input name="billType" type="text" list="bill_type_list" class="form-control billType" required>
-					<datalist id="bill_type_list">
-						<option value="Cash">{{__('messages.cash')}}</option>
-						<option value="Credit">{{__('messages.credit')}}</option>
-					</datalist>
-				</div>
-			</div>
+    <a href="{{url('/invoices')}}" class="back" style="width:fit-content;margin-left: 20px;position: fixed;"><i class="fas fa-arrow-left"></i></a>
+    <form action="{{url('/create', $new_invoice_no)}}" method="POST">
+        @csrf
+        <div class="row clearfix">
+            <input type="hidden" name="customerId" class="form-control customerId" readonly>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{__('messages.bill_type')}}</label>
+                    <input name="billType" type="text" list="bill_type_list" class="form-control billType" required>
+                    <datalist id="bill_type_list">
+                        <option value="Cash">{{__('messages.cash')}}</option>
+                        <option value="Credit">{{__('messages.credit')}}</option>
+                    </datalist>
+                </div>
+            </div>
 
-			<div class="col-md-3">
-				<div class="form-group">
-					<label>{{__('messages.previous_balance')}}</label>
-					<input name="account_balance" id="customer_balance" type="number" class="form-control" required readonly>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="form-group">
-					<label>{{__('messages.customer_number')}}</label>
-					<input type="text" name="customerNumber" class="form-control customerNumber" readonly>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="form-group">
-					<label>{{__('messages.customer_name')}}</label>
-					<input name="customerName" type="text" list="customer_list" class="form-control customerName" required>
-					<datalist id="customer_list">
-						@foreach($accounts as $account)
-						<option value="{{$account->name}}" data-number="{{$account->number}}" data-id="{{$account->id}}"  data-balance="{{$account->balance}}">{{$account->name}}</option>
-						@endforeach
-					</datalist>
-				</div>
-			</div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{__('messages.previous_balance')}}</label>
+                    <input name="account_balance" id="customer_balance" type="number" class="form-control" required readonly>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{__('messages.customer_number')}}</label>
+                    <input type="text" name="customerNumber" class="form-control customerNumber" readonly>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{__('messages.customer_name')}}</label>
+                    <input name="customerName" type="text" list="customer_list" class="form-control customerName" required>
+                    <datalist id="customer_list">
+                        @foreach($accounts as $account)
+                        <option value="{{$account->name}}" data-number="{{$account->number}}" data-id="{{$account->id}}" data-balance="{{$account->balance}}">{{$account->name}}</option>
+                        @endforeach
+                    </datalist>
+                </div>
+            </div>
 
+            <div class="col-md-12 mt-5">
+                <table class="table table-bordered table-hover" id="tab_logic">
+                    <thead>
+                        <tr>
+                            <th class="text-center h4 fw-bold"></th>
+                            <th class="text-center h4 fw-bold"> {{__('messages.total')}} </th>
+                            <th class="text-center h4 fw-bold"> {{__('messages.quantity')}} </th>
+                            <th class="text-center h4 fw-bold"> {{__('messages.price')}} </th>
+                            <th class="text-center h4 fw-bold"> {{__('messages.product')}} </th>
+                            <th class="text-center h4 fw-bold"> # </th>
+                        </tr>
+                    </thead>
+                    <tbody id="productTable">
+                        <tr id='addr0'>
+                            <td><i class="fas fa-trash-alt delete-row"></i></td>
+                            <td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/></td>
+                            <td><input type="number" name='qty[]' placeholder="{{__('messages.quantity')}}" class="form-control qty" step="0.00" min="0" required/></td>
+                            <td><input type="number" name='price[]' placeholder="{{__('messages.price')}}" class="form-control price productPrice" step="0" min="0"/></td>
+                            <td>
+                                <input name="product[]" type="text" list="products_list" class="form-control productSelect" placeholder="{{__('messages.select_product')}}" required>
+                                <datalist id="products_list">
+                                    @foreach($products as $product)
+                                    <option value="{{$product->product_name}}" data-price="{{$product->product_price}}">{{$product->product_name}}</option>
+                                    @endforeach
+                                </datalist>
+                            </td>
+                            <td>1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-			<div class="col-md-12 mt-5">
-				
-				<table class="table table-bordered table-hover" id="tab_logic">
-					<thead>
-						<tr>
-							<th class="text-center h4 fw-bold"></th>
-							<th class="text-center h4 fw-bold"> {{__('messages.total')}} </th>
-							<th class="text-center h4 fw-bold"> {{__('messages.quantity')}} </th>
-							<th class="text-center h4 fw-bold"> {{__('messages.price')}} </th>
-							<th class="text-center h4 fw-bold"> {{__('messages.product')}} </th>
-							<th class="text-center h4 fw-bold"> # </th>
-						</tr>
-					</thead>
-					<tbody id="productTable" >
-						<tr id='addr0'>
-							<td><i class="fas fa-trash-alt" id="delete_row"></i></td>
-							<td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/></td>
-							<td><input type="number" name='qty[]' placeholder="{{__('messages.quantity')}}" class="form-control qty" step="0.00" min="0" required/></td>
-							<td><input type="number" name='price[]' placeholder="{{__('messages.price')}}" class="form-control price productPrice" step="0" min="0"/></td>
-							<td>
-								<input name="product[]" type="text" list="products_list" class="form-control productSelect" placeholder="{{__('messages.select_product')}}" required>
-								<datalist id="products_list">
-									@foreach($products as $product)
-									<option value="{{$product->product_name}}" data-price={{$product->product_price}} >{{$product->product_name}}</option>
-									@endforeach
-								</datalist>
-							</td>
-							<td>1</td>
-						</tr>
-						<tr id='addr1'></tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div id="add_row" class="btn btn-yellow pull-left">{{__('messages.add_row')}}</div>
+            </div>
+        </div>
 
-		<div class="row clearfix">
-			<div class="col-md-12">
-				<div id="add_row" class="btn btn-yellow pull-left">{{__('messages.add_row')}}</div>
-				<!-- <div id='delete_row' class="pull-right btn btn-orange text-white">{{__('messages.delete_row')}}</div> -->
-			</div>
-		</div>
-
-		<div class="row clearfix" style="margin-top:20px">
-			<div class="pull-right col-md-4">
-				<table class="table table-bordered table-hover" id="tab_logic_total">
-					<tbody>
-						<tr>
-							<th class="text-center">{{__('messages.sub_total')}}</th>
-							<td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly/></td>
-						</tr>
-						<tr>
-							<th class="text-center">{{__('messages.tax')}}</th>
-							<td class="text-center"><div class="input-group mb-2 mb-sm-0">
-								<input type="number" class="form-control" id="tax" placeholder="0">
-								<!-- <div class="input-group-addon">%</div> -->
-							</div></td>
-						</tr>
-						<tr>
-							<th class="text-center">{{__('messages.tax_amount')}}</th>
-							<td class="text-center"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control" readonly/></td>
-						</tr>
-						<tr>
-							<th class="text-center">{{__('messages.total')}}</th>
-							<td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly/></td>
-						</tr>
-					</tbody>
-				</table>
-				<input type="submit" class="btn btn-danger" value="save">
-			</form>
-		</div>
-	</div>
+        <div class="row clearfix" style="margin-top:20px">
+            <div class="pull-right col-md-4">
+                <table class="table table-bordered table-hover" id="tab_logic_total">
+                    <tbody>
+                        <tr>
+                            <th class="text-center">{{__('messages.sub_total')}}</th>
+                            <td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly/></td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">{{__('messages.tax')}}</th>
+                            <td class="text-center">
+                                <div class="input-group mb-2 mb-sm-0">
+                                    <input type="number" class="form-control" id="tax" placeholder="0">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">{{__('messages.tax_amount')}}</th>
+                            <td class="text-center"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control" readonly/></td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">{{__('messages.total')}}</th>
+                            <td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly/></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <input type="submit" class="btn btn-danger" value="save">
+            </div>
+        </div>
+    </form>
 </div>
 
 <script>
-	$(document).ready(function(){
-    // Variable to store the reference row
-		var referenceRow;
+    $(document).ready(function() {
+        function updateRowIds() {
+            $('#productTable tr').each(function(index) {
+                $(this).attr('id', 'addr' + index);
+                $(this).find('td:last-child').text(index + 1);
+            });
+        }
 
-		$("#add_row").click(function(){
-        // If a reference row has not been set yet, or if it's the first row
-			if (!referenceRow || $("#tab_logic tbody tr").length === 1) {
-            // Set the reference row to the first row of the table
-				referenceRow = $("#tab_logic tbody tr:first");
-			}
-        // Clone the reference row
-			var newRow = referenceRow.clone();
+        function calc() {
+            var total = 0;
+            $('#productTable tr').each(function(i, element) {
+                var qty = $(this).find('.qty').val();
+                var price = $(this).find('.price').val();
+                var rowTotal = qty * price;
+                $(this).find('.total').val(rowTotal);
+                total += parseFloat(rowTotal);
+            });
 
-        // Clear input values in the new row
-			newRow.find('input, select').val('');
+            $('#sub_total').val(total.toFixed(2));
+            var taxRate = $('#tax').val() || 0;
+            var taxAmount = total / 100 * taxRate;
+            $('#tax_amount').val(taxAmount.toFixed(2));
+            $('#total_amount').val((total + taxAmount).toFixed(2));
+        }
 
-        // Set a new ID for the new row
-			var newIndex = $("#tab_logic tbody tr").length;
-			newRow.attr("id", 'addr' + newIndex);
+        $("#add_row").click(function() {
+            var newRow = $('#addr0').clone();
+            newRow.find('input').val('');
+            newRow.attr('id', 'addr' + ($('#productTable tr').length));
+            newRow.find('td:last-child').text($('#productTable tr').length + 1);
+            $('#productTable').append(newRow);
+            updateRowIds();
+            calc(); // Ensure to recalculate totals after adding new row
+        });
 
-        // Update the row number in the first cell
-			newRow.find('td:last-child').html(newIndex);
+        $('#productTable').on('click', '.delete-row', function() {
+            if ($('#productTable tr').length > 1) {
+                $(this).closest('tr').remove();
+                updateRowIds();
+                calc(); // Ensure to recalculate totals after deleting a row
+            }
+        });
 
-        // Append the new row to the table
-			$("#tab_logic tbody").append(newRow);
+        $('#productTable').on('keyup change', '.qty, .price', function() {
+            calc();
+        });
 
-        // Set the reference row to the newly added row
-			referenceRow = newRow;
-		});
+        $('#tax').on('keyup change', function() {
+            calc();
+        });
 
+        $('#productTable').on('input', '.productSelect', function() {
+            var selectedOption = $('#products_list option[value="' + $(this).val() + '"]');
+            if (selectedOption.length > 0) {
+                var productPrice = selectedOption.data('price');
+                $(this).closest('tr').find('.productPrice').val(productPrice);
+                calc();
+            } else {
+                $(this).closest('tr').find('.productPrice').val('');
+            }
+        });
 
+        $('.customerName').on('input', function() {
+            var selectedOption = $('#customer_list option[value="' + $(this).val() + '"]');
+            if (selectedOption.length > 0) {
+                var customerId = selectedOption.data('id');
+                $('.customerId').val(customerId);
+                var customerNumber = selectedOption.data('number');
+                $('.customerNumber').val(customerNumber);
+                var customerBalance = selectedOption.data('balance');
+                $('#customer_balance').val(customerBalance);
+            } else {
+                $('.customerId').val('');
+                $('.customerNumber').val('');
+                $('#customer_balance').val('');
+            }
+        });
 
-		$('#productTable').on('click', '#delete_row', function(){
-        // Find the parent row and remove it
-			// var Index = $("#productTable tr");
-			// console.log(Index);
-			$(this).closest('tr').remove();
-			$("#tab_logic tbody tr").each(function(index){
-				$(this).attr("id", "addr" + (index + 1));
-				$(this).find('td:last-child').html(index + 1);
-			});
-			calc();
-		});
-
-		$('#tab_logic tbody').on('keyup change',function(){
-			calc();
-		});
-		$('#tax').on('keyup change',function(){
-			calc_total();
-		});
-
-
-	});
-
-	function calc()
-	{
-		$('#tab_logic tbody tr').each(function(i, element) {
-			var html = $(this).html();
-			if(html!='')
-			{
-				var qty = $(this).find('.qty').val();
-				var price = $(this).find('.price').val();
-				$(this).find('.total').val(qty*price);
-
-				calc_total();
-			}
-		});
-	}
-
-	function calc_total()
-	{
-		total=0;
-		$('.total').each(function() {
-			total += parseInt($(this).val());
-		});
-		$('#sub_total').val(total.toFixed(2));
-		tax_sum=total/100*$('#tax').val();
-		$('#tax_amount').val(tax_sum.toFixed(2));
-		$('#total_amount').val((tax_sum+total).toFixed(2));
-	}
-
-	$(document).ready(function() {
-    // When the product input changes within the productTable
-		$('#productTable').on('input', '.productSelect', function() {
-      // Get the selected option
-			var selectedOption = $('#products_list option[value="' + $(this).val() + '"]');
-
-      // If an option is selected, update the price field
-			if (selectedOption.length > 0) {
-				var productPrice = selectedOption.data('price');
-				$(this).closest('tr').find('.productPrice').val(productPrice);
-			} else {
-        // If no option is selected, clear the price field
-				$(this).closest('tr').find('.productPrice').val('');
-			}
-		});
-	});
-
-	$(document).ready(function() {
-    // When the customer name input changes
-		$('.customerName').on('input', function() {
-      // Get the selected option
-			var selectedOption = $('#customer_list option[value="' + $(this).val() + '"]');
-
-      // If an option is selected, update the customer number field
-			if (selectedOption.length > 0) {
-				var customerId = selectedOption.data('id');
-				$('.customerId').val(customerId);
-				var customerNumber = selectedOption.data('number');
-				$('.customerNumber').val(customerNumber);
-				var customerBalance = selectedOption.data('balance');
-				$('#customer_balance').val(customerBalance);
-			} else {
-        // If no option is selected, clear the customer number field
-				$('.customerNumber').val('');
-				$('.customer_balance').val('');
-			}
-		});
-	});
+        // Initialize with one row
+        updateRowIds();
+        calc();
+    });
 </script>
 
 @endsection

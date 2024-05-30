@@ -86,21 +86,31 @@
 					<tbody id="productTable">
 						@foreach ($invoice_products as $index => $inv_prd)
 						<tr id="addr{{$index}}">
-							<td><a href="{{url('/delete_invoice_product' , $invoice->invoice_number)}}"><i class="fas fa-trash-alt" id="delete_row"></i></a></td>
-							<td><input type="number" name='total[]' placeholder='' class="form-control total" readonly value="{{$inv_prd->product_total}}" /></td>
-							<td><input type="number" name='qty[]' placeholder="{{__('messages.quantity')}}" class="form-control qty" step="0.00" min="0" required value="{{$inv_prd->product_qty}}"/></td>
-							<td><input type="number" name='price[]' placeholder="{{__('messages.price')}}" class="form-control price productPrice" step="0" min="0" value="{{$inv_prd->product_price}}"/></td>
 							<td>
-								<input name="product[]" type="text" list="products_list" class="form-control productSelect" placeholder="{{__('messages.select_product')}}" required value="{{$inv_prd->product_name}}">
+								<a href="{{url('/delete_invoice_product', ['invoiceId' => $invoice->invoice_number, 'productId' => $inv_prd->id])}}" class="delete-row"><i class="fas fa-trash-alt"></i></a>
+							</td>
+							<td>
+								<input type="hidden" name="product_id[]" value="{{$inv_prd->id}}">
+								<input type="number" name='total[]' class="form-control total" readonly value="{{$inv_prd->product_total}}" />
+							</td>
+							<td>
+								<input type="number" name='qty[]' class="form-control qty" step="0.00" min="0" required value="{{$inv_prd->product_qty}}"/>
+							</td>
+							<td>
+								<input type="number" name='price[]' class="form-control price productPrice" step="0" min="0" value="{{$inv_prd->product_price}}"/>
+							</td>
+							<td>
+								<input name="product[]" type="text" list="products_list" class="form-control productSelect" required value="{{$inv_prd->product_name}}">
 								<datalist id="products_list">
 									@foreach($products as $product)
-									<option value="{{$product->product_name}}" data-price={{$product->product_price}} >{{$product->product_name}}</option>
+									<option value="{{$product->product_name}}" data-price={{$product->product_price}}>{{$product->product_name}}</option>
 									@endforeach
 								</datalist>
 							</td>
 							<td>{{$index + 1}}</td>
 						</tr>
 						@endforeach
+
 					</tbody>
 				</table>
 			</div>
@@ -144,7 +154,7 @@
 
 <script>
 
-$(document).ready(function() {
+	$(document).ready(function() {
     function calc() {
         var total = 0;
         $('#productTable tr').each(function(i, element) {
@@ -152,7 +162,7 @@ $(document).ready(function() {
             var price = $(this).find('.price').val();
             var rowTotal = qty * price;
             $(this).find('.total').val(rowTotal);
-            total += parseInt(rowTotal);
+            total += parseFloat(rowTotal);
         });
 
         $('#sub_total').val(total.toFixed(2));
@@ -173,7 +183,9 @@ $(document).ready(function() {
         var referenceRow = $("#productTable tr:first");
         var newRow = referenceRow.clone();
 
-        newRow.find('input, select').val('');
+        newRow.find('input').val('');
+        newRow.find('input[type=hidden]').remove();  // Remove hidden product_id input for new rows
+
         var newIndex = $("#productTable tr").length;
         newRow.attr("id", 'addr' + newIndex);
         newRow.find('td:last-child').html(newIndex + 1);
@@ -182,7 +194,8 @@ $(document).ready(function() {
         updateRowIds();
     });
 
-    $('#productTable').on('click', '#delete_row', function() {
+    $('#productTable').on('click', '.delete-row', function(e) {
+        e.preventDefault();
         $(this).closest('tr').remove();
         updateRowIds();
         calc();
