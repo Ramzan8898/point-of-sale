@@ -89,8 +89,6 @@ class SaleController extends Controller
         return view('create_invoice', compact('accounts', 'products', 'new_invoice_no'));
     }
 
-
-
     public function edit_invoice($id, Request $request)
     {
         $accounts = Account::all();
@@ -99,61 +97,6 @@ class SaleController extends Controller
         $invoice_products = InvoiceProducts::where('invoice_id', $id)->get();
         return view("edit_invoice", compact('invoice', 'accounts', 'products', 'invoice_products'));
     }
-
-
-
-    // public function update_invoice($id, Request $request)
-    // {
-    //     $invoice = Invoice::find($id);
-
-    //     if ($request->billType === "Credit") {
-    //         $prev_amount = $request->account_balance;
-    //         $new_amount = $request->total_amount;
-    //         $prev_amount += $new_amount;
-    //         $account = Account::where("name", $request->customerName)->first();
-    //         $account->update([
-    //             "balance" => $prev_amount
-    //         ]);
-    //     }
-
-    //     $products = $request->input('product', []);
-    //     $prices = $request->input('price', []);
-    //     $quantities = $request->input('qty', []);
-
-    //     $sub_total = 0;
-    //     for ($i = 0; $i < count($products); $i++) {
-    //         $sub_total += $prices[$i] * $quantities[$i];
-    //     }
-    //     $tax = $sub_total / 100 * $request->tax;
-    //     $total_amount = $sub_total + $tax;
-
-    //     $invoice->update([
-    //         "invoice_number" => $id,
-    //         "customer_id" => $invoice->customer_id,
-    //         "customer_name" => $request->customerName,
-    //         "customer_number" => $request->customerNumber,
-    //         "bill_type" => $request->billType,
-    //         "sub_total" => $sub_total,
-    //         "total" => $total_amount
-    //     ]);
-
-    //     for ($i = 0; $i < count($products); $i++) {
-    //         InvoiceProducts::updateOrCreate(
-    //             [
-    //                 "invoice_id" => $id,
-    //                 "product_name" => $products[$i]
-    //             ],
-    //             [
-    //                 "product_price" => $prices[$i],
-    //                 "product_qty" => $quantities[$i],
-    //                 "product_total" => $prices[$i] * $quantities[$i]
-    //             ]
-    //         );
-    //     }
-    //     return redirect()->route('view-inv', ['id' => $id, 'balance' => Account::where("id", $request->customerId)->value("balance")]);
-
-    //     // return redirect(route('invoices', 'invoice' ,['id' => $id]));
-    // }
 
     public function update_invoice($id, Request $request)
     {
@@ -181,7 +124,6 @@ class SaleController extends Controller
 
         // Retrieve existing products linked to the invoice
         $existingProducts = InvoiceProducts::where('invoice_id', $id)->pluck('id')->toArray();
-
         // Fetch the submitted product data
         $products = $request->input('product', []);
         $prices = $request->input('price', []);
@@ -236,8 +178,6 @@ class SaleController extends Controller
             // 'total' => $total_amount
         ]);
     }
-
-
 
     public function view_invoice($id)
     {
