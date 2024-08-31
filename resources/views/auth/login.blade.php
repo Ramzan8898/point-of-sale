@@ -2,58 +2,59 @@
 @section('content')
 
 <style type="text/css">
-
     body {
-      background:black url('public/stars.jpg');
-      animation: stars 405s linear alternate;
+        background: black url('public/stars.jpg');
+        animation: stars 405s linear alternate;
     }
+
     #box {
-    background:url('public/earth-2.jpg');
-    filter: brightness(100%);
-    background-size:cover;
-    repeat: no-repeat;
-    border-radius:50%;
-    width:400px;
-    height:400px;
-    animation: movimiento 60s linear 0s infinite;
-    box-shadow:0 0 25px rgba(99, 74, 74, 0.1),
-    -8px -8px 15px #000 inset,
-    2px 2px 25px #000 inset,
-    -45px -45px 25px RGBA(0,0,0, 0.5) inset, 
-    25px 25px 45px RGBA(0,0,0, 0.45) inset;
-    margin:6em auto;
-    transform:rotateX(6deg) rotateY(6deg) rotateZ(6deg);
+        background: url('public/earth-2.jpg');
+        filter: brightness(100%);
+        background-size: cover;
+        repeat: no-repeat;
+        border-radius: 50%;
+        width: 400px;
+        height: 400px;
+        animation: movimiento 60s linear 0s infinite;
+        box-shadow: 0 0 25px rgba(99, 74, 74, 0.1),
+            -8px -8px 15px #000 inset,
+            2px 2px 25px #000 inset,
+            -45px -45px 25px RGBA(0, 0, 0, 0.5) inset,
+            25px 25px 45px RGBA(0, 0, 0, 0.45) inset;
+        margin: 6em auto;
+        transform: rotateX(6deg) rotateY(6deg) rotateZ(6deg);
     }
 
     @keyframes movimiento {
-    0% { background-position:0 0 }
-    100% { background-position:355px 0 }
+        0% {
+            background-position: 0 0
+        }
+
+        100% {
+            background-position: 355px 0
+        }
     }
 
     @keyframes stars {
-    0% { background-position:0 0 }
-    100% { background-position:0 100% }
-    }
-
-    @media only screen and (max-width: 425px) {
-        .logo {
-            width: 150px !important;
+        0% {
+            background-position: 0 0
         }
-        #box {
-            display: none;
+
+        100% {
+            background-position: 0 100%
         }
     }
 </style>
 
-    <div class="col-md-6 offset-1 col-10 bg-login">
-        <a class="navbar-brand mb-5" href="{{ url('/') }}">
-            <img src="{{asset('./public/transparent-logo.png')}}" class="logo">
-        </a>
-        <form method="POST" action="{{ route('login') }}" >
-            @csrf
-            <div class="row">
+<div class="col-md-6 offset-1 col-10 bg-login">
+    <a class="navbar-brand mb-5" href="{{ url('/') }}">
+        <img src="{{asset('./public/transparent-logo.png')}}" class="logo">
+    </a>
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+        <div class="row">
 
-               <div class="col-md-12 mb-3">
+            <div class="col-md-12 mb-3">
                 <input id="email" placeholder="{{__('messages.email')}}" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                 @error('email')
@@ -78,30 +79,30 @@
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                    <label class="form-check-label" for="remember">
-                        {{ __('Remember Me') }}
-                    </label>
-                </div>
-            </div>
-        </div> --}}
+        <label class="form-check-label" for="remember">
+            {{ __('Remember Me') }}
+        </label>
+</div>
+</div>
+</div> --}}
 
-        <div class="row mb-0">
-            <div class="col-12">
-                <button type="submit" class="btn btn-login">
-                    {{__('messages.login')}}
-                </button>
-                @if (Route::has('register'))
-                <a href="{{ route('register') }}" class=" text-sm btn btn-reg">{{__('messages.register')}}</a>
-                @endif
+<div class="row mb-0">
+    <div class="col-12">
+        <button type="submit" class="btn btn-login">
+            {{__('messages.login')}}
+        </button>
+        @if (Route::has('register'))
+        <a href="{{ route('register') }}" class=" text-sm btn btn-reg">{{__('messages.register')}}</a>
+        @endif
 
-                {{--                                 @if (Route::has('password.request'))
+        {{-- @if (Route::has('password.request'))
                 <a class="btn btn-link" href="{{ route('password.request') }}">
-                    {{ __('Forgot Your Password?') }}
-                </a>
-                @endif --}}
-            </div>
-        </div>
-    </form>
+        {{ __('Forgot Your Password?') }}
+        </a>
+        @endif --}}
+    </div>
+</div>
+</form>
 </div>
 
 <div class="col-md-6" id="box">

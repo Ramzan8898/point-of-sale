@@ -8,14 +8,16 @@ use App\Models\Transaction;
 
 class AccountsController extends Controller
 {
-	public function index() {
-		$accounts = Account::orderBy('created_at' , 'DESC')->get();
-		return view('accounts' , compact('accounts'));
+	public function index()
+	{
+		$accounts = Account::orderBy('created_at', 'DESC')->get();
+		return view('accounts', compact('accounts'));
 	}
 
-	public function create(Request $request) {
+	public function create(Request $request)
+	{
 
-		if($request->isMethod('POST')) {
+		if ($request->isMethod('POST')) {
 			$account = new Account;
 			$data = [
 				'name' => $request->name,
@@ -27,8 +29,9 @@ class AccountsController extends Controller
 		}
 	}
 
-	public function update($id , Request $request) {
-		$account =Account::find($id);
+	public function update($id, Request $request)
+	{
+		$account = Account::find($id);
 		$data = [
 			"name" => $request->name,
 			"number" => $request->number,
@@ -38,10 +41,10 @@ class AccountsController extends Controller
 		return redirect(route('accounts'));
 	}
 
-	public function delete($id) {
+	public function delete($id)
+	{
 		Account::destroy($id);
 		return redirect(route('accounts'));
 		// $employee->destroy();
 	}
-
 }
