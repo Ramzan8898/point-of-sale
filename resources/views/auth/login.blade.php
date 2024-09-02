@@ -59,14 +59,14 @@
         }
 
         #earth {
-            width: 350px;
-            height: 350px;
+            width: 300px;
+            height: 300px;
         }
-    } 
-    /*
+    }
+
     @media only screen and (max-width: 768px) {
         .logo {
-            width: 150px !important;
+            width: 200px !important;
         }
 
         #earth {
@@ -74,6 +74,7 @@
         }
     }
 
+    
     @media only screen and (max-width: 425px) {
         .logo {
             width: 150px !important;
@@ -82,11 +83,11 @@
         #earth {
             display: none;
         }
-    } */
+    }
 </style>
 
 <div class="row main">
-    <div class="col-md-4 offset-1">
+    <div class="col-md-4 col-sm-8 col-8 offset-2 offset-sm-2">
         <a class="navbar-brand mb-5" href="{{ url('/') }}">
             <img src="{{asset('./public/transparent-logo.png')}}" class="logo">
         </a>

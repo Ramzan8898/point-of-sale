@@ -1,6 +1,6 @@
 @extends('index')
 @section('content')
-<div class="container p-5">
+<div class="container-fluid p-5 main-bg">
 	<div class="content">
 		<div class="animated fadeIn">
 			<div class="row">
@@ -24,13 +24,15 @@
 								<tbody>
 									@if(count($employees) === 0)
 									<tr>
-										<td colspan="5"><h6 class="p-3 text-center " style="opacity: 0.5">...{{__('messages.no_employee')}}</h6></td>
+										<td colspan="5">
+											<h6 class="p-3 text-center " style="opacity: 0.5">...{{__('messages.no_employee')}}</h6>
+										</td>
 									</tr>
 									@else
 									@foreach($employees as $employee)
 									<tr>
 										<td class="action" style="width:200px;">
-											<a href="{{url('/employee/edit' , $employee->id)}}" class="btn-orange" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$employee->id}}">  {{__('messages.edit')}}</a>
+											<a href="{{url('/employee/edit' , $employee->id)}}" class="btn-orange" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$employee->id}}"> {{__('messages.edit')}}</a>
 											<a href="{{url('/employee/delete' , $employee->id)}}" class="btn-blue">{{__('messages.delete')}}</a>
 										</td>
 										<td class="salary">{{$employee->salary}}</td>
@@ -38,7 +40,7 @@
 										<td class="name">{{$employee->name}}</td>
 										<td class="id">{{$employee->id}}</td>
 
-									</tr> 	
+									</tr>
 									@endforeach
 									@endif
 
@@ -73,12 +75,12 @@
 							<label>{{__('messages.salary')}}</label>
 							<input type="number" name="salary" class="form-control" required>
 						</div>
-					</div>
+				</div>
 
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('messages.close')}} </button>
-						<button type="submit" class="btn btn-primary">{{__('messages.submit')}}</button>
-					</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('messages.close')}} </button>
+					<button type="submit" class="btn btn-primary">{{__('messages.submit')}}</button>
+				</div>
 				</form>
 			</div>
 		</div>
@@ -109,11 +111,11 @@
 							<label>{{__('messages.salary')}}</label>
 							<input type="number" name="salary" class="form-control" value="{{$employee->salary}}" required>
 						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('messages.close')}}</button>
-						<input type="submit" class="btn btn-primary" value="{{__('messages.submit')}}">
-					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('messages.close')}}</button>
+					<input type="submit" class="btn btn-primary" value="{{__('messages.submit')}}">
+				</div>
 				</form>
 
 			</div>

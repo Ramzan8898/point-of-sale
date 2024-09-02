@@ -1,6 +1,6 @@
 @extends('index')
 @section('content')
-<div class="container p-5">
+<div class="container-fluid p-5 main-bg">
 	<div class="row">
 		<div class=" col-6">
 			<table class="table table-dark">

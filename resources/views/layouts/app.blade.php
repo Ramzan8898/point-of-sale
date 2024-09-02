@@ -25,7 +25,7 @@
 
 <body style="overflow: hidden;">
     <div id="app">
-        <main>
+        <main class="container-fluid">
             @yield('content')
         </main>
     </div>

@@ -12,7 +12,7 @@
         background-color: #f8f9fa; /* Set the background color for the fixed header */
     }
 </style>
-<div class="container p-4" style="width:-webkit-fill-available;background-color: #dfdfdf;">
+<div class="container-fluid p-5 main-bg" style="width:-webkit-fill-available;">
 	<div class="content">
 		<h1 class="text-end">جائزہ</h1>
 	</div>

@@ -6,28 +6,33 @@
         #logo {
             display: block;
         }
+
         .delete-row {
             display: none;
         }
+
         nav {
             display: none;
         }
     }
+
     @media screen {
         #logo {
             display: none;
         }
+
         .delete-row {
             display: block;
         }
+
         .invoice_view {
             display: none;
         }
     }
 </style>
 
-<div class="container">
-    <a href="{{url('/invoices')}}" class="back" style="width:fit-content;margin-left: 20px;position: fixed;"><i class="fas fa-arrow-left"></i></a>
+<a href="{{url('/invoices')}}" class="back" style="width:fit-content;margin-left: 20px;position: fixed;"><i class="fas fa-arrow-left"></i></a>
+<div class="container-fluid p-5 main-bg">
     <form action="{{url('/create', $new_invoice_no)}}" method="POST">
         @csrf
         <div class="row clearfix">
@@ -82,9 +87,9 @@
                     <tbody id="productTable">
                         <tr id='addr0'>
                             <td><i class="fas fa-trash-alt delete-row"></i></td>
-                            <td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly/></td>
-                            <td><input type="number" name='qty[]' placeholder="{{__('messages.quantity')}}" class="form-control qty" step="0.00" min="0" required/></td>
-                            <td><input type="number" name='price[]' placeholder="{{__('messages.price')}}" class="form-control price productPrice" step="0" min="0"/></td>
+                            <td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly /></td>
+                            <td><input type="number" name='qty[]' placeholder="{{__('messages.quantity')}}" class="form-control qty" step="0.00" min="0" required /></td>
+                            <td><input type="number" name='price[]' placeholder="{{__('messages.price')}}" class="form-control price productPrice" step="0" min="0" /></td>
                             <td>
                                 <input name="product[]" type="text" list="products_list" class="form-control productSelect" placeholder="{{__('messages.select_product')}}" required>
                                 <datalist id="products_list">
@@ -112,7 +117,7 @@
                     <tbody>
                         <tr>
                             <th class="text-center">{{__('messages.sub_total')}}</th>
-                            <td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly/></td>
+                            <td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly /></td>
                         </tr>
                         <tr>
                             <th class="text-center">{{__('messages.tax')}}</th>
@@ -124,11 +129,11 @@
                         </tr>
                         <tr>
                             <th class="text-center">{{__('messages.tax_amount')}}</th>
-                            <td class="text-center"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control" readonly/></td>
+                            <td class="text-center"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control" readonly /></td>
                         </tr>
                         <tr>
                             <th class="text-center">{{__('messages.total')}}</th>
-                            <td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly/></td>
+                            <td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly /></td>
                         </tr>
                     </tbody>
                 </table>
