@@ -74,7 +74,6 @@
         }
     }
 
-    
     @media only screen and (max-width: 425px) {
         .logo {
             width: 150px !important;
@@ -94,7 +93,6 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="row">
-
                 <div class="col-md-12 mb-3">
                     <input id="email" placeholder="{{__('messages.email')}}" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
@@ -126,17 +124,11 @@
                     </div>
                 </div>
             </div>
-
             <div class="row mb-0">
                 <div class="col-12"> -->
-            <button type="submit" class="btn btn-login">
-                {{__('messages.login')}}
-            </button>
-
             <!-- @if (Route::has('register'))
                     <a href="{{ route('register') }}" class=" text-sm btn btn-reg">{{__('messages.register')}}</a>
                     @endif
-
                     @if (Route::has('password.request'))
                     <a class="btn btn-link" href="{{ route('password.request') }}">
                         {{ __('Forgot Your Password?') }}
@@ -144,13 +136,11 @@
                     @endif
                 </div>
             </div> -->
+            <button type="submit" class="btn btn-outline-light fs-5 btn-sm">
+                {{__('messages.login')}}
+            </button>
         </form>
     </div>
     <div class="col-md-4 offset-1" id="earth"></div>
-</div>
-
-</div>
-</div>
-
 </div>
 @endsection

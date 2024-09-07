@@ -10,6 +10,10 @@
             display: none;
         }
 
+        .modal-body nav {
+            display: none;
+        }
+
         .shop {
             display: block !important;
         }
@@ -18,18 +22,11 @@
             background-color: #000000 !important;
         }
     }
-
-    /*  .shop{
-        display: none;
-    }*/
 </style>
-<!-- <div class="modal-header">
-    <h1 class="modal-title fs-5" id="staticBackdropLabel">Invoice</h1>
-    <button type="button" class="btn-close" aria-label="Close"></button>
-</div> -->
-<div class="modal-body print">
+
+<div class="print">
     <div class="container">
-        <div class="row1" style="display:flex;flex-direction: column;">
+        <div style="display:flex;flex-direction: column;">
             <div class="row">
                 <div class="shop">
                     <div class="span4 d-flex justify-content-center" style="gap: 8px;">
@@ -44,7 +41,7 @@
                     </div>
                 </div>
                 <a href="{{url('/invoices')}}" class="btn btn-success back" style="width:fit-content;margin-left: 20px;">Back</a>
-                <button class="btn btn-success print_btn" style="width:fit-content;" onclick="window.print('.print')">Print</button>
+                <button class="btn btn-success print_btn" style="width:fit-content;" onclick="window.print('.print')"></button>
 
                 <div class="span4 well" style="display:flex; justify-content:flex-end;">
                     <table class="invoice-head">

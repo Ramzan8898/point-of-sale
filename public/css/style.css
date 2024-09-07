@@ -1,14 +1,9 @@
 :root {
   --black: #000000;
   --yellow: #FF8700;
-  --blue: #23138D;
+  --purple: #23138d;
   --white: #FFFFFF;
-  --red: #D4403A;
-  --green: #198754;
-  --button-fs: 1.2rem;
-  --button-tbp: 0.35rem;
-  --button-lrp: 1rem;
-  --button-br: 0.375rem;
+  --secondary: #343a40;
 }
 
 @font_face {
@@ -53,32 +48,28 @@ input {
   padding: 5px;
 }
 
-.btn-blue {
+.btn-purple {
   font-size: var(--button-fs);
   color: var(--white);
-  background-color: var(--blue);
+  background-color: var(--purple);
   text-decoration: none;
   padding: var(--button-tbp) var(--button-lrp);
   border-radius: var(--button-br);
 }
 
-.btn-blue:hover {
-  background-color: var(--yellow);
+.btn-purple:hover {
+  background-color: var(--white);
+  border: 1px solid #000000;
 }
 
 .btn-orange:hover {
-  background-color: var(--blue);
+  background-color: var(--black);
 }
 
 .btn-red:hover {
   background-color: var(--black);
   color: var(--white);
 }
-
-.btn-yellow:hover {
-  background-color: var(--yellow);
-}
-
 
 .btn-orange {
   font-size: var(--button-fs);
@@ -112,6 +103,15 @@ input {
   margin-right: 5px;
 }
 
+
+table tbody tr td {
+  font-size: 18px;
+}
+
+table tbody tr .name {
+  font-size: 26px;
+}
+
 table tbody tr td .btn-orange {
   font-size: var(--button-fs);
   color: var(--white);
@@ -123,30 +123,31 @@ table tbody tr td .btn-orange {
 }
 
 table tbody tr td .btn-orange:hover {
-  background-color: var(--blue);
+  background-color: var(--black);
 }
 
-table tbody tr td .btn-blue {
-  font-size: var(--button-fs);
-  color: var(--white);
-  background-color: var(--blue);
-  text-decoration: none;
-  padding: var(--button-tbp) var(--button-lrp);
-  border-radius: var(--button-br);
+table tbody tr td a .icon {
+  font-size: 22px;
+  padding: 2px;
+  margin: 0px 3px;
+  color: var(--purple);
 }
 
-table tbody tr td .btn-blue:hover {
-  background-color: var(--yellow);
+table tbody tr td a .icon:hover {
+  color: var(--yellow);
+  transform: scale(1.2);
+  font-weight: 600;
+  cursor: pointer;
 }
 
 table tbody tr td .btn-red {
-  font-size: var(--button-fs);
+  font-size: 18px;
   color: var(--white);
-  background-color: var(--red);
+  background-color: var(--purple);
   text-decoration: none;
-  padding: var(--button-tbp) var(--button-lrp);
-  border-radius: var(--button-br);
-  margin-left: 5px;
+  padding: 3px 10px;
+  border-radius: 5px;
+  margin-right: 5px;
 }
 
 table tbody tr td .btn-red:hover {
@@ -154,14 +155,18 @@ table tbody tr td .btn-red:hover {
 }
 
 table tbody tr td .btn-yellow {
-  font-size: var(--button-fs);
+  font-size: 18px;
   color: var(--black);
   background-color: #ffc107;
   text-decoration: none;
-  padding: var(--button-tbp) var(--button-lrp);
-  border-radius: var(--button-br);
+  padding: 3px 10px;
+  border-radius: 5px ;
   margin-left: 5px;
   margin-right: 5px;
+}
+.btn-yellow:hover {
+  background-color: var(--black);
+  color: var(--white);
 }
 
 table tbody tr td .btn-add-trans:hover {
@@ -185,7 +190,6 @@ nav .container1 a {
   padding: 5px 15px;
   font-size: 18px;
   letter-spacing: 0.3;
-  /*  font-family: cursive;*/
 }
 
 nav .container1 a .icon {
@@ -193,14 +197,14 @@ nav .container1 a .icon {
 }
 
 .nav-link:hover {
-  background-color: var(--blue);
+  background-color: var(--purple);
   color: var(--white);
   transform: scale(1.02);
 
 }
 
 .nav-link.active {
-  background-color: var(--blue);
+  background-color: var(--purple);
   color: var(--white);
 }
 
@@ -212,22 +216,22 @@ nav {
 }
 
 .btn-reg:hover {
-  background-color: var(--yellow);
+  background-color: var(--black);
   color: var(--white);
 }
 
 .btn-reg {
-  background-color: var(--blue);
+  background-color: var(--black);
   color: var(--white);
 }
 
 .btn-login {
-  background-color: var(--yellow);
+  background-color: var(--black);
   color: var(--white);
 }
 
 .btn-login:hover {
-  background-color: var(--blue);
+  background-color: var(--black);
   color: var(--white);
 
 }
@@ -238,4 +242,48 @@ nav {
 
 .main-bg {
   background-color: #dfdfdf;
+}
+
+.button-30 {
+  align-items: center;
+  appearance: none;
+  background-color: #FCFCFD;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #36395A;
+  cursor: pointer;
+  display: inline-flex;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s, transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+  font-size: 22px;
+}
+
+.button-30:focus {
+  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+.button-30:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.button-30:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
 }

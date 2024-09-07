@@ -42,10 +42,10 @@ Route::get('/invoices', [App\Http\Controllers\SaleController::class, 'index'])->
 Route::post('/save-invoice/{id}', [App\Http\Controllers\SaleController::class, 'save_invoice'])->middleware('web');
 
 // Product
-Route::get('/add_new_product', [App\Http\Controllers\ProductController::class, 'index']);
-Route::post('/add_new_product/create', [App\Http\Controllers\ProductController::class, 'create']);
-Route::post('/add_new_product/edit/{id}', [App\Http\Controllers\ProductController::class, 'edit']);
-Route::get('/add_new_product/{id}', [App\Http\Controllers\ProductController::class, 'delete']);
+Route::get('/products', [App\Http\Controllers\ProductController::class, 'index']);
+Route::post('/product/create', [App\Http\Controllers\ProductController::class, 'create']);
+Route::post('/product/edit/{id}', [App\Http\Controllers\ProductController::class, 'edit']);
+Route::get('/delete/{id}', [App\Http\Controllers\ProductController::class, 'delete']);
 
 // Invoices
 Route::get('/create/{id}', [App\Http\Controllers\SaleController::class, 'create_invoice']);

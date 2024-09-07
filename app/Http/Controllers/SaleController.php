@@ -72,7 +72,7 @@ class SaleController extends Controller
                     "product_total" => $prices[$i] * $quantities[$i]
                 ]);
             }
-
+            
             return redirect()->route('view-inv', ['id' => $id, 'balance' => Account::where("id", $request->customerId)->value("balance")]);
         }
 

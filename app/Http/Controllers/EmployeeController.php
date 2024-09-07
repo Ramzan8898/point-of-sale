@@ -7,7 +7,7 @@ use App\Models\Employee;
 class EmployeeController extends Controller
 {
 	public function index() {
-		$employees = Employee::orderBy('created_at' , 'DESC')->get();
+		$employees = Employee::orderBy('created_at' , 'ASC')->get();
 		return view('employee' , compact('employees'));
 	}
 

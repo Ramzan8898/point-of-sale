@@ -2,20 +2,23 @@
 @section('content')
 <style>
     .table-container {
-        height: 300px; /* Set the height for the table body */
-        overflow-y: auto; /* Enable vertical scrolling for the table body */
+        height: 300px;
+        /* Set the height for the table body */
+        overflow-y: auto;
+        /* Enable vertical scrolling for the table body */
     }
 
     .fixed-header-table thead {
         position: sticky;
         top: 0;
-        background-color: #f8f9fa; /* Set the background color for the fixed header */
+        background-color: #f8f9fa;
+        /* Set the background color for the fixed header */
     }
 </style>
 <div class="container-fluid p-5 main-bg" style="width:-webkit-fill-available;">
-	<div class="content">
-		<h1 class="text-end">جائزہ</h1>
-	</div>
+    <div class="content">
+        <h1 class="text-end">جائزہ</h1>
+    </div>
 </div>
 
 

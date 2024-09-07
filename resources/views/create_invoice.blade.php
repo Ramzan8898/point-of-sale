@@ -40,40 +40,39 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label>{{__('messages.bill_type')}}</label>
-                    <input name="billType" type="text" list="bill_type_list" class="form-control billType" required>
-                    <datalist id="bill_type_list">
-                        <option value="Cash">{{__('messages.cash')}}</option>
+                    <select id="bill_type_list" name="billType" class="form-control billType fs-4" required>
+                        <option value="">{{__("messages.bill_type")}}</option>
+                        <option value="Cash" class="align-right">{{__('messages.cash')}}</option>
                         <option value="Credit">{{__('messages.credit')}}</option>
-                    </datalist>
+                    </select>
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="form-group">
                     <label>{{__('messages.previous_balance')}}</label>
-                    <input name="account_balance" id="customer_balance" type="number" class="form-control" required readonly>
+                    <input name="account_balance" id="customer_balance" type="number" class="form-control fs-4" required readonly>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label>{{__('messages.customer_number')}}</label>
-                    <input type="text" name="customerNumber" class="form-control customerNumber" readonly>
+                    <input type="text" name="customerNumber" class="form-control customerNumber fs-4" readonly>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label>{{__('messages.customer_name')}}</label>
-                    <input name="customerName" type="text" list="customer_list" class="form-control customerName" required>
-                    <datalist id="customer_list">
+                    <select id="customer_list" name="customerName" class="form-control customerName fs-4" required>
                         @foreach($accounts as $account)
                         <option value="{{$account->name}}" data-number="{{$account->number}}" data-id="{{$account->id}}" data-balance="{{$account->balance}}">{{$account->name}}</option>
                         @endforeach
-                    </datalist>
+                    </select>
                 </div>
             </div>
 
             <div class="col-md-12 mt-5">
-                <table class="table table-bordered table-hover" id="tab_logic">
+                <table class="table" id="tab_logic">
                     <thead>
                         <tr>
                             <th class="text-center h4 fw-bold"></th>
@@ -86,17 +85,16 @@
                     </thead>
                     <tbody id="productTable">
                         <tr id='addr0'>
-                            <td><i class="fas fa-trash-alt delete-row"></i></td>
-                            <td><input type="number" name='total[]' placeholder='0.00' class="form-control total" readonly /></td>
-                            <td><input type="number" name='qty[]' placeholder="{{__('messages.quantity')}}" class="form-control qty" step="0.00" min="0" required /></td>
-                            <td><input type="number" name='price[]' placeholder="{{__('messages.price')}}" class="form-control price productPrice" step="0" min="0" /></td>
+                            <td><i class="fas fa-trash-alt delete-row fs-5"></i></td>
+                            <td><input type="number" name='total[]' placeholder='0.00' class="form-control total fs-5" readonly /></td>
+                            <td><input type="number" name='qty[]' placeholder="{{__('messages.quantity')}}" class="form-control qty fs-5" step="0.00" min="0" required /></td>
+                            <td><input type="number" name='price[]' placeholder="{{__('messages.price')}}" class="form-control price productPrice fs-5" step="0" min="0" /></td>
                             <td>
-                                <input name="product[]" type="text" list="products_list" class="form-control productSelect" placeholder="{{__('messages.select_product')}}" required>
-                                <datalist id="products_list">
+                                <select id="products_list" name="product[]" class="form-control productSelect fs-5" placeholder="{{__('messages.select_product')}}" required>
                                     @foreach($products as $product)
                                     <option value="{{$product->product_name}}" data-price="{{$product->product_price}}">{{$product->product_name}}</option>
                                     @endforeach
-                                </datalist>
+                                </select>
                             </td>
                             <td>1</td>
                         </tr>
@@ -107,20 +105,20 @@
 
         <div class="row clearfix">
             <div class="col-md-12">
-                <div id="add_row" class="btn btn-yellow pull-left">{{__('messages.add_row')}}</div>
+                <div id="add_row" class="btn btn-yellow pull-left p-2 rounded fs-5">{{__('messages.add_row')}}</div>
             </div>
         </div>
 
         <div class="row clearfix" style="margin-top:20px">
             <div class="pull-right col-md-4">
-                <table class="table table-bordered table-hover" id="tab_logic_total">
+                <table class="table" id="tab_logic_total">
                     <tbody>
                         <tr>
-                            <th class="text-center">{{__('messages.sub_total')}}</th>
+                            <th class="text-center fs-4">{{__('messages.sub_total')}}</th>
                             <td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly /></td>
                         </tr>
                         <tr>
-                            <th class="text-center">{{__('messages.tax')}}</th>
+                            <th class="text-center fs-4">{{__('messages.tax')}}</th>
                             <td class="text-center">
                                 <div class="input-group mb-2 mb-sm-0">
                                     <input type="number" class="form-control" id="tax" placeholder="0">
@@ -128,16 +126,16 @@
                             </td>
                         </tr>
                         <tr>
-                            <th class="text-center">{{__('messages.tax_amount')}}</th>
+                            <th class="text-center fs-4">{{__('messages.tax_amount')}}</th>
                             <td class="text-center"><input type="number" name='tax_amount' id="tax_amount" placeholder='0.00' class="form-control" readonly /></td>
                         </tr>
                         <tr>
-                            <th class="text-center">{{__('messages.total')}}</th>
+                            <th class="text-center fs-4">{{__('messages.total')}}</th>
                             <td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly /></td>
                         </tr>
                     </tbody>
                 </table>
-                <input type="submit" class="btn btn-danger" value="save">
+                <input type="submit" class="button-30" value="Save">
             </div>
         </div>
     </form>

@@ -5,23 +5,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Account;
+
 class TransactionController extends Controller
 {
-    public function transactions() {
+    public function transactions()
+    {
         $transactions = Transaction::all();
-        return view('transactions' , compact('transactions'));
+        return view('transactions', compact('transactions'));
     }
-    public function index($id) {
-    	$transactions = Transaction::where('account_id' , $id)->get();
-    	return view('transactions' , compact('transactions'));
+    public function index($id)
+    {
+        $transactions = Transaction::where('account_id', $id)->get();
+        return view('transactions', compact('transactions'));
     }
 
-    public function add_transaction($id , Request $request) {
+    public function add_transaction($id, Request $request)
+    {
         $transaction = new Transaction;
         $account = Account::find($id);
         $account_balance = $account->balance;
         $amount = $request->amount;
-        if ($request->type === "ادھار" || $request->type === "Credit"  ) {
+        if ($request->type === "ادھار" || $request->type === "Credit") {
             $total_balance = (int)$account_balance + (int)$amount;
             $data = [
                 'balance' => $total_balance
@@ -39,7 +43,7 @@ class TransactionController extends Controller
             $transaction->create($data1);
         }
 
-        if ($request->type === "Debit"  || $request->type === "ڈیبٹ" ) {
+        if ($request->type === "Debit"  || $request->type === "ڈیبٹ") {
             $transaction = new Transaction;
 
             $total_balance = (int)$account_balance - (int)$amount;
@@ -62,8 +66,9 @@ class TransactionController extends Controller
         return redirect(route('accounts'));
     }
 
-    public function update_transaction($id , Request $request){
-        $transaction =Transaction::find($id);
+    public function update_transaction($id, Request $request)
+    {
+        $transaction = Transaction::find($id);
         $data = [
             "name" => $request->name,
             "number" => $request->number,
@@ -75,9 +80,9 @@ class TransactionController extends Controller
         return redirect(url('/transactions'));
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         Transaction::destroy($id);
-        return redirect(route('user_transactions'));
-        // $employee->destroy();
+        return redirect(route('user_transactions', ['id'=>$id]));
     }
 }
