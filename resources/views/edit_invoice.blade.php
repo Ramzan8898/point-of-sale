@@ -94,32 +94,7 @@
 							</tr>
 						</thead>
 						<tbody id="productTable" class="table-group-divider">
-							<!-- @foreach ($invoice_products as $index => $inv_prd)
-						<tr id="addr{{$index}}">
-							<td>
-								<a href="{{url('/delete_invoice_product', ['invoiceId' => $invoice->invoice_number, 'productId' => $inv_prd->id])}}" class="delete-row"><i class="fas fa-trash-alt"></i></a>
-							</td>
-							<td>
-								<input type="hidden" name="product_id[]" value="{{$inv_prd->id}}">
-								<input type="number" name='total[]' class="form-control total" readonly value="{{$inv_prd->product_total}}" />
-							</td>
-							<td>
-								<input type="number" name='qty[]' class="form-control qty" step="0.00" min="0" required value="{{$inv_prd->product_qty}}" />
-							</td>
-							<td>
-								<input type="number" name='price[]' class="form-control price productPrice" step="0" min="0" value="{{$inv_prd->product_price}}" />
-							</td>
-							<td>
-								<input name="product[]" type="text" list="products_list" class="form-control productSelect" required value="{{$inv_prd->product_name}}">
-								<datalist id="products_list">
-									@foreach($products as $product)
-									<option value="{{$product->product_name}}" data-price={{$product->product_price}}>{{$product->product_name}}</option>
-									@endforeach
-								</datalist>
-							</td>
-							<td>{{$index + 1}}</td>
-						</tr>
-						@endforeach -->
+							
 							@foreach ($invoice_products as $index => $inv_prd)
 							<tr id="addr{{$index}}">
 								<td>

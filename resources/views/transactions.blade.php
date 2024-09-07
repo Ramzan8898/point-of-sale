@@ -30,9 +30,6 @@
 					<td class="action">
 						<a href="{{url('/transaction/delete', $transaction->id)}}"><i class="far fa-trash-alt icon"></i></a>
 						<a href="{{url('/transactions/edit' , $transaction->id)}}" data-bs-toggle="modal" data-bs-target="#staticBackdrop2{{$transaction->id}}"><i class="far fa-edit icon"></i></a>
-
-						<!-- <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$transaction->id}}">Add Balance</a>
-												<a href="{{url('/transactions' , $transaction->id)}}" class="btn btn-danger">Transactions</a> -->
 					</td>
 					<td style="max-width:350px;width:300px;overflow-wrap:break-word;">{{$transaction->detail}}</td>
 					<td>{{$transaction->amount}}</td>

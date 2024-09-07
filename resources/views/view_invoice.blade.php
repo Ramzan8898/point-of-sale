@@ -53,7 +53,7 @@
 						نوری گیٹ سرگودھا </p>
 					<p>فون نمبر: 6051935-0300</p>
 				</address>
-				<!-- <img src="{{asset('/geo-news-logo.png')}}" class="img-rounded logo" width="80" height="90"> -->
+				
 			</div>
 		</div>
 		<div class="customer_name d-flex align-items-center justify-content-end gap-5 mb-3">
