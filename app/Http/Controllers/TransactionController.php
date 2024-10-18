@@ -13,8 +13,10 @@ class TransactionController extends Controller
         $transactions = Transaction::all();
         return view('transactions', compact('transactions'));
     }
-    public function index($id)
+
+    public function get_transactions($id, Request $request)
     {
+
         $transactions = Transaction::where('account_id', $id)->get();
         return view('transactions', compact('transactions'));
     }
@@ -68,6 +70,7 @@ class TransactionController extends Controller
 
     public function update_transaction($id, Request $request)
     {
+
         $transaction = Transaction::find($id);
         $data = [
             "name" => $request->name,
@@ -77,12 +80,17 @@ class TransactionController extends Controller
             "detail" => $request->detail
         ];
         $transaction->update($data);
-        return redirect(url('/transactions'));
+        return redirect(route('user_transactions'));
     }
 
-    public function delete($id)
+    public function delete($id, Request $request)
     {
+        // Find the transaction first to get the account_id
+        $transaction = Transaction::findOrFail($id);
+        $accountId = $transaction->account_id;
+
+        // Delete the transaction
         Transaction::destroy($id);
-        return redirect(route('user_transactions', ['id'=>$id]));
+        return redirect(route('user_transactions', ['id' => $accountId]));
     }
 }

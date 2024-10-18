@@ -29,7 +29,7 @@
 					<td class="action" style="width: 400px;">
 
 						<a href="#" class="btn-yellow" data-bs-toggle="modal" data-bs-target="#staticBackdrop1{{$account->id}}">{{__('messages.add_transaction')}} </a>
-						<a href="{{url('/transactions' , $account->id)}}" class="btn-red">{{__('messages.transactions')}}</a>
+						<a href="{{url('/transactions/show' , $account->id)}}" class="btn-red">{{__('messages.transactions')}}</a>
 						<a href="{{url('/accounts/delete' , $account->id)}}"><i class="far fa-trash-alt icon"></i></a>
 						<a href="{{url('/accounts/edit' , $account->id)}}" data-bs-toggle="modal" data-bs-target="#staticBackdrop2{{$account->id}}"><i class="far fa-edit icon"></i></a>
 					</td>
@@ -118,7 +118,7 @@
 	<!-- Edit Account Modal End-->
 
 
-	<!--Add Balance Modal start -->
+	<!--Add Transaction start -->
 	@foreach($accounts as $account)
 	<div class="modal fade" id="staticBackdrop1{{$account->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
@@ -130,9 +130,9 @@
 				<div class="modal-body">
 					<form action="{{url('/transaction/add_transaction' , $account->id)}}" method="POST">
 						@csrf
-						<div class="form-group d-flex flex-column gap-2 mb-2">
+						<div class="form-group d-flex flex-column gap-2 mb-2 custom-select">
 							<label>{{__('messages.amount_type')}} </label>
-							<select name="type" class="form-control fs-4">
+							<select name="type" class="form-control fs-4 ">
 								<option selected>{{__('messages.debit')}}</option>
 								<option>{{__('messages.credit')}}</option>
 							</select>
@@ -156,6 +156,6 @@
 		</div>
 	</div>
 	@endforeach
-	<!--Add Balance Modal End -->
+	<!--Add Transaction End -->
 </div>
 @endsection

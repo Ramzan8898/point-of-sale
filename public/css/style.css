@@ -15,6 +15,39 @@ body {
   font-family: "Jameel Noori Nastaleeq";
 }
 
+/* Select Dropdown Icon */
+.modal .modal-dialog .modal-content .modal-body form .custom-select {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.modal .modal-dialog .modal-content .modal-body form .custom-select select {
+  width: 100%;
+  padding: 10px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Add an arrow icon after the select box */
+.modal .modal-dialog .modal-content .modal-body form .custom-select::after {
+  font-family: "Font Awesome 5 Free";
+  content: "\f078"; 
+  font-weight: 900; 
+
+  position: absolute;
+  top: 70%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 24px;
+  color: var(--purple);
+}
+
 input {
   text-align: right;
   margin-bottom: 10px;
@@ -160,10 +193,11 @@ table tbody tr td .btn-yellow {
   background-color: #ffc107;
   text-decoration: none;
   padding: 3px 10px;
-  border-radius: 5px ;
+  border-radius: 5px;
   margin-left: 5px;
   margin-right: 5px;
 }
+
 .btn-yellow:hover {
   background-color: var(--black);
   color: var(--white);

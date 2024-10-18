@@ -5,7 +5,7 @@
 		<div class="d-flex justify-content-end ">
 			<strong class="card-title text-dark h1">{{__('messages.transactions')}}</strong>
 		</div>
-		<table class="table table-striped table-light table-hover ">
+		<table class="table table-striped table-light table-hover">
 			<thead>
 				<tr>
 					<th class="h4 fw-bold">{{__('messages.action')}}</th>
@@ -45,7 +45,7 @@
 	</div>
 </div>
 
-<!-- Edit Account Modal -->
+<!-- Edit Transaction Modal -->
 @foreach($transactions as $transaction)
 <div class="modal fade" id="staticBackdrop2{{$transaction->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2" aria-hidden="true">
 	<div class="modal-dialog">
@@ -88,5 +88,4 @@
 	</div>
 </div>
 @endforeach
-<!-- Edit Account Modal End-->
 @endsection
