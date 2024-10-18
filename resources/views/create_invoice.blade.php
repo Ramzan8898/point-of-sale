@@ -142,6 +142,118 @@
 </div>
 
 <script>
+    // $(document).ready(function() {
+    //     function updateRowIds() {
+    //         $('#productTable tr').each(function(index) {
+    //             $(this).attr('id', 'addr' + index);
+    //             $(this).find('td:last-child').text(index + 1);
+    //         });
+    //     }
+
+    //     function calc() {
+    //         var total = 0;
+    //         $('#productTable tr').each(function(i, element) {
+    //             var qty = $(this).find('.qty').val();
+    //             var price = $(this).find('.price').val();
+    //             var rowTotal = qty * price;
+    //             $(this).find('.total').val(rowTotal);
+    //             total += parseFloat(rowTotal);
+    //         });
+
+    //         $('#sub_total').val(total.toFixed(2));
+    //         var taxRate = $('#tax').val() || 0;
+    //         var taxAmount = total / 100 * taxRate;
+    //         $('#tax_amount').val(taxAmount.toFixed(2));
+    //         $('#total_amount').val((total + taxAmount).toFixed(2));
+    //     }
+
+    //     function initializeCustomer() {
+    //         // Get the first option from the customer dropdown
+    //         var selectedOption = $('#customer_list option:selected');
+    //         if (selectedOption.length > 0) {
+    //             var customerId = selectedOption.data('id');
+    //             var customerNumber = selectedOption.data('number');
+    //             var customerBalance = selectedOption.data('balance');
+
+    //             // Set the customer fields
+    //             $('.customerId').val(customerId);
+    //             $('.customerNumber').val(customerNumber);
+    //             $('#customer_balance').val(customerBalance);
+    //         }
+    //     }
+
+    //     function initializeProduct() {
+    //         // Get the first product in the table and set its price
+    //         var productRow = $('#productTable tr:first');
+    //         var selectedProductOption = productRow.find('.productSelect option:selected');
+
+    //         if (selectedProductOption.length > 0) {
+    //             var productPrice = selectedProductOption.data('price');
+    //             productRow.find('.productPrice').val(productPrice);
+    //             calc(); // Recalculate totals after initializing price
+    //         }
+    //     }
+
+    //     $("#add_row").click(function() {
+    //         var newRow = $('#addr0').clone();
+    //         newRow.find('input').val('');
+    //         newRow.attr('id', 'addr' + ($('#productTable tr').length));
+    //         newRow.find('td:last-child').text($('#productTable tr').length + 1);
+    //         $('#productTable').append(newRow);
+    //         updateRowIds();
+    //         calc(); // Ensure to recalculate totals after adding new row
+    //     });
+
+    //     $('#productTable').on('click', '.delete-row', function() {
+    //         if ($('#productTable tr').length > 1) {
+    //             $(this).closest('tr').remove();
+    //             updateRowIds();
+    //             calc(); // Ensure to recalculate totals after deleting a row
+    //         }
+    //     });
+
+    //     $('#productTable').on('keyup change', '.qty, .price', function() {
+    //         calc();
+    //     });
+
+    //     $('#tax').on('keyup change', function() {
+    //         calc();
+    //     });
+
+    //     $('#productTable').on('input', '.productSelect', function() {
+    //         var selectedOption = $(this).find('option:selected');
+    //         if (selectedOption.length > 0) {
+    //             var productPrice = selectedOption.data('price');
+    //             $(this).closest('tr').find('.productPrice').val(productPrice);
+    //             calc();
+    //         } else {
+    //             $(this).closest('tr').find('.productPrice').val('');
+    //         }
+    //     });
+
+    //     $('.customerName').on('input', function() {
+    //         var selectedOption = $('#customer_list option[value="' + $(this).val() + '"]');
+    //         if (selectedOption.length > 0) {
+    //             var customerId = selectedOption.data('id');
+    //             $('.customerId').val(customerId);
+    //             var customerNumber = selectedOption.data('number');
+    //             $('.customerNumber').val(customerNumber);
+    //             var customerBalance = selectedOption.data('balance');
+    //             $('#customer_balance').val(customerBalance);
+    //         } else {
+    //             $('.customerId').val('');
+    //             $('.customerNumber').val('');
+    //             $('#customer_balance').val('');
+    //         }
+    //     });
+
+    //     // Initialize default customer and product values on page load
+    //     initializeCustomer();
+    //     initializeProduct();
+    //     updateRowIds();
+    //     calc();
+    // });
+
     $(document).ready(function() {
         function updateRowIds() {
             $('#productTable tr').each(function(index) {
@@ -167,14 +279,43 @@
             $('#total_amount').val((total + taxAmount).toFixed(2));
         }
 
+        function initializeCustomer() {
+            var selectedOption = $('#customer_list option:selected');
+            if (selectedOption.length > 0) {
+                var customerId = selectedOption.data('id');
+                var customerNumber = selectedOption.data('number');
+                var customerBalance = selectedOption.data('balance');
+
+                $('.customerId').val(customerId);
+                $('.customerNumber').val(customerNumber);
+                $('#customer_balance').val(customerBalance);
+            }
+        }
+
+        function initializeProduct(productRow) {
+            // Get the selected product in the current row and set its price
+            var selectedProductOption = productRow.find('.productSelect option:selected');
+
+            if (selectedProductOption.length > 0) {
+                var productPrice = selectedProductOption.data('price');
+                productRow.find('.productPrice').val(productPrice);
+                calc(); // Recalculate totals after initializing price
+            }
+        }
+
         $("#add_row").click(function() {
-            var newRow = $('#addr0').clone();
-            newRow.find('input').val('');
-            newRow.attr('id', 'addr' + ($('#productTable tr').length));
-            newRow.find('td:last-child').text($('#productTable tr').length + 1);
-            $('#productTable').append(newRow);
-            updateRowIds();
-            calc(); // Ensure to recalculate totals after adding new row
+            var newRow = $('#addr0').clone(); // Clone the first row
+            newRow.find('input').val(''); // Clear input values
+            newRow.attr('id', 'addr' + ($('#productTable tr').length)); // Update the row ID
+            newRow.find('td:last-child').text($('#productTable tr').length + 1); // Update row number
+
+            $('#productTable').append(newRow); // Append the new row to the table
+            updateRowIds(); // Re-update the row IDs
+
+            // Initialize the price of the default selected product for the new row
+            initializeProduct(newRow);
+
+            calc(); // Recalculate totals after adding a new row
         });
 
         $('#productTable').on('click', '.delete-row', function() {
@@ -194,7 +335,7 @@
         });
 
         $('#productTable').on('input', '.productSelect', function() {
-            var selectedOption = $('#products_list option[value="' + $(this).val() + '"]');
+            var selectedOption = $(this).find('option:selected');
             if (selectedOption.length > 0) {
                 var productPrice = selectedOption.data('price');
                 $(this).closest('tr').find('.productPrice').val(productPrice);
@@ -220,7 +361,9 @@
             }
         });
 
-        // Initialize with one row
+        // Initialize default customer and product values on page load
+        initializeCustomer();
+        initializeProduct($('#addr0')); // Initialize the default product for the first row
         updateRowIds();
         calc();
     });

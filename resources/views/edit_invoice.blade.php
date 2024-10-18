@@ -53,8 +53,8 @@
 					<div class="form-group">
 						<label>{{__('messages.bill_type')}}</label>
 						<select id="bill_type_list" name="billType" type="text" list="bill_type_list" class="form-control billType">
-							<option value="Cash">{{__('messages.cash')}}</option>
-							<option value="Credit">{{__('messages.credit')}}</option>
+							<option value="Debit" {{ $invoice->bill_type == 'Debit' ? 'selected' : '' }}>{{__('messages.cash')}}</option>
+							<option value="Credit" {{ $invoice->bill_type == 'Credit' ? 'selected' : '' }}>{{__('messages.credit')}}</option>
 						</select>
 					</div>
 				</div>
@@ -74,11 +74,19 @@
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>{{__('messages.customer_name')}}</label>
-						<select id="customer_list" name="customerName" type="text" list="customer_list" class="form-control customerName">
+						<select id="customer_list" name="customerName" class="form-control customerName">
 							@foreach($accounts as $account)
-							<option value="{{$account->name}}" data-number="{{$account->number}}" data-id="{{$account->id}}" data-balance="{{$account->balance}}">{{$account->name}}</option>
+							<option
+								value="{{$account->name}}"
+								data-number="{{$account->number}}"
+								data-id="{{$account->id}}"
+								data-balance="{{$account->balance}}"
+								{{ $account->name == $invoice->customer_name ? 'selected' : '' }}>
+								{{$account->name}}
+							</option>
 							@endforeach
 						</select>
+
 					</div>
 				</div>
 				<div class="col-md-12 mt-5">
@@ -94,7 +102,7 @@
 							</tr>
 						</thead>
 						<tbody id="productTable" class="table-group-divider">
-							
+
 							@foreach ($invoice_products as $index => $inv_prd)
 							<tr id="addr{{$index}}">
 								<td>
@@ -112,9 +120,13 @@
 								</td>
 								<td>
 
-									<select id="products_list" name="product[]" type="text" list="products_list" class="form-control productSelect">
+									<select id="products_list" name="product[]" class="form-control productSelect">
 										@foreach($products as $product)
-										<option value="{{$product->product_name}}" data-price={{$product->product_price}}>{{$product->product_name}}</option>
+										<option value="{{ $product->product_name }}"
+											{{ $product->product_name == $inv_prd->product_name ? 'selected' : '' }}
+											data-price="{{ $product->product_price }}">
+											{{ $product->product_name }}
+										</option>
 										@endforeach
 									</select>
 								</td>
@@ -166,17 +178,20 @@
 
 
 <script>
+
 	$(document).ready(function() {
 		function calc() {
 			var total = 0;
+			// Loop through each row in the product table to calculate totals
 			$('#productTable tr').each(function(i, element) {
 				var qty = $(this).find('.qty').val();
 				var price = $(this).find('.price').val();
 				var rowTotal = qty * price;
-				$(this).find('.total').val(rowTotal);
+				$(this).find('.total').val(rowTotal.toFixed(2)); // Update the row total
 				total += parseFloat(rowTotal);
 			});
 
+			// Update the subtotal, tax, and overall total
 			$('#sub_total').val(total.toFixed(2));
 			var taxRate = $('#tax').val() || 0;
 			var taxAmount = total / 100 * taxRate;
@@ -184,6 +199,7 @@
 			$('#total_amount').val((total + taxAmount).toFixed(2));
 		}
 
+		// Function to update row ids after adding or removing rows
 		function updateRowIds() {
 			$('#productTable tr').each(function(index, element) {
 				$(this).attr('id', 'addr' + index);
@@ -191,11 +207,12 @@
 			});
 		}
 
+		// Add a new row when clicking "Add Row" button
 		$('#add_row').click(function() {
 			var referenceRow = $("#productTable tr:first");
 			var newRow = referenceRow.clone();
 
-			newRow.find('input').val('');
+			newRow.find('input').val(''); // Clear input fields in the new row
 			newRow.find('input[type=hidden]').remove(); // Remove hidden product_id input for new rows
 
 			var newIndex = $("#productTable tr").length;
@@ -206,31 +223,45 @@
 			updateRowIds();
 		});
 
+		// Remove a row when clicking the delete button
 		$('#productTable').on('click', '.delete-row', function(e) {
 			e.preventDefault();
 			$(this).closest('tr').remove();
 			updateRowIds();
-			calc();
+			calc(); // Recalculate totals after row removal
 		});
 
+		// Recalculate totals when quantity or price is changed
 		$('#productTable').on('keyup change', '.qty, .price', function() {
 			calc();
 		});
 
+		// Recalculate totals when tax is changed
 		$('#tax').on('keyup change', function() {
 			calc();
 		});
 
+		// Update price and total when a product is selected
 		$('#productTable').on('input', '.productSelect', function() {
-			var selectedOption = $('#products_list option[value="' + $(this).val() + '"]');
+			var selectedOption = $(this).find('option:selected'); // Get the selected option
 			if (selectedOption.length > 0) {
-				var productPrice = selectedOption.data('price');
-				$(this).closest('tr').find('.productPrice').val(productPrice);
+				var productPrice = selectedOption.data('price'); // Get the price from data-price attribute
+				$(this).closest('tr').find('.productPrice').val(productPrice); // Update the price field
+
+				// Update the total for the row after updating the price
+				var qty = $(this).closest('tr').find('.qty').val();
+				var rowTotal = qty * productPrice;
+				$(this).closest('tr').find('.total').val(rowTotal.toFixed(2));
+
+				calc(); // Recalculate the entire invoice totals
 			} else {
 				$(this).closest('tr').find('.productPrice').val('');
+				$(this).closest('tr').find('.total').val('0.00');
+				calc(); // Recalculate to reflect any changes
 			}
 		});
 
+		// When the customer is selected, update customer-related fields
 		$('.customerName').on('input', function() {
 			var selectedOption = $('#customer_list option[value="' + $(this).val() + '"]');
 			if (selectedOption.length > 0) {
