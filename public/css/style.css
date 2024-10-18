@@ -6,7 +6,7 @@
   --secondary: #343a40;
 }
 
-@font_face {
+@font-face {
   font-family: Jameel Noori Nastaleeq;
   src: url('../fonts/Jameel Noori Nastaleeq.ttf');
 }
