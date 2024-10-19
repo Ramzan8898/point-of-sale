@@ -53,7 +53,7 @@
 					<div class="form-group">
 						<label>{{__('messages.bill_type')}}</label>
 						<select id="bill_type_list" name="billType" type="text" list="bill_type_list" class="form-control billType">
-							<option value="Debit" {{ $invoice->bill_type == 'Debit' ? 'selected' : '' }}>{{__('messages.cash')}}</option>
+							<option value="Debit" {{ $invoice->bill_type == 'Debit' ? 'selected' : '' }}>{{__('messages.debit')}}</option>
 							<option value="Credit" {{ $invoice->bill_type == 'Credit' ? 'selected' : '' }}>{{__('messages.credit')}}</option>
 						</select>
 					</div>

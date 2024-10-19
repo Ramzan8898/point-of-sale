@@ -18,7 +18,8 @@ class TransactionController extends Controller
     {
 
         $transactions = Transaction::where('account_id', $id)->get();
-        return view('transactions', compact('transactions'));
+        $account = Account::find($id);
+        return view('transactions', compact('transactions', 'account'));
     }
 
     public function add_transaction($id, Request $request)
@@ -27,7 +28,7 @@ class TransactionController extends Controller
         $account = Account::find($id);
         $account_balance = $account->balance;
         $amount = $request->amount;
-        if ($request->type === "ادھار" || $request->type === "Credit") {
+        if ($request->type === "کریڈت" || $request->type === "Credit") {
             $total_balance = (int)$account_balance + (int)$amount;
             $data = [
                 'balance' => $total_balance
@@ -40,7 +41,7 @@ class TransactionController extends Controller
                 'number' => $account->number,
                 'amount' => $request->amount,
                 'detail' => $request->detail,
-                'type' => "Credit"
+                'type' => "کریڈت"
             ];
             $transaction->create($data1);
         }
@@ -60,7 +61,7 @@ class TransactionController extends Controller
                 'number' => $account->number,
                 'amount' => $request->amount,
                 'detail' => $request->detail,
-                'type' => "Debit"
+                'type' => "ڈیبٹ"
             ];
             $transaction->create($data1);
         }
@@ -70,18 +71,47 @@ class TransactionController extends Controller
 
     public function update_transaction($id, Request $request)
     {
-
         $transaction = Transaction::find($id);
-        $data = [
-            "name" => $request->name,
-            "number" => $request->number,
-            "amount" => $request->amount,
-            "type" => $request->type,
-            "detail" => $request->detail
-        ];
-        $transaction->update($data);
-        return redirect(route('user_transactions'));
+        $accountId = $transaction->account_id;
+        $account = Account::where('id', $accountId)->first();
+        $account_balance = (int)$account->balance; 
+        $amount = (int)$request->amount;
+    
+        if ($request->type === "کریڈت" || $request->type === "Credit") {
+            $total_balance = $account_balance - $amount;
+    
+            $account->update(['balance' => $total_balance]);
+    
+            $data1 = [
+                'account_id' => $accountId,
+                'name' => $account->name,
+                'number' => $account->number,
+                'amount' => $request->amount,
+                'detail' => $request->detail,
+                'type' => "کریڈت"
+            ];
+            $transaction->update($data1);
+        }
+    
+        if ($request->type === "Debit" || $request->type === "ڈیبٹ") {
+            $total_balance = $account_balance + $amount;
+    
+            $account->update(['balance' => $total_balance]);
+    
+            $data1 = [
+                'account_id' => $accountId,
+                'name' => $account->name,
+                'number' => $account->number,
+                'amount' => $request->amount,
+                'detail' => $request->detail,
+                'type' => "ڈیبٹ"
+            ];
+            $transaction->update($data1);
+        }
+    
+        return redirect(route('user_transactions', ['id' => $accountId]));
     }
+    
 
     public function delete($id, Request $request)
     {

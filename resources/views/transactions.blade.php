@@ -13,6 +13,7 @@
 					<th class="h4 fw-bold">{{__('messages.amount')}}</th>
 					<th class="h4 fw-bold">{{__('messages.bill_type')}}</th>
 					<th class="h4 fw-bold">{{__('messages.phone_number')}}</th>
+					<th class="h4 fw-bold">{{__('messages.balance')}}</th>
 					<th class="h4 fw-bold">{{__('messages.name')}}</th>
 					<th class="serial">#</th>
 				</tr>
@@ -35,6 +36,7 @@
 					<td>{{$transaction->amount}}</td>
 					<td>{{$transaction->type}}</td>
 					<td class="number">{{$transaction->number}}</td>
+					<td class="name fs-5">{{$account->balance}}</td>
 					<td class="name">{{$transaction->name}}</td>
 					<td>{{$transaction->id}}</td>
 				</tr>
@@ -63,19 +65,23 @@
 					</div>
 					<div class="form-group d-flex flex-column gap-2 mb-2">
 						<label>{{__("messages.phone_number")}}</label>
-						<input type="text" name="number" class="form-control " value="{{$transaction->number}}" readonly>
+						<input type="text" name="number" class="form-control fs-5" value="{{$transaction->number}}" readonly>
 					</div>
 					<div class="form-group d-flex flex-column gap-2 mb-2">
 						<label>{{__("messages.amount_type")}}</label>
-						<input type="text" name="type" class="form-control " value="{{$transaction->type}}">
+						<!-- <input type="text" name="type" class="form-control " value="{{$transaction->type}}"> -->
+						<select id="bill_type_list" name="type" type="text" list="bill_type_list" class="form-control billType fs-5">
+							<option value="Debit" {{ $transaction->type == 'Debit' || $transaction->type == 'ڈیبٹ'  ? 'selected' : '' }}>{{__('messages.debit')}}</option>
+							<option value="Credit" {{ $transaction->type == 'Credit' || $transaction->type == 'کریڈت' ? 'selected' : '' }}>{{__('messages.credit')}}</option>
+						</select>
 					</div>
 					<div class="form-group d-flex flex-column gap-2 mb-2">
 						<label>{{__("messages.amount")}}</label>
-						<input type="number" name="amount" class="form-control " value="{{$transaction->amount}}">
+						<input type="number" name="amount" class="form-control fs-5" value="{{$transaction->amount}}">
 					</div>
 					<div class="form-group d-flex flex-column gap-2 mb-2">
 						<label>{{__("messages.detail")}}</label>
-						<textarea name="detail" class="form-control ">{{$transaction->detail}}</textarea>
+						<textarea name="detail" class="form-control fs-5">{{$transaction->detail}}</textarea>
 					</div>
 			</div>
 			<div class="modal-footer">

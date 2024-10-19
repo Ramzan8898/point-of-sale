@@ -47,7 +47,8 @@ return [
 	"previous_balance" => "پچھلا بیلنس ",
 	"bill_type" => "بل کی قسم  ",
 	"cash" => "نقد",
-	"credit" => "ادھار ",
+	// insertion
+	"credit" => "کریڈت",
 	"tax" => "ٹیکس  ",
 	"amount" => "رقم  ",
 	"tax_amount" => "ٹیکس  کی  رقم",
@@ -59,6 +60,7 @@ return [
 	"update" => "اپ ڈیٹ",
 	"amount_type" => "طریقہ ادائیگی  ",
 	"detail" => "تفصیل  ",
+	// exclusion
 	"debit" => "ڈیبٹ  ",
 	"no_employees" => "کوئی ملازم نہیں  ",
 	"no_invoices" => "کوئی رسید نہیں  ",
